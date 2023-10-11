@@ -1,0 +1,246 @@
+---
+title: "Effect Sizes and Confidence Intervals Guide"
+blank-lines-above-title: 2
+shorttitle: "Effect Size Guide"
+author:
+  - name: Matthew B. Jané
+    email: matthew.jane@uconn.edu
+    url: https://matthewbjane.com
+    orcid: 0000-0002-3121-7769
+    affiliations:
+      - id: id1
+        name: University of Connecticut
+        department: Department of Psychological Sciences
+  - name: Qinyu Xiao
+    email: qinyu.xiao@univie.ac.at
+    orcid: 0000-0002-9824-9247
+    affiliations:
+      - id: id2
+        name: University of Vienna
+        department: Department of Occupational, Economic, and Social Psychology
+  - name: Siu Kit Yeung
+    email: yskjdmmh@gmail.com
+    orcid: 0000-0002-5835-0981
+    affiliations:
+      - id: id3
+        name: University of Hong Kong
+        department: Department of Psychology
+  - name: Daniel J. Dunleavy
+    email: djd09e@my.fsu.edu
+    orcid: 0000-0002-3597-7714
+    affiliations:
+      - id: id4
+        name: Florida State
+        department: College of Social Work
+  - name: Lukas Röseler
+    email: roeseler.lukas@gmail.com
+    orcid: 0000-0002-6446-1901
+    affiliations:
+      - id: id5
+        name: University of Bamberg
+  - name: Mahmoud Elsherif
+    email: mahmoud.medhat.elsherif@gmail.com
+    orcid: 0000-0002-0540-3998
+    affiliations:
+      - id: id6
+        name: University of Birmingham
+  - name: Denis Cousineau
+    email: denis.cousineau@uottawa.ca
+    orcid: 0000-0001-5908-0402
+    affiliations:
+      - id: id7
+        name: Université d’Ottawa
+  - name: Gilad Feldman
+    corresponding: true
+    email: gfeldman@hku.hk
+    orcid: 0000-0003-2812-6599
+    affiliations:
+      - id: id8
+        name: Department of Psychology
+        department: University of Hong Kong
+author-note:
+  blank-lines-above-author-note: 1
+  disclosures:
+    study-registration: ~
+    data-sharing: ~ 
+    conflict-of-interest: "The author(s) declared no potential conflicts of interests with respect to the authorship and/or publication of this article."
+    financial-support: "The author(s) received no financial support for the research and/or authorship of this article."
+    gratitude: "Thank you to Bo Ley Cheng, Katy Tam, and Kristy for their contributions to this project"
+    authorship-agreements: ~
+abstract: "This effect sizes and confidence intervals collaborative guide aims to provide students and early-career researchers with hands-on, step-by-step instructions for calculating effect sizes and confidence intervals for common statistical tests used in psychology, social sciences and behavioral sciences, particularly when original data are not available and when reported information is incomplete. It also introduces general background information on effect sizes and confidence intervals, as well as useful R packages for their calculation. Many of the methods and procedures described in this Guide are based on R or R-based Shiny Apps developed by the science community. We were motivated to focus on R as we aim to maximize the reproducibility of our research outcomes and encourage the most reproducible study planning and data analysis workflow, though we also document other methods whenever possible for the reference of our readers. We regularly update this open educational resource, as packages are updated frequently and new packages are developed from time to time in this rapidly changing Open Scholarship era."
+keywords: [effect size, confidence interval, collaboration, open science, open educational resource]
+# I like using Zotero with BetterBibTeX to output a continuously updated "Better CSL JSON" file. But BibTeX works, too.
+bibliography: bibliography.bib
+format:
+  apaquarto-docx: default
+  html:
+    theme: zephyr
+    toc: true
+    toc-location: left
+    toc-title: Effect Size Guide
+    # apaquarto-pdf:
+    #   header-includes:
+    #     - \usepackage{longtable}
+    #   documentmode: man
+    # # can be 10pt, 11pt, or 12pt
+    # fontsize: 12pt
+    # # Integrate tables and figures in text
+    # floatsintext: false
+    # # a4 paper if true, letter size if false
+    # a4paper: false
+    # # suppresses loading of the lmodern font package
+    # nolmodern: false
+    # # Suppresses loading of the fontenc package
+    # nofontenc: false
+    # # Suppress the title above the introduction
+    # donotrepeattitle: false
+    # # In jou mode, use times or pslatex instead of txfonts
+    # notxfonts: false
+    # # In jou mode, use Computer Modern font instead of times
+    # notimes: false
+    # # In jou mode, cancels automatic stretching of tables to column width 
+    # notab: false
+    # # Uses Helvetica font in stu and man mode
+    # helv: false
+    # # In man and stu mode, neutralizes the \helvetica command
+    # nosf: false
+    # # In man and stu mode, uses typewriter font
+    # tt: false
+    # # Puts draft watermark on first page
+    # draftfirst: false
+    # # Puts draft watermark on all pages
+    # draftall: false
+    # # Masks references that are marked as the author's own
+    # mask: false
+    # journal: ~
+    # volume: ~
+    # course: ~
+    # professor: ~
+    # duedate: ~
+    # # Hides correspondence text
+    # nocorrespondence: false
+---
+
+::: {.content-hidden when-format="html"}
+{{< include _extensions/wjschne/apaquarto/_apa_title.qmd >}}
+:::
+
+*Note.* This is a constantly updated collaborative guide on effect sizes and confidence intervals. The most up-to-date version of this guide is hosted as a Google Doc at this link: <https://mgto.org/effectsizeguide>. A similar guide on power analysis can be found at: <https://mgto.org/poweranalysisguide>. This guide is shared under the [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
+
+```{r,message=FALSE,echo=FALSE}
+#| label: setup
+library(conflicted)
+library(tidyverse)
+library(flextable)
+library(ftExtra)
+library(officer)
+library(knitr)
+library(ggplot2)
+conflicts_prefer(dplyr::filter, .quiet = TRUE)
+conflicts_prefer(flextable::separate_header, .quiet = TRUE)
+```
+
+## Guidelines for contribution
+
+All are encouraged to contribute to this Guide. Please note that this Guide is in continuous development such that it will remain a work in progress for an indefinite period of time. This is intended because we hope the Guide to always reflect the state of the art on the topics of effect sizes and confidence intervals.
+
+### Notes
+
+-   Please use the headings and style as set forth in this document. You can use keyboard shortcuts such as Ctrl + Alt + 1/2/3. The normal text is in Times New Roman font, font size 11. The codes are formatted using the Code Blocks add-on of Google Docs, github theme, font size 8.
+
+-   Use the Suggesting mode rather than the Editing mode. Suggesting is now the default mode for this document. Therefore, please do not hesitate to correct mistakes or modify the contents directly.
+
+-   Add a comment to the document if you find anything missing or improper, or if you feel that things are better organized in a different way. We appreciate your suggestions. If you have any questions, please also add a comment. We will reply and seek to clarify in the document body.
+
+-   Please make proper citations (in APA 7th format) and provide relevant links when you refer to any source that is not your own.
+
+### Credit and authorship
+
+If you believe you have made sufficient contribution that qualifies you as an author, and you would like to be listed as an author of this Guide, please do not hesitate and list your name and contact information below. The administrators (Q.-Y. X., S. K. Y., and G. F.) of this Guide will verify your contribution and add you to the author list. We welcome comments from any person, regardless of whether they want to be an author. You are also welcome to request content to be added to this Guide (please see the Things to add to the guide section in the end).
+
+The authorship order is such that Q.-Y. X. and S. K. Y. will be the first two authors and G. F. will be the last and the corresponding author. All other contributors will be listed alphabetically in the middle and are all considered joint third authors. Contributors are by default given investigation, writing - original draft, and writing - review & editing CRediT authorship roles. It is possible to take on more roles if contributors prefer. Any change in this authorship order rule will have to be approved by all who are already listed as an author.
+
+## Evaluating and Interpreting Confidence Intervals
+
+Effect sizes quantify the magnitude of effects (i.e., strength of a relationship, size of a difference), which are the outcomes of our empirical research. Effect sizes are by no means a new concept. However, reporting them remained largely optional for many years, and only until recently does it become a community standard: scientists now see reporting effect sizes (in addition to the traditional statistical significance) as a must and journals also start to require such reporting. Notably, in 2001 and 2010, The Publication Manual of the American Psychological Association 5th and 6th editions emphasized that it is "almost always necessary"[^1] to report effect sizes [@association2010, pp. 34; see @fritz2012, which provides a comprehensive summary on history and importance of effect size reporting].
+
+[^1]: The qualification ("almost always") was that "multiple-degree-of-freedom effect indicators tend to be less useful than effect indicators that decompose multiple degree-of-freedom tests into meaningful one degree-of-freedom effects" (p. 26). "One degree-of-freedom effects" refer to those associated with contrasts, t-tests, F-tests with numerator $df = 1$, and $1-df$ Chi-square tests, whereas "multiple-degree-of-freedom effects" refer to those associated with, for instance, F-tests with numerator $df > 1$, and Chi-square tests with $df > 1$.
+
+Effects sizes can be grouped in broad categories as (1) raw effect sizes, and (2) standardized effect sizes. The raw effect sizes are summary of the results that are expressed in the same units as the raw data. For example, when kilograms are measured, a raw effect size reports a measure in kilogram. Consider the effect of a diet on a treatment group; a control group receives no diet. The change in weight can be expressed as the mean difference between the group. This measure is also in kg and so is a raw effect size. Standardized effect sizes are expressed on a standardized scale which has no longer any unit but which have a universal interpretation. A z score is an example of a standardized measure. This document is concerned exclusively on standardized effect sizes.
+
+## Benchmarks
+
+What makes an effect size "large" or "small" is completely dependent on the context of the study in question. However, it can be useful to have some loose criterion in order to guide researchers in effectively communicating effect size estimates. Jacob Cohen [-@cohen1988], the pioneer of estimation statistics, suggested many conventional benchmarks (i.e., how we refer to an effect size other than using a number) that we currently use. However, @cohen1988 noted that labels such as "small", "medium", and "large" are relative, and in referring to the size of an effect, the discipline, the context of research, as well as the research method and goals, should take precedence over benchmarks any time it's possible. There are general differences in effect sizes across different disciplines, and within each discipline, effect sizes differ depending on study designs and research methods [@schäfer2019] and goals; as @glass1981a explains:
+
+> Depending on what benefits can be achieved at what cost, an effect size of 2.0 might be "poor" and one of .1 might be "good."
+
+Therefore, it is crucial to recognize that benchmarks are only general guidelines, and importantly, out of context. They also are tend to attract controversy [@glass1981a; @kelley2012; @harrell2020]. Note that empirical benchmarks have been suggested by researchers. For social psychology, these alternative benchmarks obtained through meta-analyzing the literature (for example, [this](https://doi.org/10.1037/1089-2680.7.4.331) and [this](https://doi.org/10.1016/j.paid.2016.06.069); see [this Twitter thread](https://twitter.com/cjsotomatic/status/1144701540839698432) for a summary) are typically smaller than what Cohen put forward. Please refer to the table below:
+
+
+| Effect Size                   | Reference            | Small | Medium | Large |
+|-------------------------------|----------------------|:----:|:----:|:----:|
+| *Mean Differences*            |                      |       |        |       |
+| Cohen's $d$ or Hedges' $g$    | @cohen1988[^2]       | 0.20  | 0.50   | 0.80  |
+|                               |                      | 0.18  | 0.37   | 0.60  |
+|                               | @lovakov2021[^3]     | 0.15  | 0.36   | 0.65  |
+| *Correlational*               |                      |       |        |       |
+| Correlation Coefficient ($r$) | @cohen1988           | .10   | .30    | .50   |
+|                               | @richard2003[^4][^5] | .10   | .20    | .30   |
+|                               | @lovakov2021         | .12   | .24    | .41   |
+|                               | @paterson2016        | .12   | .20    | .31   |
+|                               | @bosco2015           | .09   | .18    | .26   |
+| Cohen's $f^2$                 |                      | .02   | .25    | .40   |
+| eta-squared ($\eta^2$)        | @cohen1988           | .01   | .06    | .14   |
+| Cohen's $q$                   |                      |       |        |       |
+| Cohen's f                     | @cohen1988           | .10   | .25    | .40   |
+| *Categorical*                 |                      |       |        |       |
+| Cohen's omega                 | @cohen1988           | 0.10  | 0.30   | 0.50  |
+| Phi                           | @cohen1988           | .10   | .30    | .50   |
+| Cramer's V                    |                      | [^6]  |        |       |
+| Odds ratio                    |                      |       |        |       |
+| Relative risk                 |                      |       |        |       |
+| Risk difference               |                      |       |        |       |
+| Cohen's $h$                   | @cohen1988           | 0.2   | 0.5    | 0.8   |
+
+
+[^2]: @sawilowsky2009 expanded Cohen's benchmarks to include also very small effects ($d$ = 0.01), very large effects ($d$ = 1.20), and huge effects ($d$ = 2.0). It has to be noted that very large and huge effects are very rare in experimental social psychology.
+
+[^3]: According to this recent meta-analysis on the effect sizes in social psychology studies, "It is recommended that correlation coefficients of .1, .25, and .40 and Hedges' $g$ (or Cohen's $d$) of 0.15, 0.40, and 0.70 should be interpreted as small, medium, and large effects for studies in social psychology.
+
+[^4]: "The current review proposes an empirical basis for gauging the size of social psychological effects. It indicates that a correlation coefficient of .10 is 'small' relative to most social psychological effects. Mean effects this small are found in roughly 30% of social psychological research literature. It indicates that a correlation coefficient of .20 is a medium-sized effect. Effects that small are found in roughly half of the relevant literature. A correlation coefficient of .30 is large relative to most social psychological effects. Less than 25% of mean effects are that large."
+
+[^5]: These benchmarks are also recommended by @gignac2016. @funder2019 expanded them to also include very small effects ($r$ = .05) and very large effects ($r$ = .40 or greater). According to them, [...] an effect-size r of .05 indicates an effect that is very small for the explanation of single events but potentially consequential in the not-very-long run, an effect-size r of .10 indicates an effect that is still small at the level of single events but potentially more ultimately consequential, an effect-size $r$ of .20 indicates a medium effect that is of some explanatory and practical use even in the short run and therefore even more important, and an effect-size $r$ of .30 indicates a large effect that is potentially powerful in both the short and the long run. A very large effect size (r = .40 or greater) in the context of psychological research is likely to be a gross overestimate that will rarely be found in a large sample or in a replication." But see [here](https://twitter.com/aaronjfisher/status/1168252264600883200?s=20) for controversies with this paper.
+
+[^6]: The benchmarks for Cramer's V are dependent on the size of the contingency table on which the effect is calculated. According to Cohen, use benchmarks for phi coefficient divided by the square root of the smaller dimension minus 1. For example, a medium effect for a Cramer's V from a 4 by 3 table would be .3 / sqrt(3 - 1) = .21.
+
+It should be noted that small/medium/large effects do not necessarily mean that they have small/medium/large practical implications [for details see, @coe2012; @pogrow2019]. These benchmarks are more relevant for guiding our expectations. Whether they have practical importance depends on contexts. To assess practical importance, it will always be desirable for standardized effect sizes to be translated to increase/decrease in raw units (or any meaningful units) or a Binomial Effect Size Display (roughly, differences in proportions such as success rate before and after intervention).
+
+**Please also note that only zero means no effect**. An effect of the size .01 is an effect, but a very small [@sawilowsky2009], and likely unimportant, one. It makes sense to say that \"we failed to find evidence for rejecting the null hypothesis,\" or \"we found evidence for only a small/little/weak-to-no effect\" or \"we did not find a meaningful effect\". **It does not make sense to say, \"we found no effect.\"** Purely by the random nature of our universe, it is hard to imagine that we can obtain a sharp zero-effect result. This is also related to the crud factor, which refers to the idea that \"everything correlates with everything else\" [@orben2020, pp. 1; @meehl1984], but the practical implication of very weak/small correlations between some variables may be limited, and whether the effect is reliably detected depends on statistical power.
+
+## Reporting Effect Sizes
+
+### Transparency
+
+When reporting effect sizes and their calculations, you should prioritize transparency and reproducibility. No matter what tool you used to calculate your effect size (R is the most recommended tool here), you must make sure that others can easily follow your procedures and obtain the same results. This means that if you use online calculators (which is discouraged) or standalone programs (JAMOVI is most recommended; you can also use JASP, which however does not allow access to syntax at this moment), you should include screenshots that capture the input and output, with clear explanations. If you use R, Python or other programming languages, you should copy-and-paste your codes into your supplementary document (or submit your scripts to open online repositories), ideally with annotations and comments explaining the codes. inputs and outputs.
+
+### Directionality
+
+Some effect sizes are directional (e.g., Cohen's $d$), which means that they can be positive or negative. Their signs carry important information, and therefore cannot be omitted. When you report these effect sizes, make it clear what is compared to what (i.e., the direction of comparison). Better still, make sure your comparison is inline with the theory. For instance, a theory predicts that your group X should score higher on an item than your Group Y,[^7] you should hypothesize accordingly that Group X will have a higher mean than Group Y on the item, and subtract mean(Y) from mean(X) (rather than the other way around) to obtain the mean difference. You should then expect your $t$ statistic to be positive, and your $d$ value as well. In other words, avoid reporting anything like** $t$ = -5.14, $d$ = 0.36, where the signs of the statistics do not match.
+
+[^7]: Of course, if a theory/effect predicts Group X has a higher mean than Group Y, then it also predicts the reverse, i.e., Group Y has a lower mean than Group X. But theories/effects are commonly articulated in a certain way. It is more common that we say, for example, people prefer the status quo rather than that people do not prefer the non-status quo, when we refer to the status quo bias. Consider another “theory”: teenagers get taller when they get older. It just does not make sense to say the same thing reversely, i.e., teenagers get shorter when they get younger, because people cannot get younger, at least in the 2020s.
+
+### Precision
+
+Effect sizes may be very precisely estimated from the available data, the used methodology, and how the population was sampled. It might also be estimated with little confidence on the resulting number. This may be the case for example when the sample is very small, when the population displays a lot of variability, when a between-group design is used instead of a paired-sample design, and finally, when clustered sampling is used instead of randomized sampling. Precision can be estimated using various tools, but probably the most commonly used one is the Confidence intervals. This interval has a confidence level, frequently 95%.
+
+## Interpreting Confidence Intervals
+
+What is the correct interpretation of a confidence interval? Imagine you conducted a study where you compared two groups. You obtained a Cohen’s $d$ = 0.3, 95\% CI [0.2, 0.4]. How do you interpret this confidence interval?
+
+Confidence intervals are yielded by a certain procedure, such that when the procedure is repeatedly applied to a series of hypothetical datasets drawn from the studied population/populations, it yields intervals that contain the true parameter value (in our example, it means the true difference between the two groups) in 95% of the cases.
+
+In colloquial terms, if we conduct this research over and over (repeating the same sampling procedure, administering the same experimental manipulation, conducting the same statistical analysis, etc.), because of sampling variability (our samples are slightly different at each time), we will get different Cohen’s $d$ values. For each of these $d$ values, we calculate a 95% interval. Then, among all these many intervals, we expect that 95% of them will contain the true $d$, which we never know exactly.
+
+Therefore, confidence intervals indicate a property of a procedure, not a parameter. One specific confidence interval either contains (the probability is 100%) or does not contain (0%) the true parameter. It is incorrect that we say about any specific CI that “it has 95% probability” of containing that true parameter.
+
+
