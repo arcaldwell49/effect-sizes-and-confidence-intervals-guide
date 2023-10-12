@@ -176,32 +176,53 @@ What makes an effect size "large" or "small" is completely dependent on the cont
 
 Therefore, it is crucial to recognize that benchmarks are only general guidelines, and importantly, out of context. They also are tend to attract controversy [@glass1981a; @kelley2012; @harrell2020]. Note that empirical benchmarks have been suggested by researchers. For social psychology, these alternative benchmarks obtained through meta-analyzing the literature (for example, [this](https://doi.org/10.1037/1089-2680.7.4.331) and [this](https://doi.org/10.1016/j.paid.2016.06.069); see [this Twitter thread](https://twitter.com/cjsotomatic/status/1144701540839698432) for a summary) are typically smaller than what Cohen put forward. Please refer to the table below:
 
-
-| Effect Size                   | Reference            | Small | Medium | Large |
-|-------------------------------|----------------------|:----:|:----:|:----:|
-| *Mean Differences*            |                      |       |        |       |
-| Cohen's $d$ or Hedges' $g$    | @cohen1988[^2]       | 0.20  | 0.50   | 0.80  |
-|                               |                      | 0.18  | 0.37   | 0.60  |
-|                               | @lovakov2021[^3]     | 0.15  | 0.36   | 0.65  |
-| *Correlational*               |                      |       |        |       |
-| Correlation Coefficient ($r$) | @cohen1988           | .10   | .30    | .50   |
-|                               | @richard2003[^4][^5] | .10   | .20    | .30   |
-|                               | @lovakov2021         | .12   | .24    | .41   |
-|                               | @paterson2016        | .12   | .20    | .31   |
-|                               | @bosco2015           | .09   | .18    | .26   |
-| Cohen's $f^2$                 |                      | .02   | .25    | .40   |
-| eta-squared ($\eta^2$)        | @cohen1988           | .01   | .06    | .14   |
-| Cohen's $q$                   |                      |       |        |       |
-| Cohen's f                     | @cohen1988           | .10   | .25    | .40   |
-| *Categorical*                 |                      |       |        |       |
-| Cohen's omega                 | @cohen1988           | 0.10  | 0.30   | 0.50  |
-| Phi                           | @cohen1988           | .10   | .30    | .50   |
-| Cramer's V                    |                      | [^6]  |        |       |
-| Odds ratio                    |                      |       |        |       |
-| Relative risk                 |                      |       |        |       |
-| Risk difference               |                      |       |        |       |
-| Cohen's $h$                   | @cohen1988           | 0.2   | 0.5    | 0.8   |
-
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Effect Size                   | Reference            | Small     | Medium    | Large     |
++===============================+======================+:=========:+:=========:+:=========:+
+| *Mean Differences*            |                      |           |           |           |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Cohen's $d$ or Hedges' $g$    | @cohen1988[^2]       | 0.20      | 0.50      | 0.80      |
++-------------------------------+----------------------+-----------+-----------+-----------+
+|                               |                      | 0.18      | 0.37      | 0.60      |
++-------------------------------+----------------------+-----------+-----------+-----------+
+|                               | @lovakov2021[^3]     | 0.15      | 0.36      | 0.65      |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| *Correlational*               |                      |           |           |           |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Correlation Coefficient ($r$) | @cohen1988           | .10       | .30       | .50       |
++-------------------------------+----------------------+-----------+-----------+-----------+
+|                               | @richard2003[^4][^5] | .10       | .20       | .30       |
++-------------------------------+----------------------+-----------+-----------+-----------+
+|                               | @lovakov2021         | .12       | .24       | .41       |
++-------------------------------+----------------------+-----------+-----------+-----------+
+|                               | @paterson2016        | .12       | .20       | .31       |
++-------------------------------+----------------------+-----------+-----------+-----------+
+|                               | @bosco2015           | .09       | .18       | .26       |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Cohen's $f^2$                 |                      | .02       | .25       | .40       |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| eta-squared ($\eta^2$)        | @cohen1988           | .01       | .06       | .14       |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Cohen's $q$                   |                      |           |           |           |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Cohen's f                     | @cohen1988           | .10       | .25       | .40       |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| *Categorical*                 |                      |           |           |           |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Cohen's omega                 | @cohen1988           | 0.10      | 0.30      | 0.50      |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Phi                           | @cohen1988           | .10       | .30       | .50       |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Cramer's V                    |                      | [^6]      |           |           |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Odds ratio                    |                      |           |           |           |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Relative risk                 |                      |           |           |           |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Risk difference               |                      |           |           |           |
++-------------------------------+----------------------+-----------+-----------+-----------+
+| Cohen's $h$                   | @cohen1988           | 0.2       | 0.5       | 0.8       |
++-------------------------------+----------------------+-----------+-----------+-----------+
 
 [^2]: @sawilowsky2009 expanded Cohen's benchmarks to include also very small effects ($d$ = 0.01), very large effects ($d$ = 1.20), and huge effects ($d$ = 2.0). It has to be noted that very large and huge effects are very rare in experimental social psychology.
 
@@ -209,13 +230,13 @@ Therefore, it is crucial to recognize that benchmarks are only general guideline
 
 [^4]: "The current review proposes an empirical basis for gauging the size of social psychological effects. It indicates that a correlation coefficient of .10 is 'small' relative to most social psychological effects. Mean effects this small are found in roughly 30% of social psychological research literature. It indicates that a correlation coefficient of .20 is a medium-sized effect. Effects that small are found in roughly half of the relevant literature. A correlation coefficient of .30 is large relative to most social psychological effects. Less than 25% of mean effects are that large."
 
-[^5]: These benchmarks are also recommended by @gignac2016. @funder2019 expanded them to also include very small effects ($r$ = .05) and very large effects ($r$ = .40 or greater). According to them, [...] an effect-size r of .05 indicates an effect that is very small for the explanation of single events but potentially consequential in the not-very-long run, an effect-size r of .10 indicates an effect that is still small at the level of single events but potentially more ultimately consequential, an effect-size $r$ of .20 indicates a medium effect that is of some explanatory and practical use even in the short run and therefore even more important, and an effect-size $r$ of .30 indicates a large effect that is potentially powerful in both the short and the long run. A very large effect size (r = .40 or greater) in the context of psychological research is likely to be a gross overestimate that will rarely be found in a large sample or in a replication." But see [here](https://twitter.com/aaronjfisher/status/1168252264600883200?s=20) for controversies with this paper.
+[^5]: These benchmarks are also recommended by @gignac2016. @funder2019 expanded them to also include very small effects ($r$ = .05) and very large effects ($r$ = .40 or greater). According to them, \[...\] an effect-size r of .05 indicates an effect that is very small for the explanation of single events but potentially consequential in the not-very-long run, an effect-size r of .10 indicates an effect that is still small at the level of single events but potentially more ultimately consequential, an effect-size $r$ of .20 indicates a medium effect that is of some explanatory and practical use even in the short run and therefore even more important, and an effect-size $r$ of .30 indicates a large effect that is potentially powerful in both the short and the long run. A very large effect size (r = .40 or greater) in the context of psychological research is likely to be a gross overestimate that will rarely be found in a large sample or in a replication." But see [here](https://twitter.com/aaronjfisher/status/1168252264600883200?s=20) for controversies with this paper.
 
 [^6]: The benchmarks for Cramer's V are dependent on the size of the contingency table on which the effect is calculated. According to Cohen, use benchmarks for phi coefficient divided by the square root of the smaller dimension minus 1. For example, a medium effect for a Cramer's V from a 4 by 3 table would be .3 / sqrt(3 - 1) = .21.
 
 It should be noted that small/medium/large effects do not necessarily mean that they have small/medium/large practical implications [for details see, @coe2012; @pogrow2019]. These benchmarks are more relevant for guiding our expectations. Whether they have practical importance depends on contexts. To assess practical importance, it will always be desirable for standardized effect sizes to be translated to increase/decrease in raw units (or any meaningful units) or a Binomial Effect Size Display (roughly, differences in proportions such as success rate before and after intervention).
 
-**Please also note that only zero means no effect**. An effect of the size .01 is an effect, but a very small [@sawilowsky2009], and likely unimportant, one. It makes sense to say that \"we failed to find evidence for rejecting the null hypothesis,\" or \"we found evidence for only a small/little/weak-to-no effect\" or \"we did not find a meaningful effect\". **It does not make sense to say, \"we found no effect.\"** Purely by the random nature of our universe, it is hard to imagine that we can obtain a sharp zero-effect result. This is also related to the crud factor, which refers to the idea that \"everything correlates with everything else\" [@orben2020, pp. 1; @meehl1984], but the practical implication of very weak/small correlations between some variables may be limited, and whether the effect is reliably detected depends on statistical power.
+**Please also note that only zero means no effect**. An effect of the size .01 is an effect, but a very small [@sawilowsky2009], and likely unimportant, one. It makes sense to say that "we failed to find evidence for rejecting the null hypothesis," or "we found evidence for only a small/little/weak-to-no effect" or "we did not find a meaningful effect". **It does not make sense to say, "we found no effect."** Purely by the random nature of our universe, it is hard to imagine that we can obtain a sharp zero-effect result. This is also related to the crud factor, which refers to the idea that "everything correlates with everything else" [@orben2020, pp. 1; @meehl1984], but the practical implication of very weak/small correlations between some variables may be limited, and whether the effect is reliably detected depends on statistical power.
 
 ## Reporting Effect Sizes
 
@@ -225,9 +246,9 @@ When reporting effect sizes and their calculations, you should prioritize transp
 
 ### Directionality
 
-Some effect sizes are directional (e.g., Cohen's $d$), which means that they can be positive or negative. Their signs carry important information, and therefore cannot be omitted. When you report these effect sizes, make it clear what is compared to what (i.e., the direction of comparison). Better still, make sure your comparison is inline with the theory. For instance, a theory predicts that your group X should score higher on an item than your Group Y,[^7] you should hypothesize accordingly that Group X will have a higher mean than Group Y on the item, and subtract mean(Y) from mean(X) (rather than the other way around) to obtain the mean difference. You should then expect your $t$ statistic to be positive, and your $d$ value as well. In other words, avoid reporting anything like** $t$ = -5.14, $d$ = 0.36, where the signs of the statistics do not match.
+Some effect sizes are directional (e.g., Cohen's $d$), which means that they can be positive or negative. Their signs carry important information, and therefore cannot be omitted. When you report these effect sizes, make it clear what is compared to what (i.e., the direction of comparison). Better still, make sure your comparison is inline with the theory. For instance, a theory predicts that your group X should score higher on an item than your Group Y,[^7] you should hypothesize accordingly that Group X will have a higher mean than Group Y on the item, and subtract mean(Y) from mean(X) (rather than the other way around) to obtain the mean difference. You should then expect your $t$ statistic to be positive, and your $d$ value as well. In other words, avoid reporting anything like $t$ = -5.14, $d$ = 0.36, where the signs of the statistics do not match.
 
-[^7]: Of course, if a theory/effect predicts Group X has a higher mean than Group Y, then it also predicts the reverse, i.e., Group Y has a lower mean than Group X. But theories/effects are commonly articulated in a certain way. It is more common that we say, for example, people prefer the status quo rather than that people do not prefer the non-status quo, when we refer to the status quo bias. Consider another “theory”: teenagers get taller when they get older. It just does not make sense to say the same thing reversely, i.e., teenagers get shorter when they get younger, because people cannot get younger, at least in the 2020s.
+[^7]: Of course, if a theory/effect predicts Group X has a higher mean than Group Y, then it also predicts the reverse, i.e., Group Y has a lower mean than Group X. But theories/effects are commonly articulated in a certain way. It is more common that we say, for example, people prefer the status quo rather than that people do not prefer the non-status quo, when we refer to the status quo bias. Consider another "theory": teenagers get taller when they get older. It just does not make sense to say the same thing reversely, i.e., teenagers get shorter when they get younger, because people cannot get younger, at least in the 2020s.
 
 ### Precision
 
@@ -235,12 +256,294 @@ Effect sizes may be very precisely estimated from the available data, the used m
 
 ## Interpreting Confidence Intervals
 
-What is the correct interpretation of a confidence interval? Imagine you conducted a study where you compared two groups. You obtained a Cohen’s $d$ = 0.3, 95\% CI [0.2, 0.4]. How do you interpret this confidence interval?
+What is the correct interpretation of a confidence interval? Imagine you conducted a study where you compared two groups. You obtained a Cohen's $d$ = 0.3, 95% CI \[0.2, 0.4\]. How do you interpret this confidence interval?
 
 Confidence intervals are yielded by a certain procedure, such that when the procedure is repeatedly applied to a series of hypothetical datasets drawn from the studied population/populations, it yields intervals that contain the true parameter value (in our example, it means the true difference between the two groups) in 95% of the cases.
 
-In colloquial terms, if we conduct this research over and over (repeating the same sampling procedure, administering the same experimental manipulation, conducting the same statistical analysis, etc.), because of sampling variability (our samples are slightly different at each time), we will get different Cohen’s $d$ values. For each of these $d$ values, we calculate a 95% interval. Then, among all these many intervals, we expect that 95% of them will contain the true $d$, which we never know exactly.
+In colloquial terms, if we conduct this research over and over (repeating the same sampling procedure, administering the same experimental manipulation, conducting the same statistical analysis, etc.), because of sampling variability (our samples are slightly different at each time), we will get different Cohen's $d$ values. For each of these $d$ values, we calculate a 95% interval. Then, among all these many intervals, we expect that 95% of them will contain the true $d$, which we never know exactly.
 
-Therefore, confidence intervals indicate a property of a procedure, not a parameter. One specific confidence interval either contains (the probability is 100%) or does not contain (0%) the true parameter. It is incorrect that we say about any specific CI that “it has 95% probability” of containing that true parameter.
+There is also a common criticism levied against the confidence interval interpretation: "There is a 95% probability that the true parameter exists within the 95% confidence interval". However this criticism is unwarranted in the specific case of a single observed confidence interval, that is, as long as there is a single realized confidence interval sampled from the population, this interpretation is fine [@vos2022]. It is important to note however, this interpretation is incorrect when there are multiple realized confidence intervals. The criticized interpretation also tends to be more practical than the interpretation using repeated sampling, the following example described by @vos2022 illustrates this,
+
+> The distinction between these interpretations can be understood with the simple example of the probability of rolling a '6' with a fair die. The probability is 1/6 because if you roll the die repeatedly the proportion of times that the face with '6' comes up will be come very close to 1/6. Or, the probability is 1/6 because it is equivalent to a random selection from an urn where exactly one of 6 balls is labelled with '6'. The distinction in this simple example is less useful since repeatedly rolling a die is less problematic than repeatedly conducting the same randomized trial.
+
+For further reading on confidence interpretations, see @hoekstra2014 and @morey2016.
+
+## Reporting Confidence Intervals
+
+Confidence intervals must be calculated and reported for every effect size that you obtained and mentioned in your manuscript. If you are doing a replication and your target article/study did not report CIs for its effect sizes, you should calculate CIs and report them.
+
+Normally, we calculate 95% confidence intervals (i.e., 95% of such intervals are expected to contain the true parameter value if we conduct an infinite number of identical studies). Nonetheless, for some effect sizes (e.g., eta-squared, partial eta-squared, R-squared), we calculate 90% confidence intervals. This is because η² is squared and always positive, and F-tests are one-sided. Reporting 95% CI for eta squared may result in situations in which the CI includes zero but the p-value falls below .05, whereas reporting 90% CI prevents such a problem. For further information regarding this issue, read Daniel Lakens blog on confidence intervals and @steiger2004.
+
+Confidence intervals should be reported immediately after an effect size, e.g., Cohen's d = 0.40, 95% CI \[0.20, 0.60\]. After the first time reporting them in a manuscript, every subsequent CI can be simply denoted by brackets without the "95% CI" preceding it.
+
+Unless you are measuring something that is meaningful in real life (e.g., income, years of experience, amount that a person is willing to donate), please make sure that the CI you calculated is a CI of the effect size, not of other statistics, such as the test statistics or mean difference in raw units.
+
+If you see one of the following:
+
+1.  Your effect size estimate does not fall in your confidence interval: you certainly have an issue.
+
+2.  One of your CI bound is "infinite"
+
+3.  Your effect size estimate is not included within your CI (for comparison between two groups): You have an issue, check carefully. For means and for difference in means, the estimate should be precisely the midpoint of your CI; for other statistics (e.g., correlation, proportion, frequency, standard deviation), one arm might be longer than the other so the estimate may not be the midpoint.
+
+For further reading related to the calculaton and reporting of effect sizes and confidence intervals, see @steiger2004 and @lakens2014.
+
+## Useful R Packages
+
+The following R packages are handy for effect size and CI calculations, conversions among different effect sizes, and conversion of test statistics to effect sizes. If you use one of the packages below, please make sure you cite them to give the authors their due credit! To obtain citations for packages, you can use the `citation()` function and input the name of the package as a string.
+
+-   `MOTE`: This is a highly recommended package for calculating effect sizes, which is capable of handling a wide variety of effect sizes in the difference family (the d family) and variance-overlap family (r, eta, omega, epsilon). The functions also provide non-central confidence intervals for each effect size and output in APA style in LaTeX. `MOTE` has an online shiny application ([doomlab.shinyapps.io/mote/](https://doomlab.shinyapps.io/mote/)). The CRAN project can be found here: [cran.r-project.org/package=MOTE](https://cran.r-project.org/package=MOTE).
+
+-   `effectsize`: This package is particularly useful in data analysis. A major advantage of this package is that it takes in many different model objects and directly outputs effect sizes and CIs. It also does some conversion. The CRAN project can be found here: [cran.r-project.org/package=effectsize](https://cran.r-project.org/package=effectsize).
+
+-   `MBESS`: One of the most comprehensive and useful packages for effect size and confidence interval calculations. It provides functions that can calculate ESs and CIs from test statistics and the p-value. The CRAN project can be found here: [cran.r-project.org/package=MBESS](https://cran.r-project.org/package=MBESS).
+
+-   `metafor`: Probably the most comprehensive meta-analysis package currently available. Includes the function, `escalc()`, that calculates various types of effect sizes from test-statistics, summary statistics, and more. The CRAN project can be found here: [cran.r-project.org/package=metafor](https://cran.r-project.org/package=metafor).
+
+-   `psych`: One of the most comprehensive and general packages for common statistical procedures in psychology research. It also includes some effect size and CI calculation functions (e.g., `cohen.d()`). The CRAN project can be found here: [cran.r-project.org/package=psych](https://cran.r-project.org/package=psych).
+
+-   `esc` (recommended for `d`, phi, and conversion among effect sizes): This package can help convert among different effect sizes (pp. 4-12 in the reference manual). It's also helpful when only incomplete information (e.g., only descriptives, or only p-values) have been provided in the paper, and we want to calculate effect sizes from them. Another package that provides similar conversion functions is the `compute.es` package. The CRAN project can be found here: [cran.r-project.org/package=esc](https://cran.r-project.org/package=esc).
+
+-   `psychmeta`: This package is mainly used for psychometric meta-analyses. It has a function for converting different effect sizes/test statistics (convert_es, p. 38 in the reference manual), including $r$, $d$, $t$-statistic (and its p-value), $F$ (and its p-value in two-group one-way ANOVA), chi-squared (one degree of freedom), etc., to $r$, $d$ and the common language effect sizes (CLES, A, AUC). The CRAN project can be found here [cran.r-project.org/package=psychmeta](https://cran.r-project.org/package=psychmeta).
+
+-   `effsize`: This is a relatively lightweight package that handles d, g, Cliff delta, and Vargha-Delaney A). The CRAN project can be found here: [cran.r-project.org/package=effsize](https://cran.r-project.org/package=effsize).
+
+-   `MAd`: This package is a collection of functions for conducting a meta-analysis with mean differences data. It also provides conversion functions. The CRAN project can be found here: [cran.r-project.org/package=MAd](https://cran.r-project.org/package=MAd).
+
+-   `DeclareDesign`: This simulation framework can be used to assess whether procedures for calculating confidence intervals are valid and can be used for arbitrary designs. The `diagnose_design()` function calculates coverage for designs with estimation strategies that produce confidence intervals. The CRAN project can be found here: [cran.r-project.org/package=DeclareDesign](https://cran.r-project.org/package=DeclareDesign).
+
+## T-tests
+
+T-tests are the most commonly used statistical tests for examining differences between group means, or examining a group mean against a constant. Calculating effect sizes for t-tests is fairly straightforward. Nonetheless, there are cases where crucial figures for the calculation are missing (which happens quite often in older articles), and therefore we document methods that make use of partial information (e.g., only the M and the SD, or only the t-statistic and df) for the calculation.
+
+### Commonly used effect sizes for t-tests
+
+Before we proceed, we need to know the commonly used effect sizes for t-tests, including Cohen's $d$, Hedges' $g$, and Glass' $\Delta$. There are others, such as the root-mean-square standardized effect ($\Psi$), but they are rarely reported or used for power analysis.
+
+| Name        | Description    |
+|:------------:|:-------------------------------|
+| Cohen's $d$ | Cohen's d is the most commonly used and reported effect size for comparison between two groups (or one group against a constant in the one-sample t-test). It is the difference between the means of two groups divided by standard deviation assuming both groups have the same population standard deviation ($\sigma$). |
+| Hedges' $g$ | Hedges' $g$ is preferred over Cohen's $d$ when sample size ($n$) is small (conventionally, group size \< 20). When sample size is not small (group size \> 50), the two do not differ much, however Hedges' $g$ is an unbiased estimate of the population standardized mean difference at every sample size and therefore should be used in all cases. Hedges' $g$ is simply Cohen's $d$ with a multiplicative correction factor (i.e., a small sample correction factor) appended to it. Cohen's d can be converted to Hedges' g very easily with the hedges_g function in the esc package in R. | 
+| Glass' $\Delta$ | Glass’ $\Delta$ differs from Cohen’s $d$ and Hedges’ $g$ in that it uses only the standard deviation of one group under comparison (typically the control group, i.e., the group that is compared with, rather than the treatment group). This effect size measure is used when the two groups’ standard deviations differ substantially (i.e., the homogeneity assumption is not met).|
+
+In fact, the use of the Cohen's $d$ and Hedges' $g$ notations are very inconsistent in both statistical methods papers and empirical research papers (see here). Therefore, reproducibility is important - make people see your calculations so that they will know not only what effect sizes you calculated, but also how you did so.
+
+## Calculating Different *d* Values
+
+There are multiple types of Cohen's $d$s, yet researchers very often do not identify which $d$ they are reporting [see @lakens2013]. Here we catalog the equations for each type of $d$ value. A $d$ value calculated from a sample will also contain sampling error, therefore we will also show the equations to calculate the standard error. The standard allows us to then calculate the confidence interval. For each formulation in the sections below, the confidence interval will be able to be calculated in the same way, that is,
+
+$$
+\text{Lower Bound} = d - 1.96\times SE
+$$
+
+$$
+\text{Upper Bound} = d + 1.96\times SE
+$$
+
+Lastly, we will supply example R code so you can apply to your own data.
+
+### Single Group Designs
+For a single group design, we have one group and we want to compare the mean of that group to some constant, $C$ (i.e., a target value). The standardized mean difference for a single group can be calculated by,
+
+$$
+d_1 = \frac{M_1-C}{S_1}
+$$  
+A positive $d_1$ value would indicate that the mean of group 1 is larger than the target value, $C$. This formulation assumes that the sample is drawn from a normal distribution. The standardizer (i.e., the denominator) is the sample standard deviation. The corresponding standard error for $d_1$ is,
+
+$$
+SE_{d_1} = \sqrt{\frac{1}{n}+\frac{d_1^2}{2n}}.
+$$
+
+In R, we can use the `d.single.t` function from the `MOTE` package to calculate the single group standardized mean difference. 
+
+```{r,echo=TRUE}
+# Install packages if not already installed:
+# install.packages('MOTE')
+# Cohen's d for one group
+
+# For example:
+# Sample Mean = 30.4, SD = 22.53, N = 96
+# Target Value, C = 15
+
+library(MOTE)
+
+stats <- d.single.t(
+  m = 30.4,
+  u = 15,
+  sd = 22.53,
+  n = 96
+)
+
+# print just the d value and confidence intervals
+rbind(stats$d,
+      stats$dlow,
+      stats$dhigh)
+
+```
+As you can see, the output shows that the effect size is $d_b$ = 0.68, 95% CI [0.46, 0.90].
+
+### Two Groups Design
+For a two group design (i.e., between-groups design), we want to compare the means of two groups (group 1 and group 2). The standardized mean difference between two groups can be calculated by,
+
+$$
+d_p = \frac{M_1-M_2}{S_p}.
+$$  
+
+A positive $d_p$ value would indicate that the mean of group 1 is larger than the mean of group 2. Dividing the mean difference by the pooled standard deviation, $S_p$, is the classic formulation of Cohen's $d$. The pooled standard deviation, $S_p$, can be calculated as the square root of the average variance (weighted by the degrees of freedom, $df=n-1$) of group 1 and group 2:
+
+$$
+S_p = \sqrt{\frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}}
+$$
+
+Note that the term *variance* refers to the square of the standard deviation ($S^2$). The corresponding standard error of $d_p$ is,
+
+$$
+SE_{d_p} = \sqrt{\frac{n_1+n_2}{n_1 n_2}+\frac{d_p^2}{2(n_1+n_2)}}.
+$$
+
+In R, we can use the `d.ind.t` function from the `MOTE` package to calculate the two group standardized mean difference. Since we have already loaded in the `MOTE` package, we do not need to again. 
+
+```{r,echo=TRUE}
+# Install packages if not already installed:
+# install.packages('MOTE')
+# Cohen's d for two independent groups
+# given means and SDs
+
+# For example:
+# Group 1 Mean = 30.4, SD = 22.53, N = 96
+# Group 2 Mean = 21.4, SD = 19.59, N = 96
+
+stats <- d.ind.t(
+  m1 = 30.4,
+  m2 = 21.4,
+  sd1 = 22.53,
+  sd2 = 19.59,
+  n1 = 96,
+  n2 = 96,
+  a = 0.05
+)
+
+# print just the d value and confidence intervals
+rbind(stats$d,
+      stats$dlow,
+      stats$dhigh)
+
+```
+
+The output shows that the effect size is $d_b$ = 0.43, 95% CI [0.14, 0.71].
+
+
+### Repeated Measures Designs
+
+In a repeated measures design, the same subjects are measured on two separate occasions and we want to know the mean difference between those two occasions. An example of this would be in a pre/post comparison where subjects are tested before and after undergoing some treatment (see @fig-repeatedmeasures for a visualization). A standardized mean difference in a repeated measures design can take on a few different forms that we define below.
+
+```{r,message=FALSE,echo=FALSE,warning=FALSE}
+#| id: fig-repeatedmeasures
+#| fig-cap: Figure displaying simulated data of a repeated measures design, the x-axis shows the condition (e.g., pre-test and post-test) and y-axis is the scores. Lines connect the change within subject from one condition to the next. 
+
+library(ggdist)
+library(MASS)
+set.seed(343)
+r = .7
+n = 50
+data<- mvrnorm(n = n,
+               mu = c(21.4,30.4),
+               Sigma = data.frame(x = c(22.53^2,r*22.53*19.59),
+                                  y = c(r*22.53*19.59,19.59^2)),
+               empirical=TRUE)
+
+df <- data.frame(X = c(data[,1],data[,2]),
+                 ID = c(1:n,1:n),
+                 Condition = c(rep(1,n),rep(2,n)))
+
+ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
+  geom_jitter(color='grey30',width=.015,height=0,alpha=.8,size=2) +
+  geom_line(color='grey30',alpha=.3) +
+  theme_ggdist() +
+  theme(aspect.ratio = 1,
+        axis.text = element_text(size=13),
+        axis.title = element_text(size=14),
+        title = element_text(size=14)) +
+  stat_slab(data=df[df$Condition==1,],aes(group=Condition,x=Condition-.15,y=X), 
+            position = position_dodge(),scale=.5,alpha=.3,side='left') +
+  stat_slab(data=df[df$Condition==2,],aes(group=Condition,x=Condition+.15,y=X), 
+            position = position_dodge(),scale=.5,alpha=.3,side='right') +
+  stat_pointinterval(data=df[df$Condition==1,],aes(group=Condition,x=Condition-.15,y=X),color = 'grey30') +
+  stat_pointinterval(data=df[df$Condition==2,],aes(group=Condition,x=Condition+.15,y=X),color = 'grey30') +
+  ggtitle("Repeated Measures Design") +
+  scale_x_continuous(breaks=c(1,2))
+  
+
+```
+
+#### Difference Score (*d*~z~)
+Instead of comparing the means of two sets of scores, a within subject design allows us to subtract the scores obtained in condition 1 from the scores in condition 2. These difference scores ($X_{\text{diff}}=X_2-X_1$) can be used similarly to the single group design (if the target value was zero, i.e., $C=0$) such that,
+
+$$
+d_z = \frac{M_{\text{diff}}}{S_{\text{diff}}}
+$$
+
+Where the difference between this formulation and the single group design is the nature of the scores (difference scores rather than raw scores). The convenient thing about $d_z$ is that it has a straight-forward relationship with the $t$-statistic, $d_z=\frac{t}{\sqrt{n}}$. This makes it very useful for power analyses. 
+
+
+#### Cohen's Repeated Measures *d* (*d*~rm~)
+For a within-group design, we want to compare the means of scores obtained from condition 1 and condition 2. The standardized mean difference between the two conditions can be calculated by,
+
+$$
+d_{rm} = \frac{M_1-M_2}{S_w}.
+$$  
+
+A positive $d_b$ value would indicate that the mean of group 1 is larger than the mean of group 2. Dividing the mean difference by the pooled standard deviation, $S_P$, is the classic formulation of Cohen's $d$. The pooled standard deviation, $S_p$, can be calculated as the square root of the average variance (weighted by the degrees of freedom, $df=n-1$) of group 1 and group 2:
+
+$$
+S_P = \sqrt{\frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}}
+$$
+
+Note that the term *variance* refers to the square of the standard deviation ($S^2$). The corresponding standard error of $d_b$ is,
+
+$$
+SE_{d_b} = \sqrt{\frac{n_1+n_2}{n_1 n_2}+\frac{d_1^2}{2(n_1+n_2)}}.
+$$
+
+In R, we can use the `d.ind.t` function from the `MOTE` package to calculate the two group standardized mean difference. Since we have already loaded in the `MOTE` package, we do not need to again. 
+
+```{r,echo=TRUE}
+# Install packages if not already installed:
+# install.packages('MOTE')
+# Cohen's d for two independent groups
+# given means and SDs
+
+# For example:
+# Group 1 Mean = 30.4, SD = 22.53, N = 96
+# Group 2 Mean = 21.4, SD = 19.59, N = 96
+
+stats <- d.ind.t(
+  m1 = 30.4,
+  m2 = 21.4,
+  sd1 = 22.53,
+  sd2 = 19.59,
+  n1 = 96,
+  n2 = 96,
+  a = 0.05
+)
+
+# print just the d value and confidence intervals
+rbind(stats$d,
+      stats$dlow,
+      stats$dhigh)
+
+```
+
+The output shows that the effect size is $d_b$ = 0.43, 95% CI [0.14, 0.71].
+
+
+
+#### Average Variance (*d*~rm~)
+
+
+
+#### Becker's *d* (*d*~b~)
+
+
 
 

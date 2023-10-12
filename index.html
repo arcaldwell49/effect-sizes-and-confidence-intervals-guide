@@ -29,6 +29,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -89,6 +123,18 @@ div.csl-indent {
   <li><a href="#precision" id="toc-precision" class="nav-link" data-scroll-target="#precision">Precision</a></li>
   </ul></li>
   <li><a href="#interpreting-confidence-intervals" id="toc-interpreting-confidence-intervals" class="nav-link" data-scroll-target="#interpreting-confidence-intervals">Interpreting Confidence Intervals</a></li>
+  <li><a href="#reporting-confidence-intervals" id="toc-reporting-confidence-intervals" class="nav-link" data-scroll-target="#reporting-confidence-intervals">Reporting Confidence Intervals</a></li>
+  <li><a href="#useful-r-packages" id="toc-useful-r-packages" class="nav-link" data-scroll-target="#useful-r-packages">Useful R Packages</a></li>
+  <li><a href="#t-tests" id="toc-t-tests" class="nav-link" data-scroll-target="#t-tests">T-tests</a>
+  <ul class="collapse">
+  <li><a href="#commonly-used-effect-sizes-for-t-tests" id="toc-commonly-used-effect-sizes-for-t-tests" class="nav-link" data-scroll-target="#commonly-used-effect-sizes-for-t-tests">Commonly used effect sizes for t-tests</a></li>
+  </ul></li>
+  <li><a href="#calculating-different-d-values" id="toc-calculating-different-d-values" class="nav-link" data-scroll-target="#calculating-different-d-values">Calculating Different <em>d</em> Values</a>
+  <ul class="collapse">
+  <li><a href="#single-group-designs" id="toc-single-group-designs" class="nav-link" data-scroll-target="#single-group-designs">Single Group Designs</a></li>
+  <li><a href="#two-groups-design" id="toc-two-groups-design" class="nav-link" data-scroll-target="#two-groups-design">Two Groups Design</a></li>
+  <li><a href="#repeated-measures-designs" id="toc-repeated-measures-designs" class="nav-link" data-scroll-target="#repeated-measures-designs">Repeated Measures Designs</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.docx"><i class="bi bi-file-word"></i>MS Word (apaquarto)</a></li></ul></div></nav>
 </div>
@@ -387,7 +433,7 @@ div.csl-indent {
 </tbody>
 </table>
 <p>It should be noted that small/medium/large effects do not necessarily mean that they have small/medium/large practical implications <span class="citation" data-cites="coe2012 pogrow2019">(for details see, <a href="#ref-coe2012" role="doc-biblioref">Coe 2012</a>; <a href="#ref-pogrow2019" role="doc-biblioref">Pogrow 2019</a>)</span>. These benchmarks are more relevant for guiding our expectations. Whether they have practical importance depends on contexts. To assess practical importance, it will always be desirable for standardized effect sizes to be translated to increase/decrease in raw units (or any meaningful units) or a Binomial Effect Size Display (roughly, differences in proportions such as success rate before and after intervention).</p>
-<p><strong>Please also note that only zero means no effect</strong>. An effect of the size .01 is an effect, but a very small <span class="citation" data-cites="sawilowsky2009">(<a href="#ref-sawilowsky2009" role="doc-biblioref">Sawilowsky 2009</a>)</span>, and likely unimportant, one. It makes sense to say that "we failed to find evidence for rejecting the null hypothesis," or "we found evidence for only a small/little/weak-to-no effect" or "we did not find a meaningful effect". <strong>It does not make sense to say, "we found no effect."</strong> Purely by the random nature of our universe, it is hard to imagine that we can obtain a sharp zero-effect result. This is also related to the crud factor, which refers to the idea that "everything correlates with everything else" <span class="citation" data-cites="orben2020 meehl1984">(<a href="#ref-orben2020" role="doc-biblioref">Orben and Lakens 2020, 1</a>; <a href="#ref-meehl1984" role="doc-biblioref">Meehl 1984</a>)</span>, but the practical implication of very weak/small correlations between some variables may be limited, and whether the effect is reliably detected depends on statistical power.</p>
+<p><strong>Please also note that only zero means no effect</strong>. An effect of the size .01 is an effect, but a very small <span class="citation" data-cites="sawilowsky2009">(<a href="#ref-sawilowsky2009" role="doc-biblioref">Sawilowsky 2009</a>)</span>, and likely unimportant, one. It makes sense to say that “we failed to find evidence for rejecting the null hypothesis,” or “we found evidence for only a small/little/weak-to-no effect” or “we did not find a meaningful effect”. <strong>It does not make sense to say, “we found no effect.”</strong> Purely by the random nature of our universe, it is hard to imagine that we can obtain a sharp zero-effect result. This is also related to the crud factor, which refers to the idea that “everything correlates with everything else” <span class="citation" data-cites="orben2020 meehl1984">(<a href="#ref-orben2020" role="doc-biblioref">Orben and Lakens 2020, 1</a>; <a href="#ref-meehl1984" role="doc-biblioref">Meehl 1984</a>)</span>, but the practical implication of very weak/small correlations between some variables may be limited, and whether the effect is reliably detected depends on statistical power.</p>
 </section>
 <section id="reporting-effect-sizes" class="level2">
 <h2 class="anchored" data-anchor-id="reporting-effect-sizes">Reporting Effect Sizes</h2>
@@ -397,7 +443,7 @@ div.csl-indent {
 </section>
 <section id="directionality" class="level3">
 <h3 class="anchored" data-anchor-id="directionality">Directionality</h3>
-<p>Some effect sizes are directional (e.g., Cohen’s <span class="math inline">\(d\)</span>), which means that they can be positive or negative. Their signs carry important information, and therefore cannot be omitted. When you report these effect sizes, make it clear what is compared to what (i.e., the direction of comparison). Better still, make sure your comparison is inline with the theory. For instance, a theory predicts that your group X should score higher on an item than your Group Y,<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> you should hypothesize accordingly that Group X will have a higher mean than Group Y on the item, and subtract mean(Y) from mean(X) (rather than the other way around) to obtain the mean difference. You should then expect your <span class="math inline">\(t\)</span> statistic to be positive, and your <span class="math inline">\(d\)</span> value as well. In other words, avoid reporting anything like** <span class="math inline">\(t\)</span> = -5.14, <span class="math inline">\(d\)</span> = 0.36, where the signs of the statistics do not match.</p>
+<p>Some effect sizes are directional (e.g., Cohen’s <span class="math inline">\(d\)</span>), which means that they can be positive or negative. Their signs carry important information, and therefore cannot be omitted. When you report these effect sizes, make it clear what is compared to what (i.e., the direction of comparison). Better still, make sure your comparison is inline with the theory. For instance, a theory predicts that your group X should score higher on an item than your Group Y,<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> you should hypothesize accordingly that Group X will have a higher mean than Group Y on the item, and subtract mean(Y) from mean(X) (rather than the other way around) to obtain the mean difference. You should then expect your <span class="math inline">\(t\)</span> statistic to be positive, and your <span class="math inline">\(d\)</span> value as well. In other words, avoid reporting anything like <span class="math inline">\(t\)</span> = -5.14, <span class="math inline">\(d\)</span> = 0.36, where the signs of the statistics do not match.</p>
 </section>
 <section id="precision" class="level3">
 <h3 class="anchored" data-anchor-id="precision">Precision</h3>
@@ -409,12 +455,258 @@ div.csl-indent {
 <p>What is the correct interpretation of a confidence interval? Imagine you conducted a study where you compared two groups. You obtained a Cohen’s <span class="math inline">\(d\)</span> = 0.3, 95% CI [0.2, 0.4]. How do you interpret this confidence interval?</p>
 <p>Confidence intervals are yielded by a certain procedure, such that when the procedure is repeatedly applied to a series of hypothetical datasets drawn from the studied population/populations, it yields intervals that contain the true parameter value (in our example, it means the true difference between the two groups) in 95% of the cases.</p>
 <p>In colloquial terms, if we conduct this research over and over (repeating the same sampling procedure, administering the same experimental manipulation, conducting the same statistical analysis, etc.), because of sampling variability (our samples are slightly different at each time), we will get different Cohen’s <span class="math inline">\(d\)</span> values. For each of these <span class="math inline">\(d\)</span> values, we calculate a 95% interval. Then, among all these many intervals, we expect that 95% of them will contain the true <span class="math inline">\(d\)</span>, which we never know exactly.</p>
-<p>Therefore, confidence intervals indicate a property of a procedure, not a parameter. One specific confidence interval either contains (the probability is 100%) or does not contain (0%) the true parameter. It is incorrect that we say about any specific CI that “it has 95% probability” of containing that true parameter.</p>
+<p>There is also a common criticism levied against the confidence interval interpretation: “There is a 95% probability that the true parameter exists within the 95% confidence interval”. However this criticism is unwarranted in the specific case of a single observed confidence interval, that is, as long as there is a single realized confidence interval sampled from the population, this interpretation is fine <span class="citation" data-cites="vos2022">(<a href="#ref-vos2022" role="doc-biblioref">Vos and Holbert 2022</a>)</span>. It is important to note however, this interpretation is incorrect when there are multiple realized confidence intervals. The criticized interpretation also tends to be more practical than the interpretation using repeated sampling, the following example described by <span class="citation" data-cites="vos2022">Vos and Holbert (<a href="#ref-vos2022" role="doc-biblioref">2022</a>)</span> illustrates this,</p>
+<blockquote class="blockquote">
+<p>The distinction between these interpretations can be understood with the simple example of the probability of rolling a ‘6’ with a fair die. The probability is 1/6 because if you roll the die repeatedly the proportion of times that the face with ‘6’ comes up will be come very close to 1/6. Or, the probability is 1/6 because it is equivalent to a random selection from an urn where exactly one of 6 balls is labelled with ‘6’. The distinction in this simple example is less useful since repeatedly rolling a die is less problematic than repeatedly conducting the same randomized trial.</p>
+</blockquote>
+<p>For further reading on confidence interpretations, see <span class="citation" data-cites="hoekstra2014">Hoekstra et al. (<a href="#ref-hoekstra2014" role="doc-biblioref">2014</a>)</span> and <span class="citation" data-cites="morey2016">Morey et al. (<a href="#ref-morey2016" role="doc-biblioref">2016</a>)</span>.</p>
+</section>
+<section id="reporting-confidence-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="reporting-confidence-intervals">Reporting Confidence Intervals</h2>
+<p>Confidence intervals must be calculated and reported for every effect size that you obtained and mentioned in your manuscript. If you are doing a replication and your target article/study did not report CIs for its effect sizes, you should calculate CIs and report them.</p>
+<p>Normally, we calculate 95% confidence intervals (i.e., 95% of such intervals are expected to contain the true parameter value if we conduct an infinite number of identical studies). Nonetheless, for some effect sizes (e.g., eta-squared, partial eta-squared, R-squared), we calculate 90% confidence intervals. This is because η² is squared and always positive, and F-tests are one-sided. Reporting 95% CI for eta squared may result in situations in which the CI includes zero but the p-value falls below .05, whereas reporting 90% CI prevents such a problem. For further information regarding this issue, read Daniel Lakens blog on confidence intervals and <span class="citation" data-cites="steiger2004">Steiger (<a href="#ref-steiger2004" role="doc-biblioref">2004</a>)</span>.</p>
+<p>Confidence intervals should be reported immediately after an effect size, e.g., Cohen’s d = 0.40, 95% CI [0.20, 0.60]. After the first time reporting them in a manuscript, every subsequent CI can be simply denoted by brackets without the “95% CI” preceding it.</p>
+<p>Unless you are measuring something that is meaningful in real life (e.g., income, years of experience, amount that a person is willing to donate), please make sure that the CI you calculated is a CI of the effect size, not of other statistics, such as the test statistics or mean difference in raw units.</p>
+<p>If you see one of the following:</p>
+<ol type="1">
+<li><p>Your effect size estimate does not fall in your confidence interval: you certainly have an issue.</p></li>
+<li><p>One of your CI bound is “infinite”</p></li>
+<li><p>Your effect size estimate is not included within your CI (for comparison between two groups): You have an issue, check carefully. For means and for difference in means, the estimate should be precisely the midpoint of your CI; for other statistics (e.g., correlation, proportion, frequency, standard deviation), one arm might be longer than the other so the estimate may not be the midpoint.</p></li>
+</ol>
+<p>For further reading related to the calculaton and reporting of effect sizes and confidence intervals, see <span class="citation" data-cites="steiger2004">Steiger (<a href="#ref-steiger2004" role="doc-biblioref">2004</a>)</span> and <span class="citation" data-cites="lakens2014">Lakens (<a href="#ref-lakens2014" role="doc-biblioref">2014</a>)</span>.</p>
+</section>
+<section id="useful-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="useful-r-packages">Useful R Packages</h2>
+<p>The following R packages are handy for effect size and CI calculations, conversions among different effect sizes, and conversion of test statistics to effect sizes. If you use one of the packages below, please make sure you cite them to give the authors their due credit! To obtain citations for packages, you can use the <code>citation()</code> function and input the name of the package as a string.</p>
+<ul>
+<li><p><code>MOTE</code>: This is a highly recommended package for calculating effect sizes, which is capable of handling a wide variety of effect sizes in the difference family (the d family) and variance-overlap family (r, eta, omega, epsilon). The functions also provide non-central confidence intervals for each effect size and output in APA style in LaTeX. <code>MOTE</code> has an online shiny application (<a href="https://doomlab.shinyapps.io/mote/">doomlab.shinyapps.io/mote/</a>). The CRAN project can be found here: <a href="https://cran.r-project.org/package=MOTE">cran.r-project.org/package=MOTE</a>.</p></li>
+<li><p><code>effectsize</code>: This package is particularly useful in data analysis. A major advantage of this package is that it takes in many different model objects and directly outputs effect sizes and CIs. It also does some conversion. The CRAN project can be found here: <a href="https://cran.r-project.org/package=effectsize">cran.r-project.org/package=effectsize</a>.</p></li>
+<li><p><code>MBESS</code>: One of the most comprehensive and useful packages for effect size and confidence interval calculations. It provides functions that can calculate ESs and CIs from test statistics and the p-value. The CRAN project can be found here: <a href="https://cran.r-project.org/package=MBESS">cran.r-project.org/package=MBESS</a>.</p></li>
+<li><p><code>metafor</code>: Probably the most comprehensive meta-analysis package currently available. Includes the function, <code>escalc()</code>, that calculates various types of effect sizes from test-statistics, summary statistics, and more. The CRAN project can be found here: <a href="https://cran.r-project.org/package=metafor">cran.r-project.org/package=metafor</a>.</p></li>
+<li><p><code>psych</code>: One of the most comprehensive and general packages for common statistical procedures in psychology research. It also includes some effect size and CI calculation functions (e.g., <code>cohen.d()</code>). The CRAN project can be found here: <a href="https://cran.r-project.org/package=psych">cran.r-project.org/package=psych</a>.</p></li>
+<li><p><code>esc</code> (recommended for <code>d</code>, phi, and conversion among effect sizes): This package can help convert among different effect sizes (pp.&nbsp;4-12 in the reference manual). It’s also helpful when only incomplete information (e.g., only descriptives, or only p-values) have been provided in the paper, and we want to calculate effect sizes from them. Another package that provides similar conversion functions is the <code>compute.es</code> package. The CRAN project can be found here: <a href="https://cran.r-project.org/package=esc">cran.r-project.org/package=esc</a>.</p></li>
+<li><p><code>psychmeta</code>: This package is mainly used for psychometric meta-analyses. It has a function for converting different effect sizes/test statistics (convert_es, p.&nbsp;38 in the reference manual), including <span class="math inline">\(r\)</span>, <span class="math inline">\(d\)</span>, <span class="math inline">\(t\)</span>-statistic (and its p-value), <span class="math inline">\(F\)</span> (and its p-value in two-group one-way ANOVA), chi-squared (one degree of freedom), etc., to <span class="math inline">\(r\)</span>, <span class="math inline">\(d\)</span> and the common language effect sizes (CLES, A, AUC). The CRAN project can be found here <a href="https://cran.r-project.org/package=psychmeta">cran.r-project.org/package=psychmeta</a>.</p></li>
+<li><p><code>effsize</code>: This is a relatively lightweight package that handles d, g, Cliff delta, and Vargha-Delaney A). The CRAN project can be found here: <a href="https://cran.r-project.org/package=effsize">cran.r-project.org/package=effsize</a>.</p></li>
+<li><p><code>MAd</code>: This package is a collection of functions for conducting a meta-analysis with mean differences data. It also provides conversion functions. The CRAN project can be found here: <a href="https://cran.r-project.org/package=MAd">cran.r-project.org/package=MAd</a>.</p></li>
+<li><p><code>DeclareDesign</code>: This simulation framework can be used to assess whether procedures for calculating confidence intervals are valid and can be used for arbitrary designs. The <code>diagnose_design()</code> function calculates coverage for designs with estimation strategies that produce confidence intervals. The CRAN project can be found here: <a href="https://cran.r-project.org/package=DeclareDesign">cran.r-project.org/package=DeclareDesign</a>.</p></li>
+</ul>
+</section>
+<section id="t-tests" class="level2">
+<h2 class="anchored" data-anchor-id="t-tests">T-tests</h2>
+<p>T-tests are the most commonly used statistical tests for examining differences between group means, or examining a group mean against a constant. Calculating effect sizes for t-tests is fairly straightforward. Nonetheless, there are cases where crucial figures for the calculation are missing (which happens quite often in older articles), and therefore we document methods that make use of partial information (e.g., only the M and the SD, or only the t-statistic and df) for the calculation.</p>
+<section id="commonly-used-effect-sizes-for-t-tests" class="level3">
+<h3 class="anchored" data-anchor-id="commonly-used-effect-sizes-for-t-tests">Commonly used effect sizes for t-tests</h3>
+<p>Before we proceed, we need to know the commonly used effect sizes for t-tests, including Cohen’s <span class="math inline">\(d\)</span>, Hedges’ <span class="math inline">\(g\)</span>, and Glass’ <span class="math inline">\(\Delta\)</span>. There are others, such as the root-mean-square standardized effect (<span class="math inline">\(\Psi\)</span>), but they are rarely reported or used for power analysis.</p>
+<table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Cohen’s <span class="math inline">\(d\)</span></td>
+<td style="text-align: left;">Cohen’s d is the most commonly used and reported effect size for comparison between two groups (or one group against a constant in the one-sample t-test). It is the difference between the means of two groups divided by standard deviation assuming both groups have the same population standard deviation (<span class="math inline">\(\sigma\)</span>).</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Hedges’ <span class="math inline">\(g\)</span></td>
+<td style="text-align: left;">Hedges’ <span class="math inline">\(g\)</span> is preferred over Cohen’s <span class="math inline">\(d\)</span> when sample size (<span class="math inline">\(n\)</span>) is small (conventionally, group size &lt; 20). When sample size is not small (group size &gt; 50), the two do not differ much, however Hedges’ <span class="math inline">\(g\)</span> is an unbiased estimate of the population standardized mean difference at every sample size and therefore should be used in all cases. Hedges’ <span class="math inline">\(g\)</span> is simply Cohen’s <span class="math inline">\(d\)</span> with a multiplicative correction factor (i.e., a small sample correction factor) appended to it. Cohen’s d can be converted to Hedges’ g very easily with the hedges_g function in the esc package in R.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Glass’ <span class="math inline">\(\Delta\)</span></td>
+<td style="text-align: left;">Glass’ <span class="math inline">\(\Delta\)</span> differs from Cohen’s <span class="math inline">\(d\)</span> and Hedges’ <span class="math inline">\(g\)</span> in that it uses only the standard deviation of one group under comparison (typically the control group, i.e., the group that is compared with, rather than the treatment group). This effect size measure is used when the two groups’ standard deviations differ substantially (i.e., the homogeneity assumption is not met).</td>
+</tr>
+</tbody>
+</table>
+<p>In fact, the use of the Cohen’s <span class="math inline">\(d\)</span> and Hedges’ <span class="math inline">\(g\)</span> notations are very inconsistent in both statistical methods papers and empirical research papers (see here). Therefore, reproducibility is important - make people see your calculations so that they will know not only what effect sizes you calculated, but also how you did so.</p>
+</section>
+</section>
+<section id="calculating-different-d-values" class="level2">
+<h2 class="anchored" data-anchor-id="calculating-different-d-values">Calculating Different <em>d</em> Values</h2>
+<p>There are multiple types of Cohen’s <span class="math inline">\(d\)</span>s, yet researchers very often do not identify which <span class="math inline">\(d\)</span> they are reporting <span class="citation" data-cites="lakens2013">(see <a href="#ref-lakens2013" role="doc-biblioref">Lakens 2013</a>)</span>. Here we catalog the equations for each type of <span class="math inline">\(d\)</span> value. A <span class="math inline">\(d\)</span> value calculated from a sample will also contain sampling error, therefore we will also show the equations to calculate the standard error. The standard allows us to then calculate the confidence interval. For each formulation in the sections below, the confidence interval will be able to be calculated in the same way, that is,</p>
+<p><span class="math display">\[
+\text{Lower Bound} = d - 1.96\times SE
+\]</span></p>
+<p><span class="math display">\[
+\text{Upper Bound} = d + 1.96\times SE
+\]</span></p>
+<p>Lastly, we will supply example R code so you can apply to your own data.</p>
+<section id="single-group-designs" class="level3">
+<h3 class="anchored" data-anchor-id="single-group-designs">Single Group Designs</h3>
+<p>For a single group design, we have one group and we want to compare the mean of that group to some constant, <span class="math inline">\(C\)</span> (i.e., a target value). The standardized mean difference for a single group can be calculated by,</p>
+<p><span class="math display">\[
+d_1 = \frac{M_1-C}{S_1}
+\]</span><br>
+A positive <span class="math inline">\(d_1\)</span> value would indicate that the mean of group 1 is larger than the target value, <span class="math inline">\(C\)</span>. This formulation assumes that the sample is drawn from a normal distribution. The standardizer (i.e., the denominator) is the sample standard deviation. The corresponding standard error for <span class="math inline">\(d_1\)</span> is,</p>
+<p><span class="math display">\[
+SE_{d_1} = \sqrt{\frac{1}{n}+\frac{d_1^2}{2n}}.
+\]</span></p>
+<p>In R, we can use the <code>d.single.t</code> function from the <code>MOTE</code> package to calculate the single group standardized mean difference.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages if not already installed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('MOTE')</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d for one group</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample Mean = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Target Value, C = 15</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOTE)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.single.t</span>(</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> <span class="fl">30.4</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">u =</span> <span class="dv">15</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fl">22.53</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(stats<span class="sc">$</span>d,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      stats<span class="sc">$</span>dlow,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      stats<span class="sc">$</span>dhigh)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.6835331
+[2,] 0.4597205
+[3,] 0.9044058</code></pre>
+</div>
+</div>
+<p>As you can see, the output shows that the effect size is <span class="math inline">\(d_b\)</span> = 0.68, 95% CI [0.46, 0.90].</p>
+</section>
+<section id="two-groups-design" class="level3">
+<h3 class="anchored" data-anchor-id="two-groups-design">Two Groups Design</h3>
+<p>For a two group design (i.e., between-groups design), we want to compare the means of two groups (group 1 and group 2). The standardized mean difference between two groups can be calculated by,</p>
+<p><span class="math display">\[
+d_p = \frac{M_1-M_2}{S_p}.
+\]</span></p>
+<p>A positive <span class="math inline">\(d_p\)</span> value would indicate that the mean of group 1 is larger than the mean of group 2. Dividing the mean difference by the pooled standard deviation, <span class="math inline">\(S_p\)</span>, is the classic formulation of Cohen’s <span class="math inline">\(d\)</span>. The pooled standard deviation, <span class="math inline">\(S_p\)</span>, can be calculated as the square root of the average variance (weighted by the degrees of freedom, <span class="math inline">\(df=n-1\)</span>) of group 1 and group 2:</p>
+<p><span class="math display">\[
+S_p = \sqrt{\frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}}
+\]</span></p>
+<p>Note that the term <em>variance</em> refers to the square of the standard deviation (<span class="math inline">\(S^2\)</span>). The corresponding standard error of <span class="math inline">\(d_p\)</span> is,</p>
+<p><span class="math display">\[
+SE_{d_p} = \sqrt{\frac{n_1+n_2}{n_1 n_2}+\frac{d_p^2}{2(n_1+n_2)}}.
+\]</span></p>
+<p>In R, we can use the <code>d.ind.t</code> function from the <code>MOTE</code> package to calculate the two group standardized mean difference. Since we have already loaded in the <code>MOTE</code> package, we do not need to again.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages if not already installed:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('MOTE')</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d for two independent groups</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># given means and SDs</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 1 Mean = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 2 Mean = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.ind.t</span>(</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n1 =</span> <span class="dv">96</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">n2 =</span> <span class="dv">96</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(stats<span class="sc">$</span>d,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>      stats<span class="sc">$</span>dlow,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>      stats<span class="sc">$</span>dhigh)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.4263132
+[2,] 0.1396435
+[3,] 0.7118855</code></pre>
+</div>
+</div>
+<p>The output shows that the effect size is <span class="math inline">\(d_b\)</span> = 0.43, 95% CI [0.14, 0.71].</p>
+</section>
+<section id="repeated-measures-designs" class="level3">
+<h3 class="anchored" data-anchor-id="repeated-measures-designs">Repeated Measures Designs</h3>
+<p>In a repeated measures design, the same subjects are measured on two separate occasions and we want to know the mean difference between those two occasions. An example of this would be in a pre/post comparison where subjects are tested before and after undergoing some treatment (see <a href="#fig-repeatedmeasures">Figure&nbsp;1</a> for a visualization). A standardized mean difference in a repeated measures design can take on a few different forms that we define below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-repeatedmeasures" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-repeatedmeasures-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Figure displaying simulated data of a repeated measures design, the x-axis shows the condition (e.g., pre-test and post-test) and y-axis is the scores. Lines connect the change within subject from one condition to the next.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="difference-score-dz" class="level4">
+<h4 class="anchored" data-anchor-id="difference-score-dz">Difference Score (<em>d</em><sub>z</sub>)</h4>
+<p>Instead of comparing the means of two sets of scores, a within subject design allows us to subtract the scores obtained in condition 1 from the scores in condition 2. These difference scores (<span class="math inline">\(X_{\text{diff}}=X_2-X_1\)</span>) can be used similarly to the single group design (if the target value was zero, i.e., <span class="math inline">\(C=0\)</span>) such that,</p>
+<p><span class="math display">\[
+d_z = \frac{M_{\text{diff}}}{S_{\text{diff}}}
+\]</span></p>
+<p>Where the difference between this formulation and the single group design is the nature of the scores (difference scores rather than raw scores). The convenient thing about <span class="math inline">\(d_z\)</span> is that it has a straight-forward relationship with the <span class="math inline">\(t\)</span>-statistic, <span class="math inline">\(d_z=\frac{t}{\sqrt{n}}\)</span>. This makes it very useful for power analyses.</p>
+</section>
+<section id="cohens-repeated-measures-d-drm" class="level4">
+<h4 class="anchored" data-anchor-id="cohens-repeated-measures-d-drm">Cohen’s Repeated Measures <em>d</em> (<em>d</em><sub>rm</sub>)</h4>
+<p>For a within-group design, we want to compare the means of scores obtained from condition 1 and condition 2. The standardized mean difference between the two conditions can be calculated by,</p>
+<p><span class="math display">\[
+d_{rm} = \frac{M_1-M_2}{S_w}.
+\]</span></p>
+<p>A positive <span class="math inline">\(d_b\)</span> value would indicate that the mean of group 1 is larger than the mean of group 2. Dividing the mean difference by the pooled standard deviation, <span class="math inline">\(S_P\)</span>, is the classic formulation of Cohen’s <span class="math inline">\(d\)</span>. The pooled standard deviation, <span class="math inline">\(S_p\)</span>, can be calculated as the square root of the average variance (weighted by the degrees of freedom, <span class="math inline">\(df=n-1\)</span>) of group 1 and group 2:</p>
+<p><span class="math display">\[
+S_P = \sqrt{\frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}}
+\]</span></p>
+<p>Note that the term <em>variance</em> refers to the square of the standard deviation (<span class="math inline">\(S^2\)</span>). The corresponding standard error of <span class="math inline">\(d_b\)</span> is,</p>
+<p><span class="math display">\[
+SE_{d_b} = \sqrt{\frac{n_1+n_2}{n_1 n_2}+\frac{d_1^2}{2(n_1+n_2)}}.
+\]</span></p>
+<p>In R, we can use the <code>d.ind.t</code> function from the <code>MOTE</code> package to calculate the two group standardized mean difference. Since we have already loaded in the <code>MOTE</code> package, we do not need to again.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages if not already installed:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('MOTE')</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d for two independent groups</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># given means and SDs</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 1 Mean = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 2 Mean = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.ind.t</span>(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n1 =</span> <span class="dv">96</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">n2 =</span> <span class="dv">96</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(stats<span class="sc">$</span>d,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>      stats<span class="sc">$</span>dlow,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>      stats<span class="sc">$</span>dhigh)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.4263132
+[2,] 0.1396435
+[3,] 0.7118855</code></pre>
+</div>
+</div>
+<p>The output shows that the effect size is <span class="math inline">\(d_b\)</span> = 0.43, 95% CI [0.14, 0.71].</p>
+</section>
+<section id="average-variance-drm" class="level4">
+<h4 class="anchored" data-anchor-id="average-variance-drm">Average Variance (<em>d</em><sub>rm</sub>)</h4>
+</section>
+<section id="beckers-d-db" class="level4 unnumbered">
 
+
+</section>
+</section>
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Becker’s d (db)</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-association2010" class="csl-entry" role="listitem">
 Association, American Psychological. 2010. <em>Publication Manual of the American Psychological Association</em>. American Psychological Association. <a href="https://thuvienso.hoasen.edu.vn/handle/123456789/8327">https://thuvienso.hoasen.edu.vn/handle/123456789/8327</a>.
 </div>
@@ -442,14 +734,26 @@ Glass, Gene V., Barry McGaw, and Mary L. Smith. 1981. <span>“Meta-Analysis in 
 <div id="ref-harrell2020" class="csl-entry" role="listitem">
 Harrell, Frank. 2020. <span>“Author Checklist - Data Analysis.”</span> <a href="https://discourse.datamethods.org/t/author-checklist/3407">https://discourse.datamethods.org/t/author-checklist/3407</a>.
 </div>
+<div id="ref-hoekstra2014" class="csl-entry" role="listitem">
+Hoekstra, Rink, Richard D. Morey, Jeffrey N. Rouder, and Eric-Jan Wagenmakers. 2014. <span>“Robust Misinterpretation of Confidence Intervals.”</span> <em>Psychonomic Bulletin &amp; Review</em> 21 (5): 1157–64. <a href="https://doi.org/10.3758/s13423-013-0572-3">https://doi.org/10.3758/s13423-013-0572-3</a>.
+</div>
 <div id="ref-kelley2012" class="csl-entry" role="listitem">
 Kelley, Ken, and Kristopher J. Preacher. 2012. <span>“On Effect Size.”</span> <em>Psychological Methods</em> 17 (2): 137–52. <a href="https://doi.org/10.1037/a0028086">https://doi.org/10.1037/a0028086</a>.
+</div>
+<div id="ref-lakens2013" class="csl-entry" role="listitem">
+Lakens, Daniel. 2013. <span>“Calculating and Reporting Effect Sizes to Facilitate Cumulative Science: A Practical Primer for t-Tests and ANOVAs.”</span> <em>Frontiers in Psychology</em> 4. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2013.00863">https://www.frontiersin.org/articles/10.3389/fpsyg.2013.00863</a>.
+</div>
+<div id="ref-lakens2014" class="csl-entry" role="listitem">
+———. 2014. <span>“The 20.”</span> <a href="http://daniellakens.blogspot.com/2014/06/calculating-confidence-intervals-for.html">http://daniellakens.blogspot.com/2014/06/calculating-confidence-intervals-for.html</a>.
 </div>
 <div id="ref-lovakov2021" class="csl-entry" role="listitem">
 Lovakov, Andrey, and Elena R. Agadullina. 2021. <span>“Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology.”</span> <em>European Journal of Social Psychology</em> 51 (3): 485–504. <a href="https://doi.org/10.1002/ejsp.2752">https://doi.org/10.1002/ejsp.2752</a>.
 </div>
 <div id="ref-meehl1984" class="csl-entry" role="listitem">
 Meehl, Paul E. 1984. <span>“Radical Behaviorism and Mental Events: Four Methodological Queries.”</span> <em>Behavioral and Brain Sciences</em> 7 (4): 563–64. <a href="https://doi.org/10.1017/S0140525X00027308">https://doi.org/10.1017/S0140525X00027308</a>.
+</div>
+<div id="ref-morey2016" class="csl-entry" role="listitem">
+Morey, Richard D., Rink Hoekstra, Jeffrey N. Rouder, Michael D. Lee, and Eric-Jan Wagenmakers. 2016. <span>“The Fallacy of Placing Confidence in Confidence Intervals.”</span> <em>Psychonomic Bulletin &amp; Review</em> 23 (1): 103–23. <a href="https://doi.org/10.3758/s13423-015-0947-8">https://doi.org/10.3758/s13423-015-0947-8</a>.
 </div>
 <div id="ref-orben2020" class="csl-entry" role="listitem">
 Orben, Amy, and Daniël Lakens. 2020. <span>“Crud (Re)Defined.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3 (2): 238–47. <a href="https://doi.org/10.1177/2515245920917961">https://doi.org/10.1177/2515245920917961</a>.
@@ -468,6 +772,12 @@ Sawilowsky, Shlomo. 2009. <span>“New Effect Size Rules of Thumb.”</span> <em
 </div>
 <div id="ref-schäfer2019" class="csl-entry" role="listitem">
 Schäfer, Thomas, and Marcus A. Schwarz. 2019. <span>“The Meaningfulness of Effect Sizes in Psychological Research: Differences Between Sub-Disciplines and the Impact of Potential Biases.”</span> <em>Frontiers in Psychology</em> 10. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2019.00813">https://www.frontiersin.org/articles/10.3389/fpsyg.2019.00813</a>.
+</div>
+<div id="ref-steiger2004" class="csl-entry" role="listitem">
+Steiger, James H. 2004. <span>“Beyond the f Test: Effect Size Confidence Intervals and Tests of Close Fit in the Analysis of Variance and Contrast Analysis.”</span> <em>Psychological Methods</em> 9 (2): 164–82. <a href="https://doi.org/10.1037/1082-989X.9.2.164">https://doi.org/10.1037/1082-989X.9.2.164</a>.
+</div>
+<div id="ref-vos2022" class="csl-entry" role="listitem">
+Vos, Paul, and Don Holbert. 2022. <span>“Frequentist Statistical Inference Without Repeated Sampling.”</span> <em>Synthese</em> 200 (2): 89. <a href="https://doi.org/10.1007/s11229-022-03560-x">https://doi.org/10.1007/s11229-022-03560-x</a>.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
