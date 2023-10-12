@@ -540,11 +540,11 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="single-group-designs">Single Group Designs</h3>
 <p>For a single group design, we have one group and we want to compare the mean of that group to some constant, <span class="math inline">\(C\)</span> (i.e., a target value). The standardized mean difference for a single group can be calculated by,</p>
 <p><span class="math display">\[
-d_1 = \frac{M_1-C}{S_1}
+d_s = \frac{M-C}{S_1}
 \]</span><br>
-A positive <span class="math inline">\(d_1\)</span> value would indicate that the mean of group 1 is larger than the target value, <span class="math inline">\(C\)</span>. This formulation assumes that the sample is drawn from a normal distribution. The standardizer (i.e., the denominator) is the sample standard deviation. The corresponding standard error for <span class="math inline">\(d_1\)</span> is,</p>
+A positive <span class="math inline">\(d_s\)</span> value would indicate that the mean of group 1 is larger than the target value, <span class="math inline">\(C\)</span>. This formulation assumes that the sample is drawn from a normal distribution. The standardizer (i.e., the denominator) is the sample standard deviation. The corresponding standard error for <span class="math inline">\(d_s\)</span> is,</p>
 <p><span class="math display">\[
-SE_{d_1} = \sqrt{\frac{1}{n}+\frac{d_1^2}{2n}}.
+SE_{d_s} = \sqrt{\frac{1}{n}+\frac{d_1^2}{2n}}.
 \]</span></p>
 <p>In R, we can use the <code>d.single.t</code> function from the <code>MOTE</code> package to calculate the single group standardized mean difference.</p>
 <div class="cell">
@@ -576,7 +576,7 @@ SE_{d_1} = \sqrt{\frac{1}{n}+\frac{d_1^2}{2n}}.
 [3,] 0.9044058</code></pre>
 </div>
 </div>
-<p>As you can see, the output shows that the effect size is <span class="math inline">\(d_b\)</span> = 0.68, 95% CI [0.46, 0.90].</p>
+<p>As you can see, the output shows that the effect size is <span class="math inline">\(d_s\)</span> = 0.68, 95% CI [0.46, 0.90].</p>
 </section>
 <section id="two-groups-design" class="level3">
 <h3 class="anchored" data-anchor-id="two-groups-design">Two Groups Design</h3>
@@ -624,7 +624,7 @@ SE_{d_p} = \sqrt{\frac{n_1+n_2}{n_1 n_2}+\frac{d_p^2}{2(n_1+n_2)}}.
 [3,] 0.7118855</code></pre>
 </div>
 </div>
-<p>The output shows that the effect size is <span class="math inline">\(d_b\)</span> = 0.43, 95% CI [0.14, 0.71].</p>
+<p>The output shows that the effect size is <span class="math inline">\(d_p\)</span> = 0.43, 95% CI [0.14, 0.71].</p>
 </section>
 <section id="repeated-measures-designs" class="level3">
 <h3 class="anchored" data-anchor-id="repeated-measures-designs">Repeated Measures Designs</h3>
@@ -682,7 +682,7 @@ SE_{d_z} = \sqrt{\frac{1}{n}+\frac{d_z^2}{2n}}
 [3,] 1.343683</code></pre>
 </div>
 </div>
-<p>The output shows that the effect size is <span class="math inline">\(d_b\)</span> = 1.09, 95% CI [0.84, 1.34].</p>
+<p>The output shows that the effect size is <span class="math inline">\(d_z\)</span> = 1.09, 95% CI [0.84, 1.34].</p>
 </section>
 <section id="cohens-repeated-measures-d-d_rm" class="level4">
 <h4 class="anchored" data-anchor-id="cohens-repeated-measures-d-d_rm">Cohen’s Repeated Measures <span class="math inline">\(d\)</span> (<span class="math inline">\(d_{rm}\)</span>)</h4>
@@ -737,7 +737,7 @@ SE_{d_{rm}} = \sqrt{\left(\frac{1}{n} + \frac{d^2_{rm}}{2n}\right) \times 2(1-r)
 [3,] 0.6328551</code></pre>
 </div>
 </div>
-<p>The output shows that the effect size is <span class="math inline">\(d_b\)</span> = 0.42, 95% CI [0.21, 0.63].</p>
+<p>The output shows that the effect size is <span class="math inline">\(d_{rm}\)</span> = 0.42, 95% CI [0.21, 0.63].</p>
 </section>
 <section id="average-variance-d-d_av" class="level4">
 <h4 class="anchored" data-anchor-id="average-variance-d-d_av">Average Variance <span class="math inline">\(d\)</span> (<span class="math inline">\(d_{av}\)</span>)</h4>

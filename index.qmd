@@ -66,7 +66,7 @@ author-note:
     conflict-of-interest: "The author(s) declared no potential conflicts of interests with respect to the authorship and/or publication of this article."
     financial-support: "The author(s) received no financial support for the research and/or authorship of this article."
     gratitude: "Thank you to Bo Ley Cheng, Katy Tam, and Kristy for their contributions to this project"
-    authorship-agreements: ~
+    authorship-agreements: "M.B.J. and Q.-Y.X. are joint first authors. D.J.D., L.R., M.E., and D.C. are joint third authors"
 abstract: "This effect sizes and confidence intervals collaborative guide aims to provide students and early-career researchers with hands-on, step-by-step instructions for calculating effect sizes and confidence intervals for common statistical tests used in psychology, social sciences and behavioral sciences, particularly when original data are not available and when reported information is incomplete. It also introduces general background information on effect sizes and confidence intervals, as well as useful R packages for their calculation. Many of the methods and procedures described in this Guide are based on R or R-based Shiny Apps developed by the science community. We were motivated to focus on R as we aim to maximize the reproducibility of our research outcomes and encourage the most reproducible study planning and data analysis workflow, though we also document other methods whenever possible for the reference of our readers. We regularly update this open educational resource, as packages are updated frequently and new packages are developed from time to time in this rapidly changing Open Scholarship era."
 keywords: [effect size, confidence interval, collaboration, open science, open educational resource]
 # I like using Zotero with BetterBibTeX to output a continuously updated "Better CSL JSON" file. But BibTeX works, too.
@@ -346,12 +346,12 @@ Lastly, we will supply example R code so you can apply to your own data.
 For a single group design, we have one group and we want to compare the mean of that group to some constant, $C$ (i.e., a target value). The standardized mean difference for a single group can be calculated by,
 
 $$
-d_1 = \frac{M_1-C}{S_1}
+d_s = \frac{M-C}{S_1}
 $$  
-A positive $d_1$ value would indicate that the mean of group 1 is larger than the target value, $C$. This formulation assumes that the sample is drawn from a normal distribution. The standardizer (i.e., the denominator) is the sample standard deviation. The corresponding standard error for $d_1$ is,
+A positive $d_s$ value would indicate that the mean of group 1 is larger than the target value, $C$. This formulation assumes that the sample is drawn from a normal distribution. The standardizer (i.e., the denominator) is the sample standard deviation. The corresponding standard error for $d_s$ is,
 
 $$
-SE_{d_1} = \sqrt{\frac{1}{n}+\frac{d_1^2}{2n}}.
+SE_{d_s} = \sqrt{\frac{1}{n}+\frac{d_1^2}{2n}}.
 $$
 
 In R, we can use the `d.single.t` function from the `MOTE` package to calculate the single group standardized mean difference. 
@@ -380,7 +380,7 @@ rbind(stats$d,
       stats$dhigh)
 
 ```
-As you can see, the output shows that the effect size is $d_b$ = 0.68, 95% CI [0.46, 0.90].
+As you can see, the output shows that the effect size is $d_s$ = 0.68, 95% CI [0.46, 0.90].
 
 ### Two Groups Design
 For a two group design (i.e., between-groups design), we want to compare the means of two groups (group 1 and group 2). The standardized mean difference between two groups can be calculated by,
@@ -430,7 +430,7 @@ rbind(stats$d,
 
 ```
 
-The output shows that the effect size is $d_b$ = 0.43, 95% CI [0.14, 0.71].
+The output shows that the effect size is $d_p$ = 0.43, 95% CI [0.14, 0.71].
 
 
 ### Repeated Measures Designs
@@ -520,7 +520,7 @@ rbind(stats$d,
       stats$dhigh)
 
 ```
-The output shows that the effect size is $d_b$ = 1.09, 95% CI [0.84, 1.34].
+The output shows that the effect size is $d_z$ = 1.09, 95% CI [0.84, 1.34].
 
 
 #### Cohen's Repeated Measures $d$ ($d_{rm}$)
@@ -546,7 +546,7 @@ $$
 Furthermore, we can even express $d_{rm}$ in terms of $d_z$,
 
 $$
-d_{rm} = d_z \times \sqrt{2(1-r)} .
+d_{rm} = d_z \times \sqrt{2(1-r)}.
 $$
 
 Ultimately the $d_{rm}$ is more appropriate as an effect size estimate for use in meta-analysis whereas $d_z$ is more appropriate for power analysis [@lakens2013]. The standard error for $d_{rm}$ can be computed as,
@@ -583,8 +583,7 @@ rbind(stats$d,
 
 ```
 
-The output shows that the effect size is $d_b$ = 0.42, 95% CI [0.21, 0.63].
-
+The output shows that the effect size is $d_{rm}$ = 0.42, 95% CI [0.21, 0.63].
 
 
 #### Average Variance $d$ ($d_{av}$)
