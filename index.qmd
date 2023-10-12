@@ -476,54 +476,103 @@ ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
 
 ```
 
-#### Difference Score (*d*~z~)
+#### Difference Score $d$ ($d_z$)
 Instead of comparing the means of two sets of scores, a within subject design allows us to subtract the scores obtained in condition 1 from the scores in condition 2. These difference scores ($X_{\text{diff}}=X_2-X_1$) can be used similarly to the single group design (if the target value was zero, i.e., $C=0$) such that,
 
 $$
 d_z = \frac{M_{\text{diff}}}{S_{\text{diff}}}
 $$
 
-Where the difference between this formulation and the single group design is the nature of the scores (difference scores rather than raw scores). The convenient thing about $d_z$ is that it has a straight-forward relationship with the $t$-statistic, $d_z=\frac{t}{\sqrt{n}}$. This makes it very useful for power analyses. 
-
-
-#### Cohen's Repeated Measures *d* (*d*~rm~)
-For a within-group design, we want to compare the means of scores obtained from condition 1 and condition 2. The standardized mean difference between the two conditions can be calculated by,
+Where the difference between this formulation and the single group design is the nature of the scores (difference scores rather than raw scores). The convenient thing about $d_z$ is that it has a straight-forward relationship with the $t$-statistic, $d_z=\frac{t}{\sqrt{n}}$. This makes it very useful for power analyses. If the standard deviation of difference scores are not accessible, then it can be calculated using the standard deviation of condition 1 ($S_1$), the standard deviation of condition 2 ($S_2$), and the correlation between conditions ($r$):
 
 $$
-d_{rm} = \frac{M_1-M_2}{S_w}.
-$$  
-
-A positive $d_b$ value would indicate that the mean of group 1 is larger than the mean of group 2. Dividing the mean difference by the pooled standard deviation, $S_P$, is the classic formulation of Cohen's $d$. The pooled standard deviation, $S_p$, can be calculated as the square root of the average variance (weighted by the degrees of freedom, $df=n-1$) of group 1 and group 2:
-
-$$
-S_P = \sqrt{\frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}}
+S_{\text{diff}}=\sqrt{S^2_1 + S^2_2 - 2 r S_1 S_2}
 $$
 
-Note that the term *variance* refers to the square of the standard deviation ($S^2$). The corresponding standard error of $d_b$ is,
+It is important to note that when the correlation between groups is large, then the $d_z$ value will also be larger, whereas a small correlation will return a smaller $d_z$ value. The standard error of $d_z$ can be calculated similarly to the single group design such that,
 
 $$
-SE_{d_b} = \sqrt{\frac{n_1+n_2}{n_1 n_2}+\frac{d_1^2}{2(n_1+n_2)}}.
+SE_{d_z} = \sqrt{\frac{1}{n}+\frac{d_z^2}{2n}}
 $$
 
-In R, we can use the `d.ind.t` function from the `MOTE` package to calculate the two group standardized mean difference. Since we have already loaded in the `MOTE` package, we do not need to again. 
+In R, we can use the `d.ind.t.diff` function from the `MOTE` package to calculate $d_z$.
 
 ```{r,echo=TRUE}
 # Install packages if not already installed:
 # install.packages('MOTE')
+# Cohen's dz for difference scores
+
+# For example:
+# Difference Score Mean = 21.4, SD = 19.59, N = 96
+
+library(MOTE)
+
+stats <- d.dep.t.diff(
+  m = 21.4,
+  sd = 19.59,
+  n = 96,
+  a = 0.05
+)
+
+# print just the d value and confidence intervals
+rbind(stats$d,
+      stats$dlow,
+      stats$dhigh)
+
+```
+The output shows that the effect size is $d_b$ = 1.09, 95% CI [0.84, 1.34].
+
+
+#### Cohen's Repeated Measures $d$ ($d_{rm}$)
+
+For a within-group design, we want to compare the means of scores obtained from condition 1 and condition 2. The repeated measures standardized mean difference between the two conditions can be calculated by,
+
+$$
+d_{rm} = \frac{M_2-M_1}{S_w}.
+$$  
+
+A positive $d_{rm}$ value would indicate that the mean of condition 2 is larger than the mean of condition 1. The standardizer here is the within-subject standard deviation, $S_w$. The within-subject standard deviation can be defined as,
+
+$$
+S_{\text{diff}}=\sqrt{\frac{S^2_1 + S^2_2 - 2 r S_1 S_2}{2(1-r)}}.
+$$
+
+We can also express $S_w$ in terms of $S_{\text{diff}}$,
+
+$$
+S_w = \frac{S_{\text{diff}}}{ \sqrt{2(1-r)} }.
+$$
+
+Furthermore, we can even express $d_{rm}$ in terms of $d_z$,
+
+$$
+d_{rm} = d_z \times \sqrt{2(1-r)} .
+$$
+
+Ultimately the $d_{rm}$ is more appropriate as an effect size estimate for use in meta-analysis whereas $d_z$ is more appropriate for power analysis [@lakens2013]. The standard error for $d_{rm}$ can be computed as,
+
+$$
+SE_{d_{rm}} = \sqrt{\left(\frac{1}{n} + \frac{d^2_{rm}}{2n}\right) \times 2(1-r)}
+$$
+
+In R, we can use the `d.ind.t.rm` function from the `MOTE` package to calculate the repeated measures standardized mean difference ($d_{rm}$).
+
+```{r,echo=TRUE}
 # Cohen's d for two independent groups
 # given means and SDs
 
 # For example:
-# Group 1 Mean = 30.4, SD = 22.53, N = 96
-# Group 2 Mean = 21.4, SD = 19.59, N = 96
+# Condition 1 Mean = 30.4, SD = 22.53, N = 96
+# Condition 2 Mean = 21.4, SD = 19.59, N = 96
+# correlation between conditions: r = .40
 
-stats <- d.ind.t(
+stats <- d.dep.t.rm(
   m1 = 30.4,
   m2 = 21.4,
   sd1 = 22.53,
   sd2 = 19.59,
-  n1 = 96,
-  n2 = 96,
+  r = .40,
+  n = 96,
   a = 0.05
 )
 
@@ -534,15 +583,15 @@ rbind(stats$d,
 
 ```
 
-The output shows that the effect size is $d_b$ = 0.43, 95% CI [0.14, 0.71].
+The output shows that the effect size is $d_b$ = 0.42, 95% CI [0.21, 0.63].
 
 
 
-#### Average Variance (*d*~rm~)
+#### Average Variance $d$ ($d_{av}$)
 
 
 
-#### Becker's *d* (*d*~b~)
+#### Becker's $d$ ($d_b$)
 
 
 
