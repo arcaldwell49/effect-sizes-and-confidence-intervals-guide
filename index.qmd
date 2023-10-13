@@ -294,7 +294,7 @@ The following R packages are handy for effect size and CI calculations, conversi
 
 -   `MAd`: This package is a collection of functions for conducting a meta-analysis with mean differences data. It also provides conversion functions. The CRAN project can be found here: [cran.r-project.org/package=MAd](https://cran.r-project.org/package=MAd).
 
--   `TOSTER`: This package contains many functions for 
+-   `TOSTER`: This package is used for equivalence testing. It contains many functions to test for differences in effect sizes along with other useful functions for effect size comparisons. The CRAN project can be found here: [cran.r-project.org/package=TOSTER](https://cran.r-project.org/package=TOSTER).
 
 -   `DeclareDesign`: This simulation framework can be used to assess whether procedures for calculating confidence intervals are valid and can be used for arbitrary designs. The `diagnose_design()` function calculates coverage for designs with estimation strategies that produce confidence intervals. The CRAN project can be found here: [cran.r-project.org/package=DeclareDesign](https://cran.r-project.org/package=DeclareDesign).
 
