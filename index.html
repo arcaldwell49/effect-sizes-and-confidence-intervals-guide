@@ -126,11 +126,7 @@ div.csl-indent {
   <li><a href="#interpreting-confidence-intervals" id="toc-interpreting-confidence-intervals" class="nav-link" data-scroll-target="#interpreting-confidence-intervals">Interpreting Confidence Intervals</a></li>
   <li><a href="#reporting-confidence-intervals" id="toc-reporting-confidence-intervals" class="nav-link" data-scroll-target="#reporting-confidence-intervals">Reporting Confidence Intervals</a></li>
   <li><a href="#useful-r-packages" id="toc-useful-r-packages" class="nav-link" data-scroll-target="#useful-r-packages">Useful R Packages</a></li>
-  <li><a href="#t-tests" id="toc-t-tests" class="nav-link" data-scroll-target="#t-tests">T-tests</a>
-  <ul class="collapse">
-  <li><a href="#commonly-used-effect-sizes-for-t-tests" id="toc-commonly-used-effect-sizes-for-t-tests" class="nav-link" data-scroll-target="#commonly-used-effect-sizes-for-t-tests">Commonly used effect sizes for t-tests</a></li>
-  </ul></li>
-  <li><a href="#calculating-effect-sizes-for-mean-differences" id="toc-calculating-effect-sizes-for-mean-differences" class="nav-link" data-scroll-target="#calculating-effect-sizes-for-mean-differences">Calculating Effect Sizes for Mean Differences</a>
+  <li><a href="#standardized-effect-sizes-for-mean-differences" id="toc-standardized-effect-sizes-for-mean-differences" class="nav-link" data-scroll-target="#standardized-effect-sizes-for-mean-differences">Standardized Effect Sizes for Mean Differences</a>
   <ul class="collapse">
   <li><a href="#single-group-designs" id="toc-single-group-designs" class="nav-link" data-scroll-target="#single-group-designs">Single Group Designs</a></li>
   <li><a href="#two-groups-design" id="toc-two-groups-design" class="nav-link" data-scroll-target="#two-groups-design">Two Groups Design</a></li>
@@ -498,47 +494,13 @@ div.csl-indent {
 <li><p><code>psychmeta</code>: This package is mainly used for psychometric meta-analyses. It has a function for converting different effect sizes/test statistics (convert_es, p.&nbsp;38 in the reference manual), including <span class="math inline">\(r\)</span>, <span class="math inline">\(d\)</span>, <span class="math inline">\(t\)</span>-statistic (and its p-value), <span class="math inline">\(F\)</span> (and its p-value in two-group one-way ANOVA), chi-squared (one degree of freedom), etc., to <span class="math inline">\(r\)</span>, <span class="math inline">\(d\)</span> and the common language effect sizes (CLES, A, AUC). The CRAN project can be found here <a href="https://cran.r-project.org/package=psychmeta">cran.r-project.org/package=psychmeta</a>.</p></li>
 <li><p><code>effsize</code>: This is a relatively lightweight package that handles d, g, Cliff delta, and Vargha-Delaney A). The CRAN project can be found here: <a href="https://cran.r-project.org/package=effsize">cran.r-project.org/package=effsize</a>.</p></li>
 <li><p><code>MAd</code>: This package is a collection of functions for conducting a meta-analysis with mean differences data. It also provides conversion functions. The CRAN project can be found here: <a href="https://cran.r-project.org/package=MAd">cran.r-project.org/package=MAd</a>.</p></li>
+<li><p><code>TOSTER</code></p></li>
 <li><p><code>DeclareDesign</code>: This simulation framework can be used to assess whether procedures for calculating confidence intervals are valid and can be used for arbitrary designs. The <code>diagnose_design()</code> function calculates coverage for designs with estimation strategies that produce confidence intervals. The CRAN project can be found here: <a href="https://cran.r-project.org/package=DeclareDesign">cran.r-project.org/package=DeclareDesign</a>.</p></li>
 </ul>
 </section>
-<section id="t-tests" class="level2">
-<h2 class="anchored" data-anchor-id="t-tests">T-tests</h2>
-<p>T-tests are the most commonly used statistical tests for examining differences between group means, or examining a group mean against a constant. Calculating effect sizes for t-tests is fairly straightforward. Nonetheless, there are cases where crucial figures for the calculation are missing (which happens quite often in older articles), and therefore we document methods that make use of partial information (e.g., only the M and the SD, or only the t-statistic and df) for the calculation.</p>
-<section id="commonly-used-effect-sizes-for-t-tests" class="level3">
-<h3 class="anchored" data-anchor-id="commonly-used-effect-sizes-for-t-tests">Commonly used effect sizes for t-tests</h3>
-<p>Before we proceed, we need to know the commonly used effect sizes for t-tests, including Cohen’s <span class="math inline">\(d\)</span>, Hedges’ <span class="math inline">\(g\)</span>, and Glass’ <span class="math inline">\(\Delta\)</span>. There are others, such as the root-mean-square standardized effect (<span class="math inline">\(\Psi\)</span>), but they are rarely reported or used for power analysis.</p>
-<table class="table">
-<colgroup>
-<col style="width: 31%">
-<col style="width: 68%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Name</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Cohen’s <span class="math inline">\(d\)</span></td>
-<td style="text-align: left;">Cohen’s d is the most commonly used and reported effect size for comparison between two groups (or one group against a constant in the one-sample t-test). It is the difference between the means of two groups divided by standard deviation assuming both groups have the same population standard deviation (<span class="math inline">\(\sigma\)</span>).</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Hedges’ <span class="math inline">\(g\)</span></td>
-<td style="text-align: left;">Hedges’ <span class="math inline">\(g\)</span> is preferred over Cohen’s <span class="math inline">\(d\)</span> when sample size (<span class="math inline">\(n\)</span>) is small (conventionally, group size &lt; 20). When sample size is not small (group size &gt; 50), the two do not differ much, however Hedges’ <span class="math inline">\(g\)</span> is an unbiased estimate of the population standardized mean difference at every sample size and therefore should be used in all cases. Hedges’ <span class="math inline">\(g\)</span> is simply Cohen’s <span class="math inline">\(d\)</span> with a multiplicative correction factor (i.e., a small sample correction factor) appended to it. Cohen’s d can be converted to Hedges’ g very easily with the hedges_g function in the esc package in R.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Glass’ <span class="math inline">\(\Delta\)</span></td>
-<td style="text-align: left;">Glass’ <span class="math inline">\(\Delta\)</span> differs from Cohen’s <span class="math inline">\(d\)</span> and Hedges’ <span class="math inline">\(g\)</span> in that it uses only the standard deviation of one group under comparison (typically the control group, i.e., the group that is compared with, rather than the treatment group). This effect size measure is used when the two groups’ standard deviations differ substantially (i.e., the homogeneity assumption is not met).</td>
-</tr>
-</tbody>
-</table>
-<p>In fact, the use of the Cohen’s <span class="math inline">\(d\)</span> and Hedges’ <span class="math inline">\(g\)</span> notations are very inconsistent in both statistical methods papers and empirical research papers (see here). Therefore, reproducibility is important - make people see your calculations so that they will know not only what effect sizes you calculated, but also how you did so.</p>
-</section>
-</section>
-<section id="calculating-effect-sizes-for-mean-differences" class="level2">
-<h2 class="anchored" data-anchor-id="calculating-effect-sizes-for-mean-differences">Calculating Effect Sizes for Mean Differences</h2>
-<p>There are multiple types of effect sizes used to calculate standardized mean differences (i.e., Cohen’s <span class="math inline">\(d\)</span>), yet researchers very often do not identify which type of <span class="math inline">\(d\)</span> value they are reporting <span class="citation" data-cites="lakens2013">(see <a href="#ref-lakens2013" role="doc-biblioref">Lakens 2013</a>)</span>. Here we document the equations and code necessary for calculating each type of <span class="math inline">\(d\)</span> value. A <span class="math inline">\(d\)</span> value calculated from a sample will also contain sampling error, therefore we will also show the equations to calculate the standard error. The standard allows us to then calculate the confidence interval. For each formulation in the sections below, the confidence interval will be able to be calculated in the same way, that is,</p>
+<section id="standardized-effect-sizes-for-mean-differences" class="level2">
+<h2 class="anchored" data-anchor-id="standardized-effect-sizes-for-mean-differences">Standardized Effect Sizes for Mean Differences</h2>
+<p>T-tests are the most commonly used statistical tests for examining differences between group means, or examining a group mean against a constant. Calculating effect sizes for t-tests is fairly straightforward. Nonetheless, there are cases where crucial figures for the calculation are missing (which happens quite often in older articles), and therefore we document methods that make use of partial information (e.g., only the M and the SD, or only the t-statistic and df) for the calculation. There are multiple types of effect sizes used to calculate standardized mean differences (i.e., Cohen’s <span class="math inline">\(d\)</span>), yet researchers very often do not identify which type of <span class="math inline">\(d\)</span> value they are reporting <span class="citation" data-cites="lakens2013">(see <a href="#ref-lakens2013" role="doc-biblioref">Lakens 2013</a>)</span>. Here we document the equations and code necessary for calculating each type of <span class="math inline">\(d\)</span> value compiled across multiple sources <span class="citation" data-cites="becker1988 cohen1988 lakens2013 caldwell glass1981a">(<a href="#ref-becker1988" role="doc-biblioref">Becker 1988</a>; <a href="#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>; <a href="#ref-lakens2013" role="doc-biblioref">Lakens 2013</a>; <a href="#ref-caldwell" role="doc-biblioref">Caldwell, n.d.</a>; <a href="#ref-glass1981a" role="doc-biblioref">Glass, McGaw, and Smith 1981</a>)</span>. A <span class="math inline">\(d\)</span> value calculated from a sample will also contain sampling error, therefore we will also show the equations to calculate the standard error. The standard allows us to then calculate the confidence interval. For each formulation in the sections below, the confidence interval will be able to be calculated in the same way, that is,</p>
 <p><span class="math display">\[
 \text{Lower Bound} = d - 1.96\times SE
 \]</span></p>
@@ -952,6 +914,9 @@ Becker, Betsy J. 1988. <span>“Synthesizing Standardized Mean-Change Measures -
 </div>
 <div id="ref-bosco2015" class="csl-entry" role="listitem">
 Bosco, Frank A., Herman Aguinis, Kulraj Singh, James G. Field, and Charles A. Pierce. 2015. <span>“Correlational Effect Size Benchmarks.”</span> <em>Journal of Applied Psychology</em> 100 (2): 431–49. <a href="https://doi.org/10.1037/a0038047">https://doi.org/10.1037/a0038047</a>.
+</div>
+<div id="ref-caldwell" class="csl-entry" role="listitem">
+Caldwell, Aaron R. n.d. <span>“Exploring Equivalence Testing with the Updated TOSTER r Package.”</span> <a href="https://doi.org/10.31234/osf.io/ty8de">https://doi.org/10.31234/osf.io/ty8de</a>.
 </div>
 <div id="ref-coe2012" class="csl-entry" role="listitem">
 Coe, R. 2012. <span>“It’s the Effect Size, Stupid What Effect Size Is and Why It Is Important.”</span> In. <a href="https://www.semanticscholar.org/paper/It%27s-the-Effect-Size%2C-Stupid-What-effect-size-is-it-Coe/c5ac87df5d6e0e6b6de2f745284835c2a368b0f7">https://www.semanticscholar.org/paper/It%27s-the-Effect-Size%2C-Stupid-What-effect-size-is-it-Coe/c5ac87df5d6e0e6b6de2f745284835c2a368b0f7</a>.
