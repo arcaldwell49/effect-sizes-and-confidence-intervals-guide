@@ -130,11 +130,12 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#commonly-used-effect-sizes-for-t-tests" id="toc-commonly-used-effect-sizes-for-t-tests" class="nav-link" data-scroll-target="#commonly-used-effect-sizes-for-t-tests">Commonly used effect sizes for t-tests</a></li>
   </ul></li>
-  <li><a href="#calculating-different-d-values" id="toc-calculating-different-d-values" class="nav-link" data-scroll-target="#calculating-different-d-values">Calculating Different <em>d</em> Values</a>
+  <li><a href="#calculating-effect-sizes-for-mean-differences" id="toc-calculating-effect-sizes-for-mean-differences" class="nav-link" data-scroll-target="#calculating-effect-sizes-for-mean-differences">Calculating Effect Sizes for Mean Differences</a>
   <ul class="collapse">
   <li><a href="#single-group-designs" id="toc-single-group-designs" class="nav-link" data-scroll-target="#single-group-designs">Single Group Designs</a></li>
   <li><a href="#two-groups-design" id="toc-two-groups-design" class="nav-link" data-scroll-target="#two-groups-design">Two Groups Design</a></li>
   <li><a href="#repeated-measures-designs" id="toc-repeated-measures-designs" class="nav-link" data-scroll-target="#repeated-measures-designs">Repeated Measures Designs</a></li>
+  <li><a href="#small-sample-bias-in-d-values" id="toc-small-sample-bias-in-d-values" class="nav-link" data-scroll-target="#small-sample-bias-in-d-values">Small Sample Bias in <span class="math inline">\(d\)</span> values</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.docx"><i class="bi bi-file-word"></i>MS Word (apaquarto)</a></li></ul></div></nav>
@@ -535,9 +536,9 @@ div.csl-indent {
 <p>In fact, the use of the Cohen’s <span class="math inline">\(d\)</span> and Hedges’ <span class="math inline">\(g\)</span> notations are very inconsistent in both statistical methods papers and empirical research papers (see here). Therefore, reproducibility is important - make people see your calculations so that they will know not only what effect sizes you calculated, but also how you did so.</p>
 </section>
 </section>
-<section id="calculating-different-d-values" class="level2">
-<h2 class="anchored" data-anchor-id="calculating-different-d-values">Calculating Different <em>d</em> Values</h2>
-<p>There are multiple types of Cohen’s <span class="math inline">\(d\)</span>s, yet researchers very often do not identify which <span class="math inline">\(d\)</span> they are reporting <span class="citation" data-cites="lakens2013">(see <a href="#ref-lakens2013" role="doc-biblioref">Lakens 2013</a>)</span>. Here we catalog the equations for each type of <span class="math inline">\(d\)</span> value. A <span class="math inline">\(d\)</span> value calculated from a sample will also contain sampling error, therefore we will also show the equations to calculate the standard error. The standard allows us to then calculate the confidence interval. For each formulation in the sections below, the confidence interval will be able to be calculated in the same way, that is,</p>
+<section id="calculating-effect-sizes-for-mean-differences" class="level2">
+<h2 class="anchored" data-anchor-id="calculating-effect-sizes-for-mean-differences">Calculating Effect Sizes for Mean Differences</h2>
+<p>There are multiple types of effect sizes used to calculate standardized mean differences (i.e., Cohen’s <span class="math inline">\(d\)</span>), yet researchers very often do not identify which type of <span class="math inline">\(d\)</span> value they are reporting <span class="citation" data-cites="lakens2013">(see <a href="#ref-lakens2013" role="doc-biblioref">Lakens 2013</a>)</span>. Here we document the equations and code necessary for calculating each type of <span class="math inline">\(d\)</span> value. A <span class="math inline">\(d\)</span> value calculated from a sample will also contain sampling error, therefore we will also show the equations to calculate the standard error. The standard allows us to then calculate the confidence interval. For each formulation in the sections below, the confidence interval will be able to be calculated in the same way, that is,</p>
 <p><span class="math display">\[
 \text{Lower Bound} = d - 1.96\times SE
 \]</span></p>
@@ -583,12 +584,12 @@ SE_{d_s} = \sqrt{\frac{1}{n}+\frac{d_1^2}{2n}}.
 1 0.684 0.460 0.904</code></pre>
 </div>
 </div>
-<p>As you can see, the output shows that the effect size is <span class="math inline">\(d_s\)</span> = 0.68, 95% CI [0.46, 0.90].</p>
+<p>As you can see, the output shows that the effect size is <span class="math inline">\(d_s\)</span> = 0.68, 95% CI [0.46, 0.90]. Note the <code>apa</code> function in <code>MOTE</code> takes a value and returns an APA formatted effect size value (i.e., leading zero and three decimal places).</p>
 </section>
 <section id="two-groups-design" class="level3">
 <h3 class="anchored" data-anchor-id="two-groups-design">Two Groups Design</h3>
-<section id="pooled-standard-deviation-d_p" class="level4">
-<h4 class="anchored" data-anchor-id="pooled-standard-deviation-d_p">Pooled Standard Deviation (<span class="math inline">\(d_p\)</span>)</h4>
+<section id="standardize-by-pooled-standard-deviation-d_p" class="level4">
+<h4 class="anchored" data-anchor-id="standardize-by-pooled-standard-deviation-d_p">Standardize by Pooled Standard Deviation (<span class="math inline">\(d_p\)</span>)</h4>
 <p>For a two group design (i.e., between-groups design), we want to compare the means of two groups (group 1 and group 2). The standardized mean difference between two groups can be calculated by,</p>
 <p><span class="math display">\[
 d_p = \frac{M_1-M_2}{S_p}.
@@ -631,9 +632,45 @@ SE_{d_p} = \sqrt{\frac{n_1+n_2}{n_1 n_2}+\frac{d_p^2}{2(n_1+n_2)}}.
 </div>
 <p>The output shows that the effect size is <span class="math inline">\(d_p\)</span> = 0.43, 95% CI [0.14, 0.71].</p>
 </section>
-<section id="standard-deviation-of-reference-d_delta" class="level4">
-<h4 class="anchored" data-anchor-id="standard-deviation-of-reference-d_delta">Standard Deviation of Reference (<span class="math inline">\(d_{\Delta}\)</span>)</h4>
-<p>Glass <span class="citation" data-cites="glsdd">(<a href="#ref-glsdd" role="doc-biblioref"><strong>glsdd?</strong></a>)</span></p>
+<section id="standardize-by-control-group-standard-deviation-d_delta" class="level4">
+<h4 class="anchored" data-anchor-id="standardize-by-control-group-standard-deviation-d_delta">Standardize by Control Group Standard Deviation (<span class="math inline">\(d_{\Delta}\)</span>)</h4>
+<p>When two groups differ substantially in their standard deviations, we can instead standardize by the control group standard deviation (<span class="math inline">\(S_C\)</span>), such that,</p>
+<p><span class="math display">\[
+d_{\Delta} = \frac{M_T-M_C}{S_C}.
+\]</span></p>
+<p>Where the subscripts, <span class="math inline">\(T\)</span> and <span class="math inline">\(C\)</span>, denotes the treatment group and control group, respectively. This formulation is commonly referred to as Glass’ <span class="math inline">\(\Delta\)</span> <span class="citation" data-cites="glass1981">(<a href="#ref-glass1981" role="doc-biblioref">Glass 1981</a>)</span>. The standard error for <span class="math inline">\(d_{\Delta}\)</span> can be defined as,</p>
+<p><span class="math display">\[
+SE_{d_{\Delta}} = \sqrt{\frac{n_T+n_C}{n_T n_C} + \frac{d_\Delta^2}{n_C+1} }
+\]</span></p>
+<p>Notice that when we only standardize by the standard deviation of the control group (rather than pooling), we he will have less degrees of freedom (<span class="math inline">\(df=n_C-1\)</span>) and therefore more sampling error than we do when we divide by the pooled standard deviation (<span class="math inline">\(df= n_T + n_C - 2\)</span>).In R, we can use the <code>delta.ind.t.diff</code> function from the <code>MOTE</code> package to calculate <span class="math inline">\(d_\Delta\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's dz for difference scores</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># given difference score means and SDs</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Control group Mean = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Treatment group Mean = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation between conditions: r = .40</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">delta.ind.t</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">n1 =</span> <span class="dv">96</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n2 =</span> <span class="dv">96</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.399 0.140 0.712</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="repeated-measures-designs" class="level3">
@@ -665,25 +702,25 @@ SE_{d_z} = \sqrt{\frac{1}{n}+\frac{d_z^2}{2n}}
 \]</span></p>
 <p>In R, we can use the <code>d.ind.t.diff</code> function from the <code>MOTE</code> package to calculate <span class="math inline">\(d_z\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's dz for difference scores</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># given difference score means and SDs</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Difference Score Mean = 21.4, SD = 19.59, N = 96</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOTE)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.dep.t.diff</span>(</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> <span class="fl">21.4</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fl">19.59</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span>,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's dz for difference scores</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># given difference score means and SDs</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Difference Score Mean = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOTE)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.dep.t.diff</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> <span class="fl">21.4</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fl">19.59</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      d  dlow dhigh
 1 1.092 0.837 1.344</code></pre>
@@ -715,28 +752,28 @@ SE_{d_{rm}} = \sqrt{\left(\frac{1}{n} + \frac{d^2_{rm}}{2n}\right) \times 2(1-r)
 \]</span></p>
 <p>In R, we can use the <code>d.ind.t.rm</code> function from the <code>MOTE</code> package to calculate the repeated measures standardized mean difference (<span class="math inline">\(d_{rm}\)</span>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d for repeated measures</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># given means and SDs and correlation</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Condition 1 Mean = 30.4, SD = 22.53, N = 96</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Condition 2 Mean = 21.4, SD = 19.59, N = 96</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation between conditions: r = .40</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.dep.t.rm</span>(</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">r =</span> .<span class="dv">40</span>,</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span>,</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d for repeated measures</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># given means and SDs and correlation</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Condition 1 Mean = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Condition 2 Mean = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation between conditions: r = .40</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.dep.t.rm</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">r =</span> .<span class="dv">40</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      d  dlow dhigh
 1 0.425 0.215 0.633</code></pre>
@@ -756,26 +793,26 @@ SE_{d_{av}}= \sqrt{\frac{2}{n} + \frac{d^2_{av}}{4n}}
 \]</span></p>
 <p>In R, we can use the <code>d.ind.t.rm</code> function from the <code>MOTE</code> package to calculate the repeated measures standardized mean difference (<span class="math inline">\(d_{rm}\)</span>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d for repeated measures (average variance)</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># given means and SDs </span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Condition 1 Mean = 30.4, SD = 22.53, N = 96</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Condition 2 Mean = 21.4, SD = 19.59, N = 96</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.dep.t.avg</span>(</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span>,</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d for repeated measures (average variance)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># given means and SDs </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Condition 1 Mean = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Condition 2 Mean = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.dep.t.avg</span>(</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      d  dlow dhigh
 1 0.427 0.217 0.635</code></pre>
@@ -795,44 +832,44 @@ SE_{d_b} = \sqrt{\frac{2(1-r)}{n}+\frac{d_b^2}{2n}}
 \]</span> Notice that even though the formula for calculating <span class="math inline">\(d_b\)</span> did not include the correlation coefficient, the standard error does.</p>
 <p>In base R, we can calculate Becker’s formulation of standardized mean difference using the equations above.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the package below if not done so already</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(escalc)</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d for repeated measures (becker's d)</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># given means, the pre-test SDs, and the correlation</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Pre-test Mean = 21.4, SD = 19.59, N = 96</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Post-test Mean = 30.4, N = 96</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between conditions: r = .40</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>Mpre <span class="ot">&lt;-</span> <span class="fl">21.4</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>Mpost <span class="ot">&lt;-</span> <span class="fl">30.4</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>Spre <span class="ot">&lt;-</span> <span class="fl">19.59</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> .<span class="dv">40</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">96</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> (Mpost <span class="sc">-</span> Mpre) <span class="sc">/</span> Spre</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>( <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>r)<span class="sc">/</span>n <span class="sc">+</span> d<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>n) )</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">d =</span> d,</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dlow =</span> d <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE,</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dhigh =</span> d <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE)</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(d), </span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(d <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE), </span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(d <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the package below if not done so already</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(escalc)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d for repeated measures (becker's d)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># given means, the pre-test SDs, and the correlation</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For example:</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Pre-test Mean = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Post-test Mean = 30.4, N = 96</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between conditions: r = .40</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>Mpre <span class="ot">&lt;-</span> <span class="fl">21.4</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>Mpost <span class="ot">&lt;-</span> <span class="fl">30.4</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>Spre <span class="ot">&lt;-</span> <span class="fl">19.59</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> .<span class="dv">40</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">96</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> (Mpost <span class="sc">-</span> Mpre) <span class="sc">/</span> Spre</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>( <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>r)<span class="sc">/</span>n <span class="sc">+</span> d<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>n) )</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">d =</span> d,</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dlow =</span> d <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dhigh =</span> d <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co"># print just the d value and confidence intervals</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(d), </span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(d <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE), </span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(d <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      d  dlow dhigh
 1 0.459 0.231 0.688</code></pre>
 </div>
 </div>
+<p>The output shows that the effect size is <span class="math inline">\(d_{rm}\)</span> = 0.46, 95% CI [0.23, 0.69].</p>
 </section>
 <section id="comparing-repeated-measures-d-values" class="level4">
 <h4 class="anchored" data-anchor-id="comparing-repeated-measures-d-values">Comparing Repeated Measures <span class="math inline">\(d\)</span> values</h4>
-<p>The output shows that the effect size is <span class="math inline">\(d_{rm}\)</span> = 0.42, 95% CI [0.21, 0.63].</p>
 <p><a href="#fig-correlation-comp">Figure&nbsp;2</a> shows repeated measures designs with a high (<span class="math inline">\(r=\)</span> .95) and low (<span class="math inline">\(r=\)</span> .05) correlation between conditions. Let us fix the standard deviations and means for both conditions (i.e., high and low correlation) and only vary the correlation. Now we can compare the repeated measures estimators based on these two conditions shown in <a href="#fig-correlation-comp">Figure&nbsp;2</a>:</p>
 <ul>
 <li>High correlation:
@@ -861,8 +898,47 @@ SE_{d_b} = \sqrt{\frac{2(1-r)}{n}+\frac{d_b^2}{2n}}
 </div>
 </div>
 </div>
-
 </section>
+</section>
+<section id="small-sample-bias-in-d-values" class="level3">
+<h3 class="anchored" data-anchor-id="small-sample-bias-in-d-values">Small Sample Bias in <span class="math inline">\(d\)</span> values</h3>
+<p>All the estimators of <span class="math inline">\(d\)</span> listed above are biased estimates of the population <span class="math inline">\(d\)</span> value. This bias increases when the sample size is small, therefore we can apply a correction factor based on the degrees of freedom. The degrees of freedom will largely depend on the estimator used. The degrees of freedom for each estimator is listed below:</p>
+<ul>
+<li>Single Group design (<span class="math inline">\(d_s\)</span>): <span class="math inline">\(df = n-1\)</span></li>
+<li>Between Groups - Pooled Standard Deviation (<span class="math inline">\(d_p\)</span>): <span class="math inline">\(df = n_1+n_2-2\)</span></li>
+<li>Between Groups - Control Group Standard Deviation (<span class="math inline">\(d_\Delta\)</span>): <span class="math inline">\(df = n_C-1\)</span></li>
+<li>Repeated Measures - all types (<span class="math inline">\(d_z\)</span>, <span class="math inline">\(d_{rm}\)</span>, <span class="math inline">\(d_{av}\)</span>, <span class="math inline">\(d_{b}\)</span>): <span class="math inline">\(df = n-1\)</span></li>
+</ul>
+<p>With the appropriate degrees of freedom, we can use the following correction factor, <span class="math inline">\(CF\)</span>, to obtain an unbiased estimate of the population standardized mean difference:</p>
+<p><span class="math display">\[
+CF = \frac{\Gamma\left(\frac{df}{2}\right)}{\Gamma\left(\frac{df-1}{2}\right)\sqrt{\frac{df}{2}}}
+\]</span> Where <span class="math inline">\(\Gamma(\cdot)\)</span> is the gamma function. An approximation of this complex formula given by <span class="citation" data-cites="hedges1981">(<a href="#ref-hedges1981" role="doc-biblioref"><strong>hedges1981?</strong></a>)</span> can be written as <span class="math inline">\(CF\approx 1-\frac{}{}\)</span>. In R, this can be calculated using,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#example:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 1 sample size = 20</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 2 sample size = 18</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">18</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>CF <span class="ot">&lt;-</span> <span class="fu">exp</span> ( <span class="fu">lgamma</span>(df<span class="sc">/</span><span class="dv">2</span>) <span class="sc">-</span> <span class="fu">log</span>(<span class="fu">sqrt</span>(df<span class="sc">/</span><span class="dv">2</span>)) <span class="sc">-</span> <span class="fu">lgamma</span>((df<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">2</span>) )</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>CF</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9789964</code></pre>
+</div>
+</div>
+<p>This correction factor can then be applied to any of the estimators mentioned above,</p>
+<p><span class="math display">\[
+d^* = d\times CF
+\]</span> The corrected <span class="math inline">\(d\)</span> value, <span class="math inline">\(d^*\)</span>, is commonly referred to as Hedges’ <span class="math inline">\(g\)</span> or just <span class="math inline">\(g\)</span>. To avoid notation confusion we will just add an asterisk to <span class="math inline">\(d\)</span> to denote the correction. We also need to correct the standard error for <span class="math inline">\(d^*\)</span></p>
+<p><span class="math display">\[
+SE_{d^*} = SE_{d} \times CF
+\]</span></p>
+<p>These standard errors can then be used to calculate the confidence interval of the corrected <span class="math inline">\(d\)</span> value as well.</p>
+
 </section>
 </section>
 
@@ -891,6 +967,9 @@ Funder, David C., and Daniel J. Ozer. 2019. <span>“Evaluating Effect Size in P
 </div>
 <div id="ref-gignac2016" class="csl-entry" role="listitem">
 Gignac, Gilles E., and Eva T. Szodorai. 2016. <span>“Effect Size Guidelines for Individual Differences Researchers.”</span> <em>Personality and Individual Differences</em> 102 (November): 74–78. <a href="https://doi.org/10.1016/j.paid.2016.06.069">https://doi.org/10.1016/j.paid.2016.06.069</a>.
+</div>
+<div id="ref-glass1981" class="csl-entry" role="listitem">
+Glass, Gene V. 1981. <span>“Meta-Analysis in Social Research.”</span> <em>(No Title)</em>. <a href="https://cir.nii.ac.jp/crid/1130000795088566912">https://cir.nii.ac.jp/crid/1130000795088566912</a>.
 </div>
 <div id="ref-glass1981a" class="csl-entry" role="listitem">
 Glass, Gene V., Barry McGaw, and Mary L. Smith. 1981. <span>“Meta-Analysis in Social Research.”</span> <em>(No Title)</em>. <a href="https://cir.nii.ac.jp/crid/1130000795088566912">https://cir.nii.ac.jp/crid/1130000795088566912</a>.

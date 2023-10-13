@@ -304,7 +304,7 @@ T-tests are the most commonly used statistical tests for examining differences b
 
 Before we proceed, we need to know the commonly used effect sizes for t-tests, including Cohen's $d$, Hedges' $g$, and Glass' $\Delta$. There are others, such as the root-mean-square standardized effect ($\Psi$), but they are rarely reported or used for power analysis.
 
-|      Name       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+|      Name       | Description             |
 |:---------------------:|:------------------------------------------------|
 |   Cohen's $d$   | Cohen's d is the most commonly used and reported effect size for comparison between two groups (or one group against a constant in the one-sample t-test). It is the difference between the means of two groups divided by standard deviation assuming both groups have the same population standard deviation ($\sigma$).                                                                                                                                                                                                                                                                        |
 |   Hedges' $g$   | Hedges' $g$ is preferred over Cohen's $d$ when sample size ($n$) is small (conventionally, group size \< 20). When sample size is not small (group size \> 50), the two do not differ much, however Hedges' $g$ is an unbiased estimate of the population standardized mean difference at every sample size and therefore should be used in all cases. Hedges' $g$ is simply Cohen's $d$ with a multiplicative correction factor (i.e., a small sample correction factor) appended to it. Cohen's d can be converted to Hedges' g very easily with the hedges_g function in the esc package in R. |
@@ -312,9 +312,9 @@ Before we proceed, we need to know the commonly used effect sizes for t-tests, i
 
 In fact, the use of the Cohen's $d$ and Hedges' $g$ notations are very inconsistent in both statistical methods papers and empirical research papers (see here). Therefore, reproducibility is important - make people see your calculations so that they will know not only what effect sizes you calculated, but also how you did so.
 
-## Calculating Different *d* Values
+## Calculating Effect Sizes for Mean Differences
 
-There are multiple types of Cohen's $d$s, yet researchers very often do not identify which $d$ they are reporting [see @lakens2013]. Here we catalog the equations for each type of $d$ value. A $d$ value calculated from a sample will also contain sampling error, therefore we will also show the equations to calculate the standard error. The standard allows us to then calculate the confidence interval. For each formulation in the sections below, the confidence interval will be able to be calculated in the same way, that is,
+There are multiple types of effect sizes used to calculate standardized mean differences (i.e., Cohen's $d$), yet researchers very often do not identify which type of $d$ value they are reporting [see @lakens2013]. Here we document the equations and code necessary for calculating each type of $d$ value. A $d$ value calculated from a sample will also contain sampling error, therefore we will also show the equations to calculate the standard error. The standard allows us to then calculate the confidence interval. For each formulation in the sections below, the confidence interval will be able to be calculated in the same way, that is,
 
 $$
 \text{Lower Bound} = d - 1.96\times SE
@@ -421,19 +421,19 @@ The output shows that the effect size is $d_p$ = 0.43, 95% CI \[0.14, 0.71\].
 
 #### Standardize by Control Group Standard Deviation ($d_{\Delta}$)
 
-When two groups differ substantially in their standard deviations, we can instead standardize by the reference (i.e., control) group standard deviation, such that,
+When two groups differ substantially in their standard deviations, we can instead standardize by the control group standard deviation ($S_C$), such that,
 
 $$
-d_{\Delta} = \frac{M_{\text{treatment}}-M_{\text{control}}}{S_{\text{control}}}.
+d_{\Delta} = \frac{M_T-M_C}{S_C}.
 $$
 
-This formulation is commonly referred to as Glass' $\Delta$ [@glass1981]. The standard error for $d_{\Delta}$ can be defined as,
+Where the subscripts, $T$ and $C$, denotes the treatment group and control group, respectively. This formulation is commonly referred to as Glass' $\Delta$ [@glass1981]. The standard error for $d_{\Delta}$ can be defined as,
 
 $$
-SE_{d_{\Delta}} = \sqrt{\frac{n_1+n_2}{2n_1n_2}+\frac{d^2_{\Delta}}{2(n-1)}}
+SE_{d_{\Delta}} = \sqrt{\frac{n_T+n_C}{n_T n_C} + \frac{d_\Delta^2}{n_C+1} }
 $$
 
-In R, we can use the `d.ind.t.diff` function from the `MOTE` package to calculate $d_z$.
+Notice that when we only standardize by the standard deviation of the control group (rather than pooling), we he will have less degrees of freedom ($df=n_C-1$) and therefore more sampling error than we do when we divide by the pooled standard deviation ($df= n_T + n_C - 2$).In R, we can use the `delta.ind.t.diff` function from the `MOTE` package to calculate $d_\Delta$.
 
 ```{r,echo=TRUE}
 # Cohen's dz for difference scores
@@ -441,7 +441,7 @@ In R, we can use the `d.ind.t.diff` function from the `MOTE` package to calculat
 
 # For example:
 # Control group Mean = 30.4, SD = 22.53, N = 96
-# Treatment Mean = 21.4, SD = 19.59, N = 96
+# Treatment group Mean = 21.4, SD = 19.59, N = 96
 # correlation between conditions: r = .40
 
 stats <- delta.ind.t(
@@ -805,3 +805,52 @@ h2 <- ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
 h1 + h2
 
 ```
+
+
+### Small Sample Bias in $d$ values
+
+All the estimators of $d$ listed above are biased estimates of the population $d$ value. This bias increases when the sample size is small, therefore we can apply a correction factor based on the degrees of freedom. The degrees of freedom will largely depend on the estimator used. The degrees of freedom for each estimator is listed below:
+
+- Single Group design ($d_s$): $df = n-1$
+- Between Groups - Pooled Standard Deviation ($d_p$): $df = n_1+n_2-2$
+- Between Groups - Control Group Standard Deviation ($d_\Delta$): $df = n_C-1$
+- Repeated Measures - all types ($d_z$, $d_{rm}$, $d_{av}$, $d_{b}$): $df = n-1$
+
+With the appropriate degrees of freedom, we can use the following correction factor, $CF$, to obtain an unbiased estimate of the population standardized mean difference:
+
+$$
+CF = \frac{\Gamma\left(\frac{df}{2}\right)}{\Gamma\left(\frac{df-1}{2}\right)\sqrt{\frac{df}{2}}}
+$$
+Where $\Gamma(\cdot)$ is the gamma function. An approximation of this complex formula given by @hedges1981 can be written as $CF\approx 1-\frac{}{}$. In R, this can be calculated using,
+
+```{r}
+#example:
+# Group 1 sample size = 20
+# Group 2 sample size = 18
+
+n1 <- 20
+n2 <- 18
+
+df <- n1 + n2 - 2
+
+CF <- exp ( lgamma(df/2) - log(sqrt(df/2)) - lgamma((df-1)/2) )
+
+CF
+```
+
+
+This correction factor can then be applied to any of the estimators mentioned above,
+
+$$
+d^* = d\times CF
+$$
+The corrected $d$ value, $d^*$, is commonly referred to as Hedges' $g$ or just $g$. To avoid notation confusion we will just add an asterisk to $d$ to denote the correction. We also need to correct the standard error for $d^*$
+
+$$
+SE_{d^*} = SE_{d} \times CF
+$$
+
+These standard errors can then be used to calculate the confidence interval of the corrected $d$ value as well.
+
+
+
