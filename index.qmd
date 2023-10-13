@@ -23,7 +23,7 @@ author:
     orcid: 0000-0002-5835-0981
     affiliations:
       - id: id3
-        name: University of Hong Kong
+        name: Chinese University of Hong Kong
         department: Department of Psychology
   - name: Daniel J. Dunleavy
     email: djd09e@my.fsu.edu
@@ -276,27 +276,27 @@ For further reading related to the calculaton and reporting of effect sizes and 
 
 The following R packages are handy for effect size and CI calculations, conversions among different effect sizes, and conversion of test statistics to effect sizes. If you use one of the packages below, please make sure you cite them to give the authors their due credit! To obtain citations for packages, you can use the `citation()` function and input the name of the package as a string.
 
--   `MOTE`: This is a highly recommended package for calculating effect sizes, which is capable of handling a wide variety of effect sizes in the difference family (the d family) and variance-overlap family (r, eta, omega, epsilon). The functions also provide non-central confidence intervals for each effect size and output in APA style in LaTeX. `MOTE` has an online shiny application ([doomlab.shinyapps.io/mote/](https://doomlab.shinyapps.io/mote/)). The CRAN project can be found here: [cran.r-project.org/package=MOTE](https://cran.r-project.org/package=MOTE).
+-   `MOTE` [@MOTE]: This is a highly recommended package for calculating effect sizes, which is capable of handling a wide variety of effect sizes in the difference family (the d family) and variance-overlap family (r, eta, omega, epsilon). The functions also provide non-central confidence intervals for each effect size and output in APA style in LaTeX. `MOTE` has an online shiny application ([doomlab.shinyapps.io/mote/](https://doomlab.shinyapps.io/mote/)). The CRAN project can be found here: [cran.r-project.org/package=MOTE](https://cran.r-project.org/package=MOTE).
 
--   `effectsize`: This package is particularly useful in data analysis. A major advantage of this package is that it takes in many different model objects and directly outputs effect sizes and CIs. It also does some conversion. The CRAN project can be found here: [cran.r-project.org/package=effectsize](https://cran.r-project.org/package=effectsize).
+-   `effectsize` [@effectsize]: This package is particularly useful in data analysis. A major advantage of this package is that it takes in many different model objects and directly outputs effect sizes and CIs. It also does some conversion. The CRAN project can be found here: [cran.r-project.org/package=effectsize](https://cran.r-project.org/package=effectsize).
 
--   `MBESS`: One of the most comprehensive and useful packages for effect size and confidence interval calculations. It provides functions that can calculate ESs and CIs from test statistics and the p-value. The CRAN project can be found here: [cran.r-project.org/package=MBESS](https://cran.r-project.org/package=MBESS).
+-   `MBESS` [@MBESS]: One of the most comprehensive and useful packages for effect size and confidence interval calculations. It provides functions that can calculate ESs and CIs from test statistics and the p-value. The CRAN project can be found here: [cran.r-project.org/package=MBESS](https://cran.r-project.org/package=MBESS).
 
--   `metafor`: Probably the most comprehensive meta-analysis package currently available. Includes the function, `escalc()`, that calculates various types of effect sizes from test-statistics, summary statistics, and more. The CRAN project can be found here: [cran.r-project.org/package=metafor](https://cran.r-project.org/package=metafor).
+-   `metafor` [@metafor]: Probably the most comprehensive meta-analysis package currently available. Includes the function, `escalc()`, that calculates various types of effect sizes from test-statistics, summary statistics, and more. The CRAN project can be found here: [cran.r-project.org/package=metafor](https://cran.r-project.org/package=metafor).
 
--   `psych`: One of the most comprehensive and general packages for common statistical procedures in psychology research. It also includes some effect size and CI calculation functions (e.g., `cohen.d()`). The CRAN project can be found here: [cran.r-project.org/package=psych](https://cran.r-project.org/package=psych).
+-   `psych` [@psych]: One of the most comprehensive and general packages for common statistical procedures in psychology research. It also includes some effect size and CI calculation functions (e.g., `cohen.d()`). The CRAN project can be found here: [cran.r-project.org/package=psych](https://cran.r-project.org/package=psych).
 
--   `esc` (recommended for `d`, phi, and conversion among effect sizes): This package can help convert among different effect sizes (pp. 4-12 in the reference manual). It's also helpful when only incomplete information (e.g., only descriptives, or only p-values) have been provided in the paper, and we want to calculate effect sizes from them. Another package that provides similar conversion functions is the `compute.es` package. The CRAN project can be found here: [cran.r-project.org/package=esc](https://cran.r-project.org/package=esc).
+-   `esc` [recommended for `d`, phi, and conversion among effect sizes, @esc]: This package can help convert among different effect sizes (pp. 4-12 in the reference manual). It's also helpful when only incomplete information (e.g., only descriptives, or only p-values) have been provided in the paper, and we want to calculate effect sizes from them. Another package that provides similar conversion functions is the `compute.es` package. The CRAN project can be found here: [cran.r-project.org/package=esc](https://cran.r-project.org/package=esc).
 
--   `psychmeta`: This package is mainly used for psychometric meta-analyses. It has a function for converting different effect sizes/test statistics (convert_es, p. 38 in the reference manual), including $r$, $d$, $t$-statistic (and its p-value), $F$ (and its p-value in two-group one-way ANOVA), chi-squared (one degree of freedom), etc., to $r$, $d$ and the common language effect sizes (CLES, A, AUC). The CRAN project can be found here [cran.r-project.org/package=psychmeta](https://cran.r-project.org/package=psychmeta).
+-   `psychmeta` [@psychmeta]: This package is mainly used for psychometric meta-analyses. It has a function for converting different effect sizes/test statistics (convert_es, p. 38 in the reference manual), including $r$, $d$, $t$-statistic (and its p-value), $F$ (and its p-value in two-group one-way ANOVA), chi-squared (one degree of freedom), etc., to $r$, $d$ and the common language effect sizes (CLES, A, AUC). The CRAN project can be found here [cran.r-project.org/package=psychmeta](https://cran.r-project.org/package=psychmeta).
 
--   `effsize`: This is a relatively lightweight package that handles d, g, Cliff delta, and Vargha-Delaney A). The CRAN project can be found here: [cran.r-project.org/package=effsize](https://cran.r-project.org/package=effsize).
+-   `effsize` [@effsize]: This is a relatively lightweight package that handles d, g, Cliff delta, and Vargha-Delaney A). The CRAN project can be found here: [cran.r-project.org/package=effsize](https://cran.r-project.org/package=effsize).
 
--   `MAd`: This package is a collection of functions for conducting a meta-analysis with mean differences data. It also provides conversion functions. The CRAN project can be found here: [cran.r-project.org/package=MAd](https://cran.r-project.org/package=MAd).
+-   `MAd` [@MAd]: This package is a collection of functions for conducting a meta-analysis with mean differences data. It also provides conversion functions. The CRAN project can be found here: [cran.r-project.org/package=MAd](https://cran.r-project.org/package=MAd).
 
--   `TOSTER`: This package is used for equivalence testing. It contains many functions to test for differences in effect sizes along with other useful functions for effect size comparisons. The CRAN project can be found here: [cran.r-project.org/package=TOSTER](https://cran.r-project.org/package=TOSTER).
+-   `TOSTER` [@TOSTER]: This package is used for equivalence testing. It contains many functions to test for differences in effect sizes along with other useful functions for effect size comparisons. The CRAN project can be found here: [cran.r-project.org/package=TOSTER](https://cran.r-project.org/package=TOSTER).
 
--   `DeclareDesign`: This simulation framework can be used to assess whether procedures for calculating confidence intervals are valid and can be used for arbitrary designs. The `diagnose_design()` function calculates coverage for designs with estimation strategies that produce confidence intervals. The CRAN project can be found here: [cran.r-project.org/package=DeclareDesign](https://cran.r-project.org/package=DeclareDesign).
+-   `DeclareDesign` [@DeclareDesign]: This simulation framework can be used to assess whether procedures for calculating confidence intervals are valid and can be used for arbitrary designs. The `diagnose_design()` function calculates coverage for designs with estimation strategies that produce confidence intervals. The CRAN project can be found here: [cran.r-project.org/package=DeclareDesign](https://cran.r-project.org/package=DeclareDesign).
 
 ## Standardized Effect Sizes for Mean Differences
 
@@ -829,3 +829,12 @@ SE_{d^*} = SE_{d} \times CF
 $$
 
 These standard errors can then be used to calculate the confidence interval of the corrected $d$ value as well.
+
+
+## Calculating $d$ Values from Test-Statistics
+
+When effect sizes are unreported, but test-statistics are available, we can calculate the standardized mean difference ($d$) from t-statistics (or p-values) and the sample size. For a between-groups Cohen's d with a pooled standard deviation denominator ()
+
+
+
+

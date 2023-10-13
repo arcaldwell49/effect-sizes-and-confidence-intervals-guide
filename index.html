@@ -485,17 +485,17 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="useful-r-packages">Useful R Packages</h2>
 <p>The following R packages are handy for effect size and CI calculations, conversions among different effect sizes, and conversion of test statistics to effect sizes. If you use one of the packages below, please make sure you cite them to give the authors their due credit! To obtain citations for packages, you can use the <code>citation()</code> function and input the name of the package as a string.</p>
 <ul>
-<li><p><code>MOTE</code>: This is a highly recommended package for calculating effect sizes, which is capable of handling a wide variety of effect sizes in the difference family (the d family) and variance-overlap family (r, eta, omega, epsilon). The functions also provide non-central confidence intervals for each effect size and output in APA style in LaTeX. <code>MOTE</code> has an online shiny application (<a href="https://doomlab.shinyapps.io/mote/">doomlab.shinyapps.io/mote/</a>). The CRAN project can be found here: <a href="https://cran.r-project.org/package=MOTE">cran.r-project.org/package=MOTE</a>.</p></li>
-<li><p><code>effectsize</code>: This package is particularly useful in data analysis. A major advantage of this package is that it takes in many different model objects and directly outputs effect sizes and CIs. It also does some conversion. The CRAN project can be found here: <a href="https://cran.r-project.org/package=effectsize">cran.r-project.org/package=effectsize</a>.</p></li>
-<li><p><code>MBESS</code>: One of the most comprehensive and useful packages for effect size and confidence interval calculations. It provides functions that can calculate ESs and CIs from test statistics and the p-value. The CRAN project can be found here: <a href="https://cran.r-project.org/package=MBESS">cran.r-project.org/package=MBESS</a>.</p></li>
-<li><p><code>metafor</code>: Probably the most comprehensive meta-analysis package currently available. Includes the function, <code>escalc()</code>, that calculates various types of effect sizes from test-statistics, summary statistics, and more. The CRAN project can be found here: <a href="https://cran.r-project.org/package=metafor">cran.r-project.org/package=metafor</a>.</p></li>
-<li><p><code>psych</code>: One of the most comprehensive and general packages for common statistical procedures in psychology research. It also includes some effect size and CI calculation functions (e.g., <code>cohen.d()</code>). The CRAN project can be found here: <a href="https://cran.r-project.org/package=psych">cran.r-project.org/package=psych</a>.</p></li>
-<li><p><code>esc</code> (recommended for <code>d</code>, phi, and conversion among effect sizes): This package can help convert among different effect sizes (pp.&nbsp;4-12 in the reference manual). It’s also helpful when only incomplete information (e.g., only descriptives, or only p-values) have been provided in the paper, and we want to calculate effect sizes from them. Another package that provides similar conversion functions is the <code>compute.es</code> package. The CRAN project can be found here: <a href="https://cran.r-project.org/package=esc">cran.r-project.org/package=esc</a>.</p></li>
-<li><p><code>psychmeta</code>: This package is mainly used for psychometric meta-analyses. It has a function for converting different effect sizes/test statistics (convert_es, p.&nbsp;38 in the reference manual), including <span class="math inline">\(r\)</span>, <span class="math inline">\(d\)</span>, <span class="math inline">\(t\)</span>-statistic (and its p-value), <span class="math inline">\(F\)</span> (and its p-value in two-group one-way ANOVA), chi-squared (one degree of freedom), etc., to <span class="math inline">\(r\)</span>, <span class="math inline">\(d\)</span> and the common language effect sizes (CLES, A, AUC). The CRAN project can be found here <a href="https://cran.r-project.org/package=psychmeta">cran.r-project.org/package=psychmeta</a>.</p></li>
-<li><p><code>effsize</code>: This is a relatively lightweight package that handles d, g, Cliff delta, and Vargha-Delaney A). The CRAN project can be found here: <a href="https://cran.r-project.org/package=effsize">cran.r-project.org/package=effsize</a>.</p></li>
-<li><p><code>MAd</code>: This package is a collection of functions for conducting a meta-analysis with mean differences data. It also provides conversion functions. The CRAN project can be found here: <a href="https://cran.r-project.org/package=MAd">cran.r-project.org/package=MAd</a>.</p></li>
-<li><p><code>TOSTER</code>: This package is used for equivalence testing. It contains many functions to test for differences in effect sizes along with other useful functions for effect size comparisons. The CRAN project can be found here: <a href="https://cran.r-project.org/package=TOSTER">cran.r-project.org/package=TOSTER</a>.</p></li>
-<li><p><code>DeclareDesign</code>: This simulation framework can be used to assess whether procedures for calculating confidence intervals are valid and can be used for arbitrary designs. The <code>diagnose_design()</code> function calculates coverage for designs with estimation strategies that produce confidence intervals. The CRAN project can be found here: <a href="https://cran.r-project.org/package=DeclareDesign">cran.r-project.org/package=DeclareDesign</a>.</p></li>
+<li><p><code>MOTE</code> <span class="citation" data-cites="MOTE">(<a href="#ref-MOTE" role="doc-biblioref">Buchanan et al. 2019</a>)</span>: This is a highly recommended package for calculating effect sizes, which is capable of handling a wide variety of effect sizes in the difference family (the d family) and variance-overlap family (r, eta, omega, epsilon). The functions also provide non-central confidence intervals for each effect size and output in APA style in LaTeX. <code>MOTE</code> has an online shiny application (<a href="https://doomlab.shinyapps.io/mote/">doomlab.shinyapps.io/mote/</a>). The CRAN project can be found here: <a href="https://cran.r-project.org/package=MOTE">cran.r-project.org/package=MOTE</a>.</p></li>
+<li><p><code>effectsize</code> <span class="citation" data-cites="effectsize">(<a href="#ref-effectsize" role="doc-biblioref">Ben-Shachar, Lüdecke, and Makowski 2020</a>)</span>: This package is particularly useful in data analysis. A major advantage of this package is that it takes in many different model objects and directly outputs effect sizes and CIs. It also does some conversion. The CRAN project can be found here: <a href="https://cran.r-project.org/package=effectsize">cran.r-project.org/package=effectsize</a>.</p></li>
+<li><p><code>MBESS</code> <span class="citation" data-cites="MBESS">(<a href="#ref-MBESS" role="doc-biblioref">Kelley 2022</a>)</span>: One of the most comprehensive and useful packages for effect size and confidence interval calculations. It provides functions that can calculate ESs and CIs from test statistics and the p-value. The CRAN project can be found here: <a href="https://cran.r-project.org/package=MBESS">cran.r-project.org/package=MBESS</a>.</p></li>
+<li><p><code>metafor</code> <span class="citation" data-cites="metafor">(<a href="#ref-metafor" role="doc-biblioref">Viechtbauer 2010</a>)</span>: Probably the most comprehensive meta-analysis package currently available. Includes the function, <code>escalc()</code>, that calculates various types of effect sizes from test-statistics, summary statistics, and more. The CRAN project can be found here: <a href="https://cran.r-project.org/package=metafor">cran.r-project.org/package=metafor</a>.</p></li>
+<li><p><code>psych</code> <span class="citation" data-cites="psych">(<a href="#ref-psych" role="doc-biblioref">William Revelle 2023</a>)</span>: One of the most comprehensive and general packages for common statistical procedures in psychology research. It also includes some effect size and CI calculation functions (e.g., <code>cohen.d()</code>). The CRAN project can be found here: <a href="https://cran.r-project.org/package=psych">cran.r-project.org/package=psych</a>.</p></li>
+<li><p><code>esc</code> <span class="citation" data-cites="esc">(recommended for <code>d</code>, phi, and conversion among effect sizes, <a href="#ref-esc" role="doc-biblioref">Lüdecke 2019</a>)</span>: This package can help convert among different effect sizes (pp.&nbsp;4-12 in the reference manual). It’s also helpful when only incomplete information (e.g., only descriptives, or only p-values) have been provided in the paper, and we want to calculate effect sizes from them. Another package that provides similar conversion functions is the <code>compute.es</code> package. The CRAN project can be found here: <a href="https://cran.r-project.org/package=esc">cran.r-project.org/package=esc</a>.</p></li>
+<li><p><code>psychmeta</code> <span class="citation" data-cites="psychmeta">(<a href="#ref-psychmeta" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>: This package is mainly used for psychometric meta-analyses. It has a function for converting different effect sizes/test statistics (convert_es, p.&nbsp;38 in the reference manual), including <span class="math inline">\(r\)</span>, <span class="math inline">\(d\)</span>, <span class="math inline">\(t\)</span>-statistic (and its p-value), <span class="math inline">\(F\)</span> (and its p-value in two-group one-way ANOVA), chi-squared (one degree of freedom), etc., to <span class="math inline">\(r\)</span>, <span class="math inline">\(d\)</span> and the common language effect sizes (CLES, A, AUC). The CRAN project can be found here <a href="https://cran.r-project.org/package=psychmeta">cran.r-project.org/package=psychmeta</a>.</p></li>
+<li><p><code>effsize</code> <span class="citation" data-cites="effsize">(<a href="#ref-effsize" role="doc-biblioref">Torchiano 2020</a>)</span>: This is a relatively lightweight package that handles d, g, Cliff delta, and Vargha-Delaney A). The CRAN project can be found here: <a href="https://cran.r-project.org/package=effsize">cran.r-project.org/package=effsize</a>.</p></li>
+<li><p><code>MAd</code> <span class="citation" data-cites="MAd">(<a href="#ref-MAd" role="doc-biblioref">W. T. Hoyt 2014</a>)</span>: This package is a collection of functions for conducting a meta-analysis with mean differences data. It also provides conversion functions. The CRAN project can be found here: <a href="https://cran.r-project.org/package=MAd">cran.r-project.org/package=MAd</a>.</p></li>
+<li><p><code>TOSTER</code> <span class="citation" data-cites="TOSTER">(<a href="#ref-TOSTER" role="doc-biblioref">Daniel, Lakens, and aut 2017</a>)</span>: This package is used for equivalence testing. It contains many functions to test for differences in effect sizes along with other useful functions for effect size comparisons. The CRAN project can be found here: <a href="https://cran.r-project.org/package=TOSTER">cran.r-project.org/package=TOSTER</a>.</p></li>
+<li><p><code>DeclareDesign</code> <span class="citation" data-cites="DeclareDesign">(<a href="#ref-DeclareDesign" role="doc-biblioref">Blair et al. 2019</a>)</span>: This simulation framework can be used to assess whether procedures for calculating confidence intervals are valid and can be used for arbitrary designs. The <code>diagnose_design()</code> function calculates coverage for designs with estimation strategies that produce confidence intervals. The CRAN project can be found here: <a href="https://cran.r-project.org/package=DeclareDesign">cran.r-project.org/package=DeclareDesign</a>.</p></li>
 </ul>
 </section>
 <section id="standardized-effect-sizes-for-mean-differences" class="level2">
@@ -912,8 +912,17 @@ Association, American Psychological. 2010. <em>Publication Manual of the America
 <div id="ref-becker1988" class="csl-entry" role="listitem">
 Becker, Betsy J. 1988. <span>“Synthesizing Standardized Mean-Change Measures - UConn Library.”</span> <em>British Journal of Mathematical and Statistical Psychology</em> 41 (2): 257278. https://doi.org/<a href="https://doi.org/10.1111/j.2044-8317.1988.tb00901.x">https://doi.org/10.1111/j.2044-8317.1988.tb00901.x</a>.
 </div>
+<div id="ref-effectsize" class="csl-entry" role="listitem">
+Ben-Shachar, Mattan S., Daniel Lüdecke, and Dominique Makowski. 2020. <span>“<span class="nocase">e</span>ffectsize: Estimation of Effect Size Indices and Standardized Parameters.”</span> <em>Journal of Open Source Software</em> 5 (56): 2815. <a href="https://doi.org/10.21105/joss.02815">https://doi.org/10.21105/joss.02815</a>.
+</div>
+<div id="ref-DeclareDesign" class="csl-entry" role="listitem">
+Blair, Graeme, Jasper Cooper, Alexander Coppock, and Macartan Humphreys. 2019. <span>“Declaring and Diagnosing Research Designs.”</span> <em>American Political Science Review</em> 113: 838–59. <a href="https://declaredesign.org/paper.pdf">https://declaredesign.org/paper.pdf</a>.
+</div>
 <div id="ref-bosco2015" class="csl-entry" role="listitem">
 Bosco, Frank A., Herman Aguinis, Kulraj Singh, James G. Field, and Charles A. Pierce. 2015. <span>“Correlational Effect Size Benchmarks.”</span> <em>Journal of Applied Psychology</em> 100 (2): 431–49. <a href="https://doi.org/10.1037/a0038047">https://doi.org/10.1037/a0038047</a>.
+</div>
+<div id="ref-MOTE" class="csl-entry" role="listitem">
+Buchanan, Erin M., Amber Gillenwaters, John E. Scofield, and K. D. Valentine. 2019. <em><span class="nocase">MOTE: Measure of the Effect</span>: Package to Assist in Effect Size Calculations and Their Confidence Intervals</em>. <a href="http://github.com/doomlab/MOTE">http://github.com/doomlab/MOTE</a>.
 </div>
 <div id="ref-caldwell" class="csl-entry" role="listitem">
 Caldwell, Aaron R. n.d. <span>“Exploring Equivalence Testing with the Updated TOSTER r Package.”</span> <a href="https://doi.org/10.31234/osf.io/ty8de">https://doi.org/10.31234/osf.io/ty8de</a>.
@@ -923,6 +932,12 @@ Coe, R. 2012. <span>“It’s the Effect Size, Stupid What Effect Size Is and Wh
 </div>
 <div id="ref-cohen1988" class="csl-entry" role="listitem">
 Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. Academic Press.
+</div>
+<div id="ref-psychmeta" class="csl-entry" role="listitem">
+Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“<span class="nocase">psychmeta</span>: An r Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
+</div>
+<div id="ref-TOSTER" class="csl-entry" role="listitem">
+Daniel, Lakens, and aut. 2017. <span>“Equivalence Tests: A Practical Primer for t-Tests, Correlations, and Meta-Analyses.”</span> <em>Social Psychological and Personality Science</em> 1: 1–8. <a href="https://doi.org/10.1177/1948550617697177">https://doi.org/10.1177/1948550617697177</a>.
 </div>
 <div id="ref-fritz2012" class="csl-entry" role="listitem">
 Fritz, Catherine O., Peter E. Morris, and Jennifer J. Richler. 2012. <span>“Effect Size Estimates: Current Use, Calculations, and Interpretation.”</span> <em>Journal of Experimental Psychology: General</em> 141 (1): 2–18. <a href="https://doi.org/10.1037/a0024338">https://doi.org/10.1037/a0024338</a>.
@@ -945,6 +960,9 @@ Harrell, Frank. 2020. <span>“Author Checklist - Data Analysis.”</span> <a hr
 <div id="ref-hoekstra2014" class="csl-entry" role="listitem">
 Hoekstra, Rink, Richard D. Morey, Jeffrey N. Rouder, and Eric-Jan Wagenmakers. 2014. <span>“Robust Misinterpretation of Confidence Intervals.”</span> <em>Psychonomic Bulletin &amp; Review</em> 21 (5): 1157–64. <a href="https://doi.org/10.3758/s13423-013-0572-3">https://doi.org/10.3758/s13423-013-0572-3</a>.
 </div>
+<div id="ref-MBESS" class="csl-entry" role="listitem">
+Kelley, Ken. 2022. <em>MBESS: The MBESS r Package</em>. <a href="https://CRAN.R-project.org/package=MBESS">https://CRAN.R-project.org/package=MBESS</a>.
+</div>
 <div id="ref-kelley2012" class="csl-entry" role="listitem">
 Kelley, Ken, and Kristopher J. Preacher. 2012. <span>“On Effect Size.”</span> <em>Psychological Methods</em> 17 (2): 137–52. <a href="https://doi.org/10.1037/a0028086">https://doi.org/10.1037/a0028086</a>.
 </div>
@@ -956,6 +974,9 @@ Lakens, Daniel. 2013. <span>“Calculating and Reporting Effect Sizes to Facilit
 </div>
 <div id="ref-lovakov2021" class="csl-entry" role="listitem">
 Lovakov, Andrey, and Elena R. Agadullina. 2021. <span>“Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology.”</span> <em>European Journal of Social Psychology</em> 51 (3): 485–504. <a href="https://doi.org/10.1002/ejsp.2752">https://doi.org/10.1002/ejsp.2752</a>.
+</div>
+<div id="ref-esc" class="csl-entry" role="listitem">
+Lüdecke, Daniel. 2019. <em>Esc: Effect Size Computation for Meta Analysis (Version 0.5.1)</em>. <a href="https://doi.org/10.5281/zenodo.1249218">https://doi.org/10.5281/zenodo.1249218</a>.
 </div>
 <div id="ref-meehl1984" class="csl-entry" role="listitem">
 Meehl, Paul E. 1984. <span>“Radical Behaviorism and Mental Events: Four Methodological Queries.”</span> <em>Behavioral and Brain Sciences</em> 7 (4): 563–64. <a href="https://doi.org/10.1017/S0140525X00027308">https://doi.org/10.1017/S0140525X00027308</a>.
@@ -984,8 +1005,20 @@ Schäfer, Thomas, and Marcus A. Schwarz. 2019. <span>“The Meaningfulness of Ef
 <div id="ref-steiger2004" class="csl-entry" role="listitem">
 Steiger, James H. 2004. <span>“Beyond the f Test: Effect Size Confidence Intervals and Tests of Close Fit in the Analysis of Variance and Contrast Analysis.”</span> <em>Psychological Methods</em> 9 (2): 164–82. <a href="https://doi.org/10.1037/1082-989X.9.2.164">https://doi.org/10.1037/1082-989X.9.2.164</a>.
 </div>
+<div id="ref-effsize" class="csl-entry" role="listitem">
+Torchiano, Marco. 2020. <em>Effsize: Efficient Effect Size Computation</em>. <a href="https://doi.org/10.5281/zenodo.1480624">https://doi.org/10.5281/zenodo.1480624</a>.
+</div>
+<div id="ref-metafor" class="csl-entry" role="listitem">
+Viechtbauer, Wolfgang. 2010. <span>“Conducting Meta-Analyses in <span>R</span> with the <span class="nocase">metafor</span> Package.”</span> <em>Journal of Statistical Software</em> 36 (3): 1–48. <a href="https://doi.org/10.18637/jss.v036.i03">https://doi.org/10.18637/jss.v036.i03</a>.
+</div>
 <div id="ref-vos2022" class="csl-entry" role="listitem">
 Vos, Paul, and Don Holbert. 2022. <span>“Frequentist Statistical Inference Without Repeated Sampling.”</span> <em>Synthese</em> 200 (2): 89. <a href="https://doi.org/10.1007/s11229-022-03560-x">https://doi.org/10.1007/s11229-022-03560-x</a>.
+</div>
+<div id="ref-MAd" class="csl-entry" role="listitem">
+W. T. Hoyt, A. C. Del Re &amp;. 2014. <em>MAd: Meta-Analysis with Mean Differences</em>. <em>R Package</em>. <a href="https://CRAN.R-project.org/package=MAd">https://CRAN.R-project.org/package=MAd</a>.
+</div>
+<div id="ref-psych" class="csl-entry" role="listitem">
+William Revelle. 2023. <em>Psych: Procedures for Psychological, Psychometric, and Personality Research</em>. Evanston, Illinois: Northwestern University. <a href="https://CRAN.R-project.org/package=psych">https://CRAN.R-project.org/package=psych</a>.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
