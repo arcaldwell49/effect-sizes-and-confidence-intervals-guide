@@ -286,7 +286,7 @@ The following R packages are handy for effect size and CI calculations, conversi
 
 -   `psych` [@psych]: One of the most comprehensive and general packages for common statistical procedures in psychology research. It also includes some effect size and CI calculation functions (e.g., `cohen.d()`). The CRAN project can be found here: [cran.r-project.org/package=psych](https://cran.r-project.org/package=psych).
 
--   `esc` [recommended for `d`, phi, and conversion among effect sizes, @esc]: This package can help convert among different effect sizes (pp. 4-12 in the reference manual). It's also helpful when only incomplete information (e.g., only descriptives, or only p-values) have been provided in the paper, and we want to calculate effect sizes from them. Another package that provides similar conversion functions is the `compute.es` package. The CRAN project can be found here: [cran.r-project.org/package=esc](https://cran.r-project.org/package=esc).
+-   `esc` [@esc]: This package can help convert among different effect sizes (pp. 4-12 in the reference manual). It's also helpful when only incomplete information (e.g., only descriptives, or only p-values) have been provided in the paper, and we want to calculate effect sizes from them. Another package that provides similar conversion functions is the `compute.es` package. The CRAN project can be found here: [cran.r-project.org/package=esc](https://cran.r-project.org/package=esc).
 
 -   `psychmeta` [@psychmeta]: This package is mainly used for psychometric meta-analyses. It has a function for converting different effect sizes/test statistics (convert_es, p. 38 in the reference manual), including $r$, $d$, $t$-statistic (and its p-value), $F$ (and its p-value in two-group one-way ANOVA), chi-squared (one degree of freedom), etc., to $r$, $d$ and the common language effect sizes (CLES, A, AUC). The CRAN project can be found here [cran.r-project.org/package=psychmeta](https://cran.r-project.org/package=psychmeta).
 
@@ -304,11 +304,11 @@ T-tests are the most commonly used statistical tests for examining differences b
 
 $$
 \text{Lower Bound} = d - 1.96\times SE
-$$
+$$ {#eq-ci-low}
 
 $$
 \text{Upper Bound} = d + 1.96\times SE
-$$
+$$ {#eq-ci-high}
 
 Lastly, we will supply example R code so you can apply to your own data.
 
@@ -370,7 +370,13 @@ $$
 S_p = \sqrt{\frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}}
 $$
 
-Note that the term *variance* refers to the square of the standard deviation ($S^2$). The corresponding standard error of $d_p$ is,
+Note that the term *variance* refers to the square of the standard deviation ($S^2$). Cohen's $d_p$ has is related to the t-statistic from an independent samples t-test. In fact, we can calculate the $d_p$ value from the $t$-statistic with the following formula:
+
+$$
+d = t\sqrt{\frac{2(n_1+n_2)}{n_1 n_2(n_1+n_2-2)}}.
+$$
+
+The corresponding standard error of $d_p$ is,
 
 $$
 SE_{d_p} = \sqrt{\frac{n_1+n_2}{n_1 n_2}+\frac{d_p^2}{2(n_1+n_2)}}.
@@ -790,7 +796,7 @@ h1 + h2
 
 ### Small Sample Bias in $d$ values
 
-All the estimators of $d$ listed above are biased estimates of the population $d$ value. This bias increases when the sample size is small, therefore we can apply a correction factor based on the degrees of freedom. The degrees of freedom will largely depend on the estimator used. The degrees of freedom for each estimator is listed below:
+All the estimators of $d$ listed above are biased estimates of the population $d$ value, specifically they all over-estimate the population value in small sample sizes. To adjust for this bias, we can apply a correction factor based on the degrees of freedom. The degrees of freedom will largely depend on the estimator used. The degrees of freedom for each estimator is listed below:
 
 -   Single Group design ($d_s$): $df = n-1$
 -   Between Groups - Pooled Standard Deviation ($d_p$): $df = n_1+n_2-2$
@@ -801,10 +807,12 @@ With the appropriate degrees of freedom, we can use the following correction fac
 
 $$
 CF = \frac{\Gamma\left(\frac{df}{2}\right)}{\Gamma\left(\frac{df-1}{2}\right)\sqrt{\frac{df}{2}}}
-$$ Where $\Gamma(\cdot)$ is the gamma function. An approximation of this complex formula given by @hedges1981 can be written as $CF\approx 1-\frac{}{}$. In R, this can be calculated using,
+$$
 
-```{r}
-#example:
+Where $\Gamma(\cdot)$ is the gamma function. An approximation of this complex formula given by @hedges1981 can be written as $CF\approx 1-\frac{3}{4\cdot df -1}$. In R, this can be calculated using,
+
+```{r,echo=TRUE}
+# Example:
 # Group 1 sample size = 20
 # Group 2 sample size = 18
 
@@ -813,7 +821,7 @@ n2 <- 18
 
 df <- n1 + n2 - 2
 
-CF <- exp ( lgamma(df/2) - log(sqrt(df/2)) - lgamma((df-1)/2) )
+CF <- gamma(df/2) / ( sqrt(df/2) * gamma((df-1)/2) )
 
 CF
 ```
@@ -822,18 +830,389 @@ This correction factor can then be applied to any of the estimators mentioned ab
 
 $$
 d^* = d\times CF
-$$ The corrected $d$ value, $d^*$, is commonly referred to as Hedges' $g$ or just $g$. To avoid notation confusion we will just add an asterisk to $d$ to denote the correction. We also need to correct the standard error for $d^*$
+$$
+
+The corrected $d$ value, $d^*$, is commonly referred to as Hedges' $g$ or just $g$. To avoid notation confusion we will just add an asterisk to $d$ to denote the correction. We also need to correct the standard error for $d^*$
 
 $$
 SE_{d^*} = SE_{d} \times CF
 $$
 
-These standard errors can then be used to calculate the confidence interval of the corrected $d$ value as well.
+These standard errors can then be used to calculate the confidence interval of the corrected $d$ value as well using @eq-ci-low and @eq-ci-high.
+
+```{r,echo=TRUE}
+# Example:
+# Cohen's d = .50, SE = .10
+
+d = .50
+SE = .10
+
+# correct d value and CIs small sample bias
+d_corrected <- d * CF
+SE_corrected <- SE * CF
+dlow_corrected <- d_corrected - 1.96*SE_corrected
+dhigh_corrected <- d_corrected + 1.96*SE_corrected
+
+# print just the d value and confidence intervals
+data.frame(d = apa(d), 
+           dlow = apa(dlow_corrected), 
+           dhigh = apa(dhigh_corrected))
+```
+
+The output shows that the corrected effect size is $d^*$ = 0.50, 95% CI \[0.30, 0.68\].
+
+## Correlation between Two Continuous Variables
+
+To quantify the relationship between two continuous variables, the most common method is to use a Pearson correlation coefficient (denoted with the letter $r$). The pearson correlation takes the covariance between an independent ($X$) and dependent ($Y$) variable and standardizes it by the standard deviations of $X$ and $Y$,
+
+$$
+r = \frac{\text{Cov}(X,Y)}{S_{X} S_{Y}}.
+$$ We can visualize what a correlation between two variables looks like with scatter plots. @fig-cor-example shows scatter plots with differing levels of correlation.
+
+```{r, echo =FALSE, message=FALSE,warning=FALSE, fig.height=6}
+#| label: fig-cor-example
+#| fig-cap: Simulated data from a bivariate normal distribution displaying 6 different correlations, r = 0, .20, .40, .60, .80, and 1.00.
 
 
-## Calculating $d$ Values from Test-Statistics
 
-When effect sizes are unreported, but test-statistics are available, we can calculate the standardized mean difference ($d$) from t-statistics (or p-values) and the sample size. For a between-groups Cohen's d with a pooled standard deviation denominator ()
+library(MASS)
+library(ggdist)
+library(patchwork)
+n = 1000
+
+r = .0
+data1<- mvrnorm(n = n,
+               mu = c(0,0),
+               Sigma = data.frame(x = c(1,r),
+                                  y = c(r,1)),
+               empirical=TRUE)
+
+
+h1 <- ggplot(data=NULL,aes(x=data1[,1],y=data1[,2])) +
+  geom_point(color = 'skyblue4',alpha=.7,size=.6) +
+  theme_ggdist() +
+  theme(aspect.ratio = 1,
+        axis.text = element_text(size=13),
+        axis.title = element_text(size=14),
+        title = element_text(size=14)) +
+  ggtitle("r = 0") +
+  theme(axis.title.y = element_text(angle=360,vjust = .5)) +
+  ylab('Y') +
+  xlab('X')+
+  scale_x_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))+ 
+  scale_y_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))
+  
+  r = .20
+  
+  data2<- mvrnorm(n = n,
+               mu = c(0,0),
+               Sigma = data.frame(x = c(1,r),
+                                  y = c(r,1)),
+               empirical=TRUE)
+
+
+h2 <- ggplot(data=NULL,aes(x=data2[,1],y=data2[,2])) +
+  geom_point(color = 'skyblue4',alpha=.7,size=.6) +
+  theme_ggdist() +
+  theme(aspect.ratio = 1,
+        axis.text = element_text(size=13),
+        axis.title = element_text(size=14),
+        title = element_text(size=14)) +
+  ggtitle("r = .20") +
+  ylab('') +
+  xlab('')+
+  scale_x_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))+ 
+  scale_y_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))
+  
+  r = .4
+  data3<- mvrnorm(n = n,
+               mu = c(0,0),
+               Sigma = data.frame(x = c(1,r),
+                                  y = c(r,1)),
+               empirical=TRUE)
+
+
+h3 <- ggplot(data=NULL,aes(x=data3[,1],y=data3[,2])) +
+  geom_point(color = 'skyblue4',alpha=.7,size=.6) +
+  theme_ggdist() +
+  theme(aspect.ratio = 1,
+        axis.text = element_text(size=13),
+        axis.title = element_text(size=14),
+        title = element_text(size=14)) +
+  ggtitle("r = .40") +
+  ylab('') +
+  xlab('') +
+  scale_x_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))+ 
+  scale_y_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))
+  
+
+
+r = .6
+  data4<- mvrnorm(n = n,
+               mu = c(0,0),
+               Sigma = data.frame(x = c(1,r),
+                                  y = c(r,1)),
+               empirical=TRUE)
+
+
+h4 <- ggplot(data=NULL,aes(x=data4[,1],y=data4[,2])) +
+  geom_point(color = 'skyblue4',alpha=.7,size=.6) +
+  theme_ggdist() +
+  theme(aspect.ratio = 1,
+        axis.text = element_text(size=13),
+        axis.title = element_text(size=14),
+        title = element_text(size=14)) +
+  ggtitle("r = .60") +
+  theme(axis.title.y = element_text(angle=360,vjust = .5)) +
+  ylab('') +
+  xlab('')+
+  scale_x_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))+ 
+  scale_y_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))
+
+
+
+r = .8
+  data5<- mvrnorm(n = n,
+               mu = c(0,0),
+               Sigma = data.frame(x = c(1,r),
+                                  y = c(r,1)),
+               empirical=TRUE)
+
+
+h5 <- ggplot(data=NULL,aes(x=data5[,1],y=data5[,2])) +
+  geom_point(color = 'skyblue4',alpha=.7,size=.6) +
+  theme_ggdist() +
+  theme(aspect.ratio = 1,
+        axis.text = element_text(size=13),
+        axis.title = element_text(size=14),
+        title = element_text(size=14)) +
+  ggtitle("r = .80") +
+  theme(axis.title.y = element_text(angle=360,vjust = .5)) +
+  ylab('') +
+  xlab('')+
+  scale_x_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))+ 
+  scale_y_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))
+
+
+
+r = 1
+  data6<- mvrnorm(n = n,
+               mu = c(0,0),
+               Sigma = data.frame(x = c(1,r),
+                                  y = c(r,1)),
+               empirical=TRUE)
+
+
+h6 <- ggplot(data=NULL,aes(x=data6[,1],y=data6[,2])) +
+  geom_point(color = 'skyblue4',alpha=.7,size=.6) +
+  theme_ggdist() +
+  theme(aspect.ratio = 1,
+        axis.text = element_text(size=13),
+        axis.title = element_text(size=14),
+        title = element_text(size=14)) +
+  ggtitle("r = 1.00") +
+  theme(axis.title.y = element_text(angle=360,vjust = .5)) +
+  ylab('') +
+  xlab('')+
+  scale_x_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))+ 
+  scale_y_continuous(breaks=c(-2,0,2),limits = c(-3.5,3.5))
+
+
+  (h1 + h2 + h3) / (h4 + h5 + h6)
+```
+
+The standard error of the Pearson correlation coefficient is,
+
+$$
+SE_r = \sqrt{\frac{1-r^2}{n-2}}
+$$
+
+Unlike Cohen's $d$ and other effect size measures, The correlation coefficient is bounded by -1 and positive 1, with positive 1 being a perfectly positive correlation, -1 being a perfectly negative correlation, and zero indicating no correlation between the two variables. The bounding has the consequence of making the confidence interval asymmetric around $r$ (e.g., if the correlation is positive, the lower bound is farther away from $r$ than the upper bound is). It is important to note that with a correlation of zero, the confidence interval *is* symmetric and normal. This asymmetric does not allow us to calculate the confidence intervals like how we did in @eq-ci-low and @eq-ci-high. Instead, to obtain the confidence intervals of $r$, we first need to apply a Fisher's Z transformation. A Fisher's Z is a hyperbolic arctangent transformation of a Pearson correlation coefficient and can be computed as,
+
+$$
+Z_r = \text{arctanh}(r)
+$$ The Fisher Z transformation ensures $Z$ has a symmetric and approximately normal sampling distribution. This then allows us to calculate the confidence interval from the standard error of $Z_r$ ($SE_{Z_r} = \frac{1}{\sqrt{n-3}}$),
+
+$$
+Z_\text{Lower Bound} = Z_r - 1.96\times SE_{Z_r}
+$$
+
+$$
+Z_\text{Upper Bound} = Z_r + 1.96\times SE_{Z_r}
+$$
+
+We can then back-transform the upper bound and lower bound into the upper and lower bound of $r$ by taking the hyperbolic tangent (the inverse of the arctangent),
+
+$$
+r_\text{Lower Bound} = \text{tanh}(Z_\text{Lower Bound})
+$$
+
+$$
+r_\text{Upper Bound} = \text{tanh}(Z_\text{Lower Bound})
+$$
+
+In R, the full process of obtaining confidence intervals can be done quite easily. Note if you have raw data for $X$ and $Y$, then you can compute the correlation with base R, `cor(X,Y)`.
+
+```{r, echo = TRUE}
+# example: r = .50, n = 50
+r <- .50
+n <- 50
+
+# compute Zr
+Zr <- atanh(r)
+
+# calculate standard error of Zr
+SE_Zr <- 1/sqrt(n-3)
+
+# compute confidence interval of Zr
+Zlow <- Zr - 1.96 * SE_Zr
+Zhigh <- Zr + 1.96 * SE_Zr
+
+# backtransform CI of Z to CI of Pearson correlation
+rlow <- tanh(Zlow) 
+rhigh <- tanh(Zhigh)
+
+# print pearson correlation and confidence intervals
+data.frame(r = apa(r), 
+           rlow = apa(rlow), 
+           rhigh = apa(rhigh))
+
+```
+
+The output shows that the correlation and its confidence intervals are $r$ = 0.50, 95% CI \[0.26, 0.68\].
+
+## Effect Sizes for Categorical Variables
+
+For dichotomous relationships that involve proportions, there are many variations of effect sizes that one can use. Commonly used effect size measures for statistical procedures on categorical data include: phi coefficient ($\phi$), Cramer's $V$, Cohen's $h$, Cohen's $\omega$, odds ratio ($OR$), risk difference ($RD$), and relative risk ($RR$).
+
+### Phi Coefficient ($\phi$)
+
+Phi coefficient ($\phi$) is a measure of association between two binary variables (therefore, it ONLY applies to 2 by 2 contingency tables, i.e., each variable has only two levels). It is a special case of the Pearson correlation coefficient and an $r$ for two binary variables is equal to phi. Note that unlike $r$ that ranges from -1 to 1, phi ranges from 0 to 1. Also, the sign of $r$ indicates the direction of association, whereas to get the direction of an association given a 2 by 2 contingency table, we need to look at the table itself; phi only provides a measure of strength. The 2 by 2 contingency table is illustrated by @tbl-contingency.
+
+|       | $X=0$    | $X=1$    |
+|-------|----------|----------|
+| $Y=0$ | $n_{00}$ | $n_{10}$ |
+| $Y=1$ | $n_{01}$ | $n_{11}$ |
+
+: Contingency table between two binary variables {#tbl-contingency}
+
+The sample sizes within each cell provide us with the necessary information to estimate the relationship between the two variables. To calculate phi, it can be calculated from the cells of the contingency table directly,
+
+$$
+\phi = \frac{n_{11}n_{00} -n_{10}n_{01}}{\sqrt{(n_{00} + n_{01})(n_{10} + n_{11})(n_{00} + n_{10})(n_{01} + n_{11})}}
+$$
+
+or more conveniently, from the $\chi^2$-statistic,
+
+$$
+\phi = \sqrt{\frac{\chi^2}{n}}
+$$
+
+Where $n$ is the total sample size (i.e., the sum of all the cells). Using the `psych` package in R, we can calculate the the phi coefficient using the `phi` function directly from the contingency table
+
+```{r, echo = TRUE}
+# Example contingency table:
+#  40  17
+#  11  45
+
+library(psych)
+
+contingency_table <- matrix(c(40, 11,
+                              17, 45),ncol = 2)
+
+phi_coefficient <- phi(contingency_table)
+
+phi_coefficient
+```
+
+In our example we obtained a phi coefficient of $\phi$ = .51.
+
+### Cramer's $V$
+
+Cramer's V, sometimes also referred to as Cramer's phi ($\phi$), is a generalized effect size measure of the association between two nominal variables. It applies to contingency tables of any size (2x2, 3x3, 4x4,...). Cramer's $V$ on a 2 by 2 contingency table is equivalent to the phi coefficient. For an illustration of a higher order contingency table, @tbl-contingency-2 represents a contingency table of two variables, each with 4 levels (0,1,2,3,4). In a contingency table with a high Cramer's $V$, we would expect relatively large sample sizes along the diagonal cells (i.e., $n_{00}$,$n_{11}$,$n_{22}$,$n_{33}$) and smaller sample sizes in the off-diagonal cells.
+
+|       | $X=0$    | $X=1$    | $X=2$    | $X=3$    |
+|-------|----------|----------|----------|----------|
+| $Y=0$ | $n_{00}$ | $n_{10}$ | $n_{21}$ | $n_{31}$ |
+| $Y=1$ | $n_{01}$ | $n_{11}$ | $n_{21}$ | $n_{31}$ |
+| $Y=2$ | $n_{02}$ | $n_{12}$ | $n_{22}$ | $n_{32}$ |
+| $Y=3$ | $n_{03}$ | $n_{13}$ | $n_{23}$ | $n_{33}$ |
+
+: Contingency table between two categorical variables {#tbl-contingency-2}
+
+Similarly to the phi coefficient, the value of Cramer's V ranges from 0 to 1. Again we can use the $\chi^2$ statistic to compute the value, however, since there can be more than 2 levels to each variable, we also need to take into account the number of levels, $k$,
+
+$$
+V = \sqrt{\frac{\chi^2}{n(k-1)}}
+$$
+
+Using the `chi.square`, we can calculate the the phi coefficient using the `phi` function directly from the contingency table
+
+```{r, echo = TRUE}
+# Example contingency table:
+#  40  14  12
+#  11  27   9
+#   5  10  34
+
+contingency_table <- matrix(c(40, 11,  5,
+                              14, 27, 10,
+                              12,  9, 34),ncol = 3)
+
+n <- sum(contingency_table)
+k <- ncol(contingency_table)
+
+# obtain chi squared statistic
+chi2 <- as.numeric(chisq.test(contingency_table)$statistic)
+
+# compute Cramer's V
+V <- sqrt(chi2/(n*(k-1)))
+
+V
+
+```
+
+In our example we obtained a Cramer's $V$ of $\phi$ = .44.
+
+### Cohen's h
+
+Cohen's $h$ is a measure of distance between two proportions or probabilities. It is sometimes also referred to as the "difference between arcsines". For a given proportion $p$, its arcsine transformation is given by:
+
+$$
+\psi = 2\cdot \text{arcsin}(\sqrt{p}).
+$$
+
+Cohen's $h$ is the difference between the arcsine transformations of two proportions:
+
+$$
+h = \psi_1 - \psi_2
+$$
+
+Cohen's $h$ is commonly used for the power analysis of proportion tests. It is the required effect size measure in the program *G Power* [@faul2009]. To calculate Cohen's $h$ in base R.
+
+
+
+```{r, echo = TRUE}
+# Example proportions: p1 = .45, p2 = .30
+
+p1 <- .45
+p2 <- .30
+
+psi1 <- 2*asin(sqrt(p1))
+psi2 <- 2*asin(sqrt(p2))
+
+h <- psi1 - psi2
+
+h
+```
+
+### Odds Ratio
+
+
+### Risk Difference
+
+
+
+### Relative Risk
 
 
 
