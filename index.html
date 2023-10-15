@@ -138,7 +138,9 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#phi-coefficient-phi" id="toc-phi-coefficient-phi" class="nav-link" data-scroll-target="#phi-coefficient-phi">Phi Coefficient (<span class="math inline">\(\phi\)</span>)</a></li>
   <li><a href="#cramers-v" id="toc-cramers-v" class="nav-link" data-scroll-target="#cramers-v">Cramer’s <span class="math inline">\(V\)</span></a></li>
-  <li><a href="#cohens-h" id="toc-cohens-h" class="nav-link" data-scroll-target="#cohens-h">Cohen’s h</a></li>
+  <li><a href="#cohens-h" id="toc-cohens-h" class="nav-link" data-scroll-target="#cohens-h">Cohen’s <span class="math inline">\(h\)</span></a></li>
+  <li><a href="#cohens-omega-omega" id="toc-cohens-omega-omega" class="nav-link" data-scroll-target="#cohens-omega-omega">Cohen’s omega (<span class="math inline">\(\omega\)</span>)</a></li>
+  <li><a href="#ben-shachars-fei-פ" id="toc-ben-shachars-fei-פ" class="nav-link" data-scroll-target="#ben-shachars-fei-פ">Ben-Shachar’s Fei (פ)</a></li>
   <li><a href="#odds-ratio" id="toc-odds-ratio" class="nav-link" data-scroll-target="#odds-ratio">Odds Ratio</a></li>
   <li><a href="#risk-difference" id="toc-risk-difference" class="nav-link" data-scroll-target="#risk-difference">Risk Difference</a></li>
   <li><a href="#relative-risk" id="toc-relative-risk" class="nav-link" data-scroll-target="#relative-risk">Relative Risk</a></li>
@@ -221,7 +223,7 @@ div.csl-indent {
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Department of Psychology
+            University of Connecticut
           </p>
       </div>
       <div class="quarto-title-meta-contents">
@@ -229,7 +231,7 @@ div.csl-indent {
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Department of Psychology
+            University of Hong Kong
           </p>
       </div>
     </div>
@@ -471,7 +473,7 @@ div.csl-indent {
 <p>What is the correct interpretation of a confidence interval? Imagine you conducted a study where you compared two groups. You obtained a Cohen’s <span class="math inline">\(d\)</span> = 0.3, 95% CI [0.2, 0.4]. How do you interpret this confidence interval?</p>
 <p>Confidence intervals are yielded by a certain procedure, such that when the procedure is repeatedly applied to a series of hypothetical datasets drawn from the studied population/populations, it yields intervals that contain the true parameter value (in our example, it means the true difference between the two groups) in 95% of the cases.</p>
 <p>In colloquial terms, if we conduct this research over and over (repeating the same sampling procedure, administering the same experimental manipulation, conducting the same statistical analysis, etc.), because of sampling variability (our samples are slightly different at each time), we will get different Cohen’s <span class="math inline">\(d\)</span> values. For each of these <span class="math inline">\(d\)</span> values, we calculate a 95% interval. Then, among all these many intervals, we expect that 95% of them will contain the true <span class="math inline">\(d\)</span>, which we never know exactly.</p>
-<p>There is also a common criticism levied against the confidence interval interpretation: “There is a 95% probability that the true parameter exists within the 95% confidence interval”. However this criticism is unwarranted in the specific case of a single observed confidence interval, that is, as long as there is a single realized confidence interval sampled from the population, this interpretation is fine <span class="citation" data-cites="vos2022">(<a href="#ref-vos2022" role="doc-biblioref">Vos and Holbert 2022</a>)</span>. It is important to note however, this interpretation is incorrect when there are multiple realized confidence intervals. The criticized interpretation also tends to be more practical than the interpretation using repeated sampling, the following example described by <span class="citation" data-cites="vos2022">Vos and Holbert (<a href="#ref-vos2022" role="doc-biblioref">2022</a>)</span> illustrates this,</p>
+<p>There is also a common criticism levied against the confidence interval interpretation: “There is a 95% probability that the true parameter exists within the 95% confidence interval”. However this criticism is unwarranted in the specific case of a single observed confidence interval, that is, as long as there is a single realized confidence interval sampled from the population, this interpretation is fine <span class="citation" data-cites="vos2022">(<a href="#ref-vos2022" role="doc-biblioref">Vos and Holbert 2022</a>)</span>. It is important to note however, this interpretation is incorrect when there are multiple realized confidence intervals randomly sampled from the same population. The criticized interpretation also tends to be more practical than the interpretation using repeated sampling, the following example described by <span class="citation" data-cites="vos2022">Vos and Holbert (<a href="#ref-vos2022" role="doc-biblioref">2022</a>)</span> illustrates this,</p>
 <blockquote class="blockquote">
 <p>The distinction between these interpretations can be understood with the simple example of the probability of rolling a ‘6’ with a fair die. The probability is 1/6 because if you roll the die repeatedly the proportion of times that the face with ‘6’ comes up will be come very close to 1/6. Or, the probability is 1/6 because it is equivalent to a random selection from an urn where exactly one of 6 balls is labelled with ‘6’. The distinction in this simple example is less useful since repeatedly rolling a die is less problematic than repeatedly conducting the same randomized trial.</p>
 </blockquote>
@@ -966,17 +968,17 @@ SE_r = \sqrt{\frac{1-r^2}{n-2}}
 Z_r = \text{arctanh}(r)
 \]</span> The Fisher Z transformation ensures <span class="math inline">\(Z\)</span> has a symmetric and approximately normal sampling distribution. This then allows us to calculate the confidence interval from the standard error of <span class="math inline">\(Z_r\)</span> (<span class="math inline">\(SE_{Z_r} = \frac{1}{\sqrt{n-3}}\)</span>),</p>
 <p><span class="math display">\[
-Z_\text{Lower Bound} = Z_r - 1.96\times SE_{Z_r}
+Z_{UP} = Z_r - 1.96\times SE_{Z_r}
 \]</span></p>
 <p><span class="math display">\[
-Z_\text{Upper Bound} = Z_r + 1.96\times SE_{Z_r}
+Z_{UP} = Z_r + 1.96\times SE_{Z_r}
 \]</span></p>
 <p>We can then back-transform the upper bound and lower bound into the upper and lower bound of <span class="math inline">\(r\)</span> by taking the hyperbolic tangent (the inverse of the arctangent),</p>
 <p><span class="math display">\[
-r_\text{Lower Bound} = \text{tanh}(Z_\text{Lower Bound})
+r_{UP} = \text{tanh}(Z_{UP})
 \]</span></p>
 <p><span class="math display">\[
-r_\text{Upper Bound} = \text{tanh}(Z_\text{Lower Bound})
+r_{UP} = \text{tanh}(Z_{UP})
 \]</span></p>
 <p>In R, the full process of obtaining confidence intervals can be done quite easily. Note if you have raw data for <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, then you can compute the correlation with base R, <code>cor(X,Y)</code>.</p>
 <div class="cell">
@@ -1020,26 +1022,26 @@ r_\text{Upper Bound} = \text{tanh}(Z_\text{Lower Bound})
 <caption>Table&nbsp;1: Contingency table between two binary variables</caption>
 <thead>
 <tr class="header">
-<th></th>
-<th><span class="math inline">\(X=0\)</span></th>
-<th><span class="math inline">\(X=1\)</span></th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(X=0\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X=1\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\(Y=0\)</span></td>
-<td><span class="math inline">\(n_{00}\)</span></td>
-<td><span class="math inline">\(n_{10}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(Y=0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{00}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{10}\)</span></td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(Y=1\)</span></td>
-<td><span class="math inline">\(n_{01}\)</span></td>
-<td><span class="math inline">\(n_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(Y=1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{01}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{11}\)</span></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The sample sizes within each cell provide us with the necessary information to estimate the relationship between the two variables. To calculate phi, it can be calculated from the cells of the contingency table directly,</p>
+<p>The sample sizes within each cell provide us with the necessary information to estimate the relationship between the two variables. A large phi coefficient would be expected to have relatively large sample sizes in the diagonal cells (<span class="math inline">\(n_{00}\)</span> and <span class="math inline">\(n_{11}\)</span>) and relatively low sample sizes in the off-diagonal cells (<span class="math inline">\(n_{01}\)</span> and <span class="math inline">\(n_{10}\)</span>). To calculate phi, it can be calculated from the cells of the contingency table directly,</p>
 <p><span class="math display">\[
 \phi = \frac{n_{11}n_{00} -n_{10}n_{01}}{\sqrt{(n_{00} + n_{01})(n_{10} + n_{11})(n_{00} + n_{10})(n_{01} + n_{11})}}
 \]</span></p>
@@ -1069,84 +1071,90 @@ r_\text{Upper Bound} = \text{tanh}(Z_\text{Lower Bound})
 </section>
 <section id="cramers-v" class="level3">
 <h3 class="anchored" data-anchor-id="cramers-v">Cramer’s <span class="math inline">\(V\)</span></h3>
-<p>Cramer’s V, sometimes also referred to as Cramer’s phi (<span class="math inline">\(\phi\)</span>), is a generalized effect size measure of the association between two nominal variables. It applies to contingency tables of any size (2x2, 3x3, 4x4,…). Cramer’s <span class="math inline">\(V\)</span> on a 2 by 2 contingency table is equivalent to the phi coefficient. For an illustration of a higher order contingency table, <a href="#tbl-contingency-2">Table&nbsp;2</a> represents a contingency table of two variables, each with 4 levels (0,1,2,3,4). In a contingency table with a high Cramer’s <span class="math inline">\(V\)</span>, we would expect relatively large sample sizes along the diagonal cells (i.e., <span class="math inline">\(n_{00}\)</span>,<span class="math inline">\(n_{11}\)</span>,<span class="math inline">\(n_{22}\)</span>,<span class="math inline">\(n_{33}\)</span>) and smaller sample sizes in the off-diagonal cells.</p>
+<p>Cramer’s V, sometimes also referred to as Cramer’s phi (<span class="math inline">\(\phi\)</span>), is a generalized effect size measure of the association between two nominal variables. It applies to contingency tables of any size (<span class="math inline">\(2\times 2\)</span>, <span class="math inline">\(3\times 3\)</span>, <span class="math inline">\(3\times 4\)</span>, <span class="math inline">\(5\times 3\)</span>, etc.). Cramer’s <span class="math inline">\(V\)</span> on a <span class="math inline">\(2\times 2\)</span> contingency table is equivalent to the phi coefficient. For an illustration of a higher order contingency table, <a href="#tbl-contingency-2">Table&nbsp;2</a> represents a <span class="math inline">\(3\times 4\)</span> contingency table of two variables.</p>
 <div id="tbl-contingency-2" class="anchored">
 <table class="table">
 <caption>Table&nbsp;2: Contingency table between two categorical variables</caption>
 <thead>
 <tr class="header">
 <th></th>
-<th><span class="math inline">\(X=0\)</span></th>
-<th><span class="math inline">\(X=1\)</span></th>
-<th><span class="math inline">\(X=2\)</span></th>
-<th><span class="math inline">\(X=3\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X=0\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X=1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X=2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X=3\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(Y=0\)</span></td>
-<td><span class="math inline">\(n_{00}\)</span></td>
-<td><span class="math inline">\(n_{10}\)</span></td>
-<td><span class="math inline">\(n_{21}\)</span></td>
-<td><span class="math inline">\(n_{31}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{00}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{10}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{21}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{31}\)</span></td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(Y=1\)</span></td>
-<td><span class="math inline">\(n_{01}\)</span></td>
-<td><span class="math inline">\(n_{11}\)</span></td>
-<td><span class="math inline">\(n_{21}\)</span></td>
-<td><span class="math inline">\(n_{31}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{01}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{21}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{31}\)</span></td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(Y=2\)</span></td>
-<td><span class="math inline">\(n_{02}\)</span></td>
-<td><span class="math inline">\(n_{12}\)</span></td>
-<td><span class="math inline">\(n_{22}\)</span></td>
-<td><span class="math inline">\(n_{32}\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(Y=3\)</span></td>
-<td><span class="math inline">\(n_{03}\)</span></td>
-<td><span class="math inline">\(n_{13}\)</span></td>
-<td><span class="math inline">\(n_{23}\)</span></td>
-<td><span class="math inline">\(n_{33}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{02}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{22}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{32}\)</span></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Similarly to the phi coefficient, the value of Cramer’s V ranges from 0 to 1. Again we can use the <span class="math inline">\(\chi^2\)</span> statistic to compute the value, however, since there can be more than 2 levels to each variable, we also need to take into account the number of levels, <span class="math inline">\(k\)</span>,</p>
+<p>Similarly to the phi coefficient, the value of Cramer’s <span class="math inline">\(V\)</span> ranges from 0 to 1 and can interpreted in a similar way to a phi coefficient. Again we can use the <span class="math inline">\(\chi^2\)</span> statistic to compute the value, however, since there can be more than 2 levels to each variable, we also need to take into account the number of levels, <span class="math inline">\(k\)</span>, of the variable with the least number of levels (e.g., a 3$$4 continency table, <span class="math inline">\(k\)</span> would be equal to 3),</p>
 <p><span class="math display">\[
 V = \sqrt{\frac{\chi^2}{n(k-1)}}
 \]</span></p>
-<p>Using the <code>chi.square</code>, we can calculate the the phi coefficient using the <code>phi</code> function directly from the contingency table</p>
+<p>The standard error of a Cramer’s <span class="math inline">\(V\)</span> is similar to that of a Pearson correlation and a <span class="math inline">\(\phi\)</span> coefficient.</p>
+<p><span class="math display">\[
+SE_V = \sqrt{\frac{1-V^2}{n-2}}
+\]</span> Where <span class="math inline">\(n\)</span> is the total sample size (i.e., the sum of all cells). Like the pearson correlation, we can not calculate the confidence interval directly from the standard error, instead, we must convert <span class="math inline">\(V\)</span> to a Fisher’s Z statistic, <span class="math inline">\(Z_V = \text{arctanh}(V)\)</span>. We can then calculate the standard errors and corresponding 95% confidence intervals for <span class="math inline">\(Z_V\)</span>:</p>
+<p><span class="math display">\[
+SE_{Z_V} = \frac{1}{\sqrt{n-3}}
+\]</span> <span class="math display">\[
+Z_\text{Lower} = Z_V - 1.96\times SE_{Z_V}
+\]</span></p>
+<p><span class="math display">\[
+Z_\text{Upper} = Z_V + 1.96\times SE_{Z_V}
+\]</span> Then we can backtransform the upper and lower bound back into Cramer’s <span class="math inline">\(V\)</span>, such that <span class="math inline">\(V_{UP} = \text{tanh}(Z_{UP})\)</span> and <span class="math inline">\(V_{UP} = \text{tanh}(Z_{UP})\)</span>.</p>
+<p>Using the <code>ufs</code> package <span class="citation" data-cites="ufs">(<a href="#ref-ufs" role="doc-biblioref">Peters and Gruijters 2023</a>)</span>, we can calculate Cramer’s <span class="math inline">\(V\)</span> and it’s 95% confidence interval using the Fisher’s Z method described above. For the example, we can example data from a 3$$3 contingency table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example contingency table:</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  40  14  12</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  11  27   9</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   5  10  34</span></span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">11</span>,  <span class="dv">5</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                              <span class="dv">14</span>, <span class="dv">27</span>, <span class="dv">10</span>,</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                              <span class="dv">12</span>,  <span class="dv">9</span>, <span class="dv">34</span>),<span class="at">ncol =</span> <span class="dv">3</span>)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(contingency_table)</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">ncol</span>(contingency_table)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ufs)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">11</span>,  <span class="dv">5</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>                              <span class="dv">14</span>, <span class="dv">27</span>, <span class="dv">10</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                              <span class="dv">12</span>,  <span class="dv">9</span>, <span class="dv">34</span>),<span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain chi squared statistic</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>chi2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">chisq.test</span>(contingency_table)<span class="sc">$</span>statistic)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">cramersV</span>(contingency_table)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>CI <span class="ot">&lt;-</span> <span class="fu">confIntV</span>(contingency_table)</span>
 <span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co"># compute Cramer's V</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi2<span class="sc">/</span>(n<span class="sc">*</span>(k<span class="dv">-1</span>)))</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>V</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print pearson correlation and confidence intervals</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">V =</span> <span class="fu">apa</span>(V<span class="sc">$</span>output<span class="sc">$</span>cramersV), </span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">Vlow =</span> <span class="fu">apa</span>(CI<span class="sc">$</span>output<span class="sc">$</span>confIntV.fisher[<span class="dv">1</span>]), </span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">Vhigh =</span> <span class="fu">apa</span>(CI<span class="sc">$</span>output<span class="sc">$</span>confIntV.fisher[<span class="dv">2</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4417612</code></pre>
+<pre><code>      V  Vlow Vhigh
+1 0.442 0.309 0.558</code></pre>
 </div>
 </div>
-<p>In our example we obtained a Cramer’s <span class="math inline">\(V\)</span> of <span class="math inline">\(\phi\)</span> = .44.</p>
+<p>In our example we obtained a Cramer’s <span class="math inline">\(V\)</span> of <span class="math inline">\(V\)</span> = .44 [.31, .56].</p>
 </section>
 <section id="cohens-h" class="level3">
-<h3 class="anchored" data-anchor-id="cohens-h">Cohen’s h</h3>
+<h3 class="anchored" data-anchor-id="cohens-h">Cohen’s <span class="math inline">\(h\)</span></h3>
 <p>Cohen’s <span class="math inline">\(h\)</span> is a measure of distance between two proportions or probabilities. It is sometimes also referred to as the “difference between arcsines”. For a given proportion <span class="math inline">\(p\)</span>, its arcsine transformation is given by:</p>
 <p><span class="math display">\[
 \psi = 2\cdot \text{arcsin}(\sqrt{p}).
@@ -1155,29 +1163,215 @@ V = \sqrt{\frac{\chi^2}{n(k-1)}}
 <p><span class="math display">\[
 h = \psi_1 - \psi_2
 \]</span></p>
-<p>Cohen’s <span class="math inline">\(h\)</span> is commonly used for the power analysis of proportion tests. It is the required effect size measure in the program <em>G Power</em> <span class="citation" data-cites="faul2009">(<a href="#ref-faul2009" role="doc-biblioref">Faul et al. 2009</a>)</span>. To calculate Cohen’s <span class="math inline">\(h\)</span> in base R.</p>
+<p>Cohen’s <span class="math inline">\(h\)</span> is commonly used for the power analysis of proportion tests. We can calculate the standard error in Cohen’s <span class="math inline">\(h\)</span> It is the required effect size measure in the program <em>G Power</em> <span class="citation" data-cites="faul2009">(<a href="#ref-faul2009" role="doc-biblioref">Faul et al. 2009</a>)</span>.</p>
+<p><span class="math display">\[
+SE_h = \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
+\]</span></p>
+<p>Since the sampling distribution of <span class="math inline">\(h\)</span> is symmetric, we can calculate the confidence intervals as described previously in <a href="#eq-ci-low">Equation&nbsp;1</a> and <a href="#eq-ci-high">Equation&nbsp;2</a>. To calculate Cohen’s <span class="math inline">\(h\)</span>, we can use the <code>cohens_h</code> function in the <code>effectsize</code> package in R.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example proportions: p1 = .45, p2 = .30</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> .<span class="dv">45</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> .<span class="dv">30</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>psi1 <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">asin</span>(<span class="fu">sqrt</span>(p1))</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>psi2 <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">asin</span>(<span class="fu">sqrt</span>(p2))</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> psi1 <span class="sc">-</span> psi2</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install package if not done so already</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('effectsize')</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Example proportions: p1 = .45, p2 = .30</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">11</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                              <span class="dv">14</span>, <span class="dv">27</span>),<span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_h</span>(contingency_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3113494</code></pre>
+<pre><code>Cohen's h |       95% CI
+------------------------
+0.93      | [0.52, 1.34]</code></pre>
 </div>
 </div>
+<p>From the example, the R code outputted a Cohen’s <span class="math inline">\(h\)</span> value of <span class="math inline">\(h\)</span> = .93 [0.52, 1.34].</p>
+</section>
+<section id="cohens-omega-omega" class="level3">
+<h3 class="anchored" data-anchor-id="cohens-omega-omega">Cohen’s omega (<span class="math inline">\(\omega\)</span>)</h3>
+<p>Although Cohen’s <span class="math inline">\(\omega\)</span> is useful for power analyses, it is not so useful as a stand-alone effect size. As <span class="citation" data-cites="cohen1988">Cohen (<a href="#ref-cohen1988" role="doc-biblioref">1988</a>)</span> states (pp.&nbsp;221):</p>
+<blockquote class="blockquote">
+<p>As a measure of association, [Cohen’s <span class="math inline">\(\omega\)</span>] lacks familiarity and convenience</p>
+</blockquote>
+<p>Cohen’s <span class="math inline">\(\omega\)</span> has the exact same formula as the phi coefficient with the only difference being that the <span class="math inline">\(\chi^2\)</span> statistic comes from a contingency table of any size,</p>
+<p><span class="math display">\[
+\omega = \sqrt{\frac{\chi^2}{n}}
+\]</span></p>
+<p>And can also be calculated directly from Cramer’s <span class="math inline">\(V\)</span>,</p>
+<p><span class="math display">\[
+\omega = V \times \sqrt{k-1}
+\]</span></p>
+<p>Where <span class="math inline">\(k\)</span> is the number of categories in the variable with the least number of categories.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example contingency table</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">11</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                              <span class="dv">14</span>, <span class="dv">27</span>),<span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_w</span>(contingency_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Cohen's w |       95% CI
+------------------------
+0.45      | [0.28, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+</div>
+<p>From the example code, the <code>cohens_w</code> function returned Cohen’s <span class="math inline">\(\omega\)</span> value of <span class="math inline">\(h\)</span> = .93 [0.52, 1.34].</p>
+</section>
+<section id="ben-shachars-fei-פ" class="level3">
+<h3 class="anchored" data-anchor-id="ben-shachars-fei-פ">Ben-Shachar’s Fei (פ)</h3>
+<p><span class="citation" data-cites="benshachar2023">Ben-Shachar et al. (<a href="#ref-benshachar2023" role="doc-biblioref">2023</a>)</span> introduced a new effect size for contingency tables that they label with the Hebrew letter, פ. Ben-Shachar’s פ is a correction to Cohen’s <span class="math inline">\(\omega\)</span> that adjusts for the expected value and consequently bounds the value between 0 and 1 (Cohen’s <span class="math inline">\(\omega\)</span> is only bounded between 0 and 1 when marginal distributions are uniform).</p>
+<p>Cohen’s <span class="math inline">\(\omega\)</span> has the exact same formula as the phi coefficient with the only difference being that the <span class="math inline">\(\chi^2\)</span> statistic comes from a contingency table of any size,</p>
+<p><span class="math display">\[
+\mathbf{פ }= \sqrt{\frac{\chi^2}{n \left(\frac{1}{\min\left(P_E\right)} -1\right)}}
+\]</span></p>
+<p>Where <span class="math inline">\(\min(P_E)\)</span> is the smallest expected probability in the contingency table. An expected probability for a given cell is the proportion of the total sample that would be expected to exist in that cell if the two variables were independent. The formula for Ben-Schacher’s פ can be also be expressed in terms of Cohen’s <span class="math inline">\(\omega\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{פ }= \frac{\omega}{\sqrt{\left(\frac{1}{\max(P_E)} -1\right)}}
+\]</span></p>
+<p>In R, we can calculate Ben-Shacher’s פ using the <code>effectsize</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Observed counts: 20, 50, 100 (observed proportions: .12, .29, .59)</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected proportions: .5, .2, .3</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>observed_counts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">50</span>,<span class="dv">100</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>expected_probabilities <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">5</span>,.<span class="dv">2</span>,.<span class="dv">3</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">fei</span>(observed_counts,</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> expected_probabilities,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fei  |       95% CI
+-------------------
+0.39 | [0.31, 0.47]
+
+- Adjusted for uniform expected probabilities.</code></pre>
+</div>
+</div>
+<p>From the example code, the <code>cohens_w</code> function returned Ben-Shacher’s פ value of .39 [0.31, 0.47].</p>
 </section>
 <section id="odds-ratio" class="level3">
 <h3 class="anchored" data-anchor-id="odds-ratio">Odds Ratio</h3>
+<p>Odds ratio measures the effect size between two binary variables. It is commonly used in medical and behavioral intervention research, and notably, in meta-analysis.</p>
+<p>Let’s imagine a study conducted to investigate the association between smoking and the development of major depressive disorder (MDD). The study includes a sample of 251 individuals, categorizing them into two groups: 125 smokers and 126 non-smokers. The researchers are interested in understanding the odds of having major depressive disorder (MDD) among smokers compared to non-smokers. Say we find that 25 smokers were diagnosed with MDD while 100 were not, but in the non-smoker group, 12 individuals were diagnosed with MDD while 120 were not. The odds ratio would then be:</p>
+<p><span class="math display">\[
+OR = \frac{25/100}{12/120}= \frac{.25}{.10} = 2.50
+\]</span></p>
+<p>In general, we can can compute the odds-ratio from a contingency table between binary variables <span class="math inline">\(X\)</span> (i.e., the treatment) and <span class="math inline">\(Y\)</span> (i.e., the outcome; see <a href="#tbl-contingency-OR">Table&nbsp;3</a>).</p>
+<div id="tbl-contingency-OR" class="anchored">
+<table class="table">
+<caption>Table&nbsp;3: Contingency table between two binary variables</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(X=T\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X=C\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(Y=0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{T0}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{C0}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(Y=1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{T1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{C1}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Ultimately, we want to compare the outcome between the treatment group (<span class="math inline">\(X=T\)</span>) and the control group (<span class="math inline">\(X=C\)</span>). Therefore we can compute the odds ratio as,</p>
+<p><span class="math display">\[
+OR = \frac{n_{T1}/n_{T0}}{n_{C1}/n_{C0}}
+\]</span></p>
+<p>The standard distribution of the odds-ratio is asymmetric. To calculate confidence intervals, we can first convert the odds ratio to a log odds ratio (<span class="math inline">\(LOR= \log(OR)\)</span>). Then we can calculate the standard error of the log odds ratio,</p>
+<p><span class="math display">\[
+SE_{LOR} = \sqrt{\frac{1}{n_{T0}} + \frac{1}{n_{T1}} + \frac{1}{n_{C0}} + \frac{1}{n_{C1}}}
+\]</span></p>
+<p>With the standard error of the log odds ratio we can then calculate the log odds ratio,</p>
+<p><span class="math display">\[
+LOR_{UP} = LOR - 1.96\times SE_{LOR}
+\]</span></p>
+<p><span class="math display">\[
+LOR_{UP} = LOR + 1.96\times SE_{LOR}
+\]</span> Then the final step we can convert these back to <span class="math inline">\(OR\)</span> confidence intervals by taking the exponential transformation of them: <span class="math inline">\(OR_{UP}=\exp(LOR_{UP})\)</span> and <span class="math inline">\(OR_{UP}=\exp(LOR_{UP})\)</span>.</p>
+<p>In R, we can use the <code>effectsize</code> package to calculate the odds ratio and it’s confidence interval:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Treatment Group: 10 diseased, 43 healthy</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Control Group:  24 diseased, 41 healthy</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">24</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>                              <span class="dv">43</span>, <span class="dv">41</span>),<span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">oddsratio</span>(contingency_table,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Odds ratio |       95% CI
+-------------------------
+0.40       | [0.17, 0.93]</code></pre>
+</div>
+</div>
+<p>The code output for this example shows an odds ratio of <span class="math inline">\(OR\)</span> = 0.40 [0.17, 0.93]</p>
 </section>
 <section id="risk-difference" class="level3">
 <h3 class="anchored" data-anchor-id="risk-difference">Risk Difference</h3>
+<p>Risk difference can be used to interpret the difference between two proportions. If we use the contingency table from <a href="#tbl-contingency-OR">Table&nbsp;3</a>, and calculate a risk difference between the treatment group and the control group. We can first calculate the proportion of cases where the outcome is <span class="math inline">\(Y=1\)</span> <em>within</em> the control group and the treatment group:</p>
+<p><span class="math display">\[
+p_C=\frac{n_{C1}}{n_{C0}+n_{C1}}
+\]</span></p>
+<p><span class="math display">\[
+p_T=\frac{n_{T1}}{n_{T0}+n_{T1}}
+\]</span> Then using these proportions we can calculate the risk difference (<span class="math inline">\(RD\)</span>),</p>
+<p><span class="math display">\[
+RD = p_T - p_C.
+\]</span> The corresponding standard error is,</p>
+<p><span class="math display">\[
+SE_{RD} = \sqrt{\frac{p_C(1-p_C)}{n_C} + \frac{p_T(1-p_T)}{n_T} }
+\]</span></p>
+<p>Where <span class="math inline">\(n_C\)</span> and <span class="math inline">\(n_T\)</span> are the total sample sizes <em>within</em> the control and treatment group, respectively. The standard error can then be used to compute the 95% confidence intervals using the formulas described in <a href="#eq-ci-high">Equation&nbsp;2</a> and <a href="#eq-ci-low">Equation&nbsp;1</a></p>
+<p><span class="math display">\[
+RD_{LO} = RD - 1.96 \times SE_{RD}
+\]</span></p>
+<p><span class="math display">\[
+RD_{UP} = RD + 1.96 \times SE_{RD}
+\]</span></p>
+<p>The risk difference formula is fairly simple, so we can compute it using base R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: </span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Treatment group: proportion of cases = .5, sample size = 40</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Control group: proportion of cases = .3, sample size = 45</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>pT <span class="ot">&lt;-</span> .<span class="dv">50</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>pC <span class="ot">&lt;-</span> .<span class="dv">30</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>nT <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>nC <span class="ot">&lt;-</span> <span class="dv">45</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>RD <span class="ot">&lt;-</span> pT <span class="sc">-</span> pC</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>( pC<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>pC)<span class="sc">/</span>nC <span class="sc">+</span> pT<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>pT)<span class="sc">/</span>nT )</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co"># compute 95% CIs</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>RDlow <span class="ot">&lt;-</span> RD <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>RDhigh <span class="ot">&lt;-</span> RD <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">RD =</span> <span class="fu">apa</span>(RD),</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">RDlow =</span> <span class="fu">apa</span>(RDlow),</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">RDhigh =</span> <span class="fu">apa</span>(RDhigh)</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     RD  RDlow RDhigh
+1 0.200 -0.005  0.405</code></pre>
+</div>
+</div>
 </section>
 <section id="relative-risk" class="level3 unnumbered">
 
@@ -1195,6 +1389,9 @@ Becker, Betsy J. 1988. <span>“Synthesizing Standardized Mean-Change Measures -
 </div>
 <div id="ref-effectsize" class="csl-entry" role="listitem">
 Ben-Shachar, Mattan S., Daniel Lüdecke, and Dominique Makowski. 2020. <span>“<span class="nocase">e</span>ffectsize: Estimation of Effect Size Indices and Standardized Parameters.”</span> <em>Journal of Open Source Software</em> 5 (56): 2815. <a href="https://doi.org/10.21105/joss.02815">https://doi.org/10.21105/joss.02815</a>.
+</div>
+<div id="ref-benshachar2023" class="csl-entry" role="listitem">
+Ben-Shachar, Mattan S., Indrajeet Patil, Rémi Thériault, Brenton M. Wiernik, and Daniel Lüdecke. 2023. <span>“Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the Chi-Squared Statistic.”</span> <em>Mathematics</em> 11 (9): 1982. <a href="https://doi.org/10.3390/math11091982">https://doi.org/10.3390/math11091982</a>.
 </div>
 <div id="ref-DeclareDesign" class="csl-entry" role="listitem">
 Blair, Graeme, Jasper Cooper, Alexander Coppock, and Macartan Humphreys. 2019. <span>“Declaring and Diagnosing Research Designs.”</span> <em>American Political Science Review</em> 113: 838–59. <a href="https://declaredesign.org/paper.pdf">https://declaredesign.org/paper.pdf</a>.
@@ -1276,6 +1473,9 @@ Orben, Amy, and Daniël Lakens. 2020. <span>“Crud (Re)Defined.”</span> <em>A
 </div>
 <div id="ref-paterson2016" class="csl-entry" role="listitem">
 Paterson, Ted A., P. D. Harms, Piers Steel, and Marcus Credé. 2016. <span>“An Assessment of the Magnitude of Effect Sizes: Evidence From 30 Years of Meta-Analysis in Management.”</span> <em>Journal of Leadership &amp; Organizational Studies</em> 23 (1): 66–81. <a href="https://doi.org/10.1177/1548051815614321">https://doi.org/10.1177/1548051815614321</a>.
+</div>
+<div id="ref-ufs" class="csl-entry" role="listitem">
+Peters, Gjalt-Jorn Ygram, and Stefan Gruijters. 2023. <em>Ufs: A Collection of Utilities</em>. <a href="https://ufs.opens.science">https://ufs.opens.science</a>.
 </div>
 <div id="ref-pogrow2019" class="csl-entry" role="listitem">
 Pogrow, Stanley. 2019. <span>“How Effect Size (Practical Significance) Misleads Clinical Practice: The Case for Switching to Practical Benefit to Assess Applied Research Findings.”</span> <em>The American Statistician</em> 73 (sup1): 223–34. <a href="https://doi.org/10.1080/00031305.2018.1549101">https://doi.org/10.1080/00031305.2018.1549101</a>.
