@@ -141,9 +141,14 @@ div.csl-indent {
   <li><a href="#cohens-h" id="toc-cohens-h" class="nav-link" data-scroll-target="#cohens-h">Cohen’s <span class="math inline">\(h\)</span></a></li>
   <li><a href="#cohens-omega-omega" id="toc-cohens-omega-omega" class="nav-link" data-scroll-target="#cohens-omega-omega">Cohen’s omega (<span class="math inline">\(\omega\)</span>)</a></li>
   <li><a href="#ben-shachars-fei-פ" id="toc-ben-shachars-fei-פ" class="nav-link" data-scroll-target="#ben-shachars-fei-פ">Ben-Shachar’s Fei (פ)</a></li>
-  <li><a href="#odds-ratio" id="toc-odds-ratio" class="nav-link" data-scroll-target="#odds-ratio">Odds Ratio</a></li>
-  <li><a href="#risk-difference" id="toc-risk-difference" class="nav-link" data-scroll-target="#risk-difference">Risk Difference</a></li>
-  <li><a href="#relative-risk" id="toc-relative-risk" class="nav-link" data-scroll-target="#relative-risk">Relative Risk</a></li>
+  <li><a href="#odds-ratio-or" id="toc-odds-ratio-or" class="nav-link" data-scroll-target="#odds-ratio-or">Odds Ratio (<span class="math inline">\(OR\)</span>)</a></li>
+  <li><a href="#risk-difference-rd" id="toc-risk-difference-rd" class="nav-link" data-scroll-target="#risk-difference-rd">Risk Difference (<span class="math inline">\(RD\)</span>)</a></li>
+  <li><a href="#relative-risk-rr" id="toc-relative-risk-rr" class="nav-link" data-scroll-target="#relative-risk-rr">Relative Risk (<span class="math inline">\(RR\)</span>)</a></li>
+  </ul></li>
+  <li><a href="#effect-sizes-for-anovas" id="toc-effect-sizes-for-anovas" class="nav-link" data-scroll-target="#effect-sizes-for-anovas">Effect Sizes for ANOVAs</a>
+  <ul class="collapse">
+  <li><a href="#eta-squared-eta2" id="toc-eta-squared-eta2" class="nav-link" data-scroll-target="#eta-squared-eta2">Eta-Squared (<span class="math inline">\(\eta^2\)</span>)</a></li>
+  <li><a href="#cohens-f" id="toc-cohens-f" class="nav-link" data-scroll-target="#cohens-f">Cohen’s <span class="math inline">\(f\)</span></a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.docx"><i class="bi bi-file-word"></i>MS Word (apaquarto)</a></li></ul></div></nav>
@@ -948,7 +953,8 @@ SE_{d^*} = SE_{d} \times CF
 <p>To quantify the relationship between two continuous variables, the most common method is to use a Pearson correlation coefficient (denoted with the letter <span class="math inline">\(r\)</span>). The pearson correlation takes the covariance between an independent (<span class="math inline">\(X\)</span>) and dependent (<span class="math inline">\(Y\)</span>) variable and standardizes it by the standard deviations of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>,</p>
 <p><span class="math display">\[
 r = \frac{\text{Cov}(X,Y)}{S_{X} S_{Y}}.
-\]</span> We can visualize what a correlation between two variables looks like with scatter plots. <a href="#fig-cor-example">Figure&nbsp;3</a> shows scatter plots with differing levels of correlation.</p>
+\]</span></p>
+<p>We can visualize what a correlation between two variables looks like with scatter plots. <a href="#fig-cor-example">Figure&nbsp;3</a> shows scatter plots with differing levels of correlation.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-cor-example" class="quarto-figure quarto-figure-center anchored">
@@ -966,16 +972,14 @@ SE_r = \sqrt{\frac{1-r^2}{n-2}}
 <p>Unlike Cohen’s <span class="math inline">\(d\)</span> and other effect size measures, The correlation coefficient is bounded by -1 and positive 1, with positive 1 being a perfectly positive correlation, -1 being a perfectly negative correlation, and zero indicating no correlation between the two variables. The bounding has the consequence of making the confidence interval asymmetric around <span class="math inline">\(r\)</span> (e.g., if the correlation is positive, the lower bound is farther away from <span class="math inline">\(r\)</span> than the upper bound is). It is important to note that with a correlation of zero, the confidence interval <em>is</em> symmetric and normal. This asymmetric does not allow us to calculate the confidence intervals like how we did in <a href="#eq-ci-low">Equation&nbsp;1</a> and <a href="#eq-ci-high">Equation&nbsp;2</a>. Instead, to obtain the confidence intervals of <span class="math inline">\(r\)</span>, we first need to apply a Fisher’s Z transformation. A Fisher’s Z is a hyperbolic arctangent transformation of a Pearson correlation coefficient and can be computed as,</p>
 <p><span class="math display">\[
 Z_r = \text{arctanh}(r)
-\]</span> The Fisher Z transformation ensures <span class="math inline">\(Z\)</span> has a symmetric and approximately normal sampling distribution. This then allows us to calculate the confidence interval from the standard error of <span class="math inline">\(Z_r\)</span> (<span class="math inline">\(SE_{Z_r} = \frac{1}{\sqrt{n-3}}\)</span>),</p>
-<p><span class="math display">\[
-Z_{UP} = Z_r - 1.96\times SE_{Z_r}
 \]</span></p>
+<p>The Fisher Z transformation ensures <span class="math inline">\(Z\)</span> has a symmetric and approximately normal sampling distribution. This then allows us to calculate the confidence interval from the standard error of <span class="math inline">\(Z_r\)</span> (<span class="math inline">\(SE_{Z_r} = \frac{1}{\sqrt{n-3}}\)</span>),</p>
 <p><span class="math display">\[
-Z_{UP} = Z_r + 1.96\times SE_{Z_r}
+CI_{Z_r} = Z_r \pm 1.96\times SE_{Z_r}
 \]</span></p>
 <p>We can then back-transform the upper bound and lower bound into the upper and lower bound of <span class="math inline">\(r\)</span> by taking the hyperbolic tangent (the inverse of the arctangent),</p>
 <p><span class="math display">\[
-r_{UP} = \text{tanh}(Z_{UP})
+r_{LO} = \text{tanh}(Z_{LO})
 \]</span></p>
 <p><span class="math display">\[
 r_{UP} = \text{tanh}(Z_{UP})
@@ -1120,11 +1124,9 @@ SE_V = \sqrt{\frac{1-V^2}{n-2}}
 <p><span class="math display">\[
 SE_{Z_V} = \frac{1}{\sqrt{n-3}}
 \]</span> <span class="math display">\[
-Z_\text{Lower} = Z_V - 1.96\times SE_{Z_V}
+CI_{Z_V} = Z_V \pm 1.96\times SE_{Z_V}
 \]</span></p>
-<p><span class="math display">\[
-Z_\text{Upper} = Z_V + 1.96\times SE_{Z_V}
-\]</span> Then we can backtransform the upper and lower bound back into Cramer’s <span class="math inline">\(V\)</span>, such that <span class="math inline">\(V_{UP} = \text{tanh}(Z_{UP})\)</span> and <span class="math inline">\(V_{UP} = \text{tanh}(Z_{UP})\)</span>.</p>
+<p>Then we can backtransform the upper and lower bound back into Cramer’s <span class="math inline">\(V\)</span>, such that <span class="math inline">\(V_{UP} = \text{tanh}(Z_{UP})\)</span> and <span class="math inline">\(V_{UP} = \text{tanh}(Z_{UP})\)</span>.</p>
 <p>Using the <code>ufs</code> package <span class="citation" data-cites="ufs">(<a href="#ref-ufs" role="doc-biblioref">Peters and Gruijters 2023</a>)</span>, we can calculate Cramer’s <span class="math inline">\(V\)</span> and it’s 95% confidence interval using the Fisher’s Z method described above. For the example, we can example data from a 3$$3 contingency table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example contingency table:</span></span>
@@ -1167,7 +1169,11 @@ h = \psi_1 - \psi_2
 <p><span class="math display">\[
 SE_h = \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
 \]</span></p>
-<p>Since the sampling distribution of <span class="math inline">\(h\)</span> is symmetric, we can calculate the confidence intervals as described previously in <a href="#eq-ci-low">Equation&nbsp;1</a> and <a href="#eq-ci-high">Equation&nbsp;2</a>. To calculate Cohen’s <span class="math inline">\(h\)</span>, we can use the <code>cohens_h</code> function in the <code>effectsize</code> package in R.</p>
+<p>Since the sampling distribution of <span class="math inline">\(h\)</span> is symmetric, we can calculate the confidence intervals as described previously in <a href="#eq-ci-low">Equation&nbsp;1</a> and <a href="#eq-ci-high">Equation&nbsp;2</a>,</p>
+<p><span class="math display">\[
+CI_h = h \pm1.96\times SE_h
+\]</span></p>
+<p>To calculate Cohen’s <span class="math inline">\(h\)</span>, we can use the <code>cohens_h</code> function in the <code>effectsize</code> package in R.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install package if not done so already</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('effectsize')</span></span>
@@ -1209,13 +1215,12 @@ SE_h = \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">11</span>,</span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                              <span class="dv">14</span>, <span class="dv">27</span>),<span class="at">ncol =</span> <span class="dv">2</span>)</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_w</span>(contingency_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_w</span>(contingency_table,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Cohen's w |       95% CI
 ------------------------
-0.45      | [0.28, 1.00]
-
-- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+0.45      | [0.24, 0.65]</code></pre>
 </div>
 </div>
 <p>From the example code, the <code>cohens_w</code> function returned Cohen’s <span class="math inline">\(\omega\)</span> value of <span class="math inline">\(h\)</span> = .93 [0.52, 1.34].</p>
@@ -1254,8 +1259,8 @@ SE_h = \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
 </div>
 <p>From the example code, the <code>cohens_w</code> function returned Ben-Shacher’s פ value of .39 [0.31, 0.47].</p>
 </section>
-<section id="odds-ratio" class="level3">
-<h3 class="anchored" data-anchor-id="odds-ratio">Odds Ratio</h3>
+<section id="odds-ratio-or" class="level3">
+<h3 class="anchored" data-anchor-id="odds-ratio-or">Odds Ratio (<span class="math inline">\(OR\)</span>)</h3>
 <p>Odds ratio measures the effect size between two binary variables. It is commonly used in medical and behavioral intervention research, and notably, in meta-analysis.</p>
 <p>Let’s imagine a study conducted to investigate the association between smoking and the development of major depressive disorder (MDD). The study includes a sample of 251 individuals, categorizing them into two groups: 125 smokers and 126 non-smokers. The researchers are interested in understanding the odds of having major depressive disorder (MDD) among smokers compared to non-smokers. Say we find that 25 smokers were diagnosed with MDD while 100 were not, but in the non-smoker group, 12 individuals were diagnosed with MDD while 120 were not. The odds ratio would then be:</p>
 <p><span class="math display">\[
@@ -1298,9 +1303,7 @@ SE_{LOR} = \sqrt{\frac{1}{n_{T0}} + \frac{1}{n_{T1}} + \frac{1}{n_{C0}} + \frac{
 <p><span class="math display">\[
 LOR_{UP} = LOR - 1.96\times SE_{LOR}
 \]</span></p>
-<p><span class="math display">\[
-LOR_{UP} = LOR + 1.96\times SE_{LOR}
-\]</span> Then the final step we can convert these back to <span class="math inline">\(OR\)</span> confidence intervals by taking the exponential transformation of them: <span class="math inline">\(OR_{UP}=\exp(LOR_{UP})\)</span> and <span class="math inline">\(OR_{UP}=\exp(LOR_{UP})\)</span>.</p>
+<p>Then the final step we can convert these back to <span class="math inline">\(OR\)</span> confidence intervals by taking the exponential transformation of the upper and lower bounds: <span class="math inline">\(OR_{UP}=\exp(LOR_{UP})\)</span> and <span class="math inline">\(OR_{UP}=\exp(LOR_{UP})\)</span>.</p>
 <p>In R, we can use the <code>effectsize</code> package to calculate the odds ratio and it’s confidence interval:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
@@ -1321,27 +1324,25 @@ LOR_{UP} = LOR + 1.96\times SE_{LOR}
 </div>
 <p>The code output for this example shows an odds ratio of <span class="math inline">\(OR\)</span> = 0.40 [0.17, 0.93]</p>
 </section>
-<section id="risk-difference" class="level3">
-<h3 class="anchored" data-anchor-id="risk-difference">Risk Difference</h3>
+<section id="risk-difference-rd" class="level3">
+<h3 class="anchored" data-anchor-id="risk-difference-rd">Risk Difference (<span class="math inline">\(RD\)</span>)</h3>
 <p>Risk difference can be used to interpret the difference between two proportions. If we use the contingency table from <a href="#tbl-contingency-OR">Table&nbsp;3</a>, and calculate a risk difference between the treatment group and the control group. We can first calculate the proportion of cases where the outcome is <span class="math inline">\(Y=1\)</span> <em>within</em> the control group and the treatment group:</p>
 <p><span class="math display">\[
 p_C=\frac{n_{C1}}{n_{C0}+n_{C1}}
 \]</span></p>
 <p><span class="math display">\[
 p_T=\frac{n_{T1}}{n_{T0}+n_{T1}}
-\]</span> Then using these proportions we can calculate the risk difference (<span class="math inline">\(RD\)</span>),</p>
+\]</span></p>
+<p>Then using these proportions we can calculate the risk difference (<span class="math inline">\(RD\)</span>),</p>
 <p><span class="math display">\[
 RD = p_T - p_C.
 \]</span> The corresponding standard error is,</p>
 <p><span class="math display">\[
 SE_{RD} = \sqrt{\frac{p_C(1-p_C)}{n_C} + \frac{p_T(1-p_T)}{n_T} }
 \]</span></p>
-<p>Where <span class="math inline">\(n_C\)</span> and <span class="math inline">\(n_T\)</span> are the total sample sizes <em>within</em> the control and treatment group, respectively. The standard error can then be used to compute the 95% confidence intervals using the formulas described in <a href="#eq-ci-high">Equation&nbsp;2</a> and <a href="#eq-ci-low">Equation&nbsp;1</a></p>
+<p>Where <span class="math inline">\(n_C\)</span> and <span class="math inline">\(n_T\)</span> are the total sample sizes <em>within</em> the control and treatment group, respectively. The standard error can then be used to compute the 95% confidence intervals,</p>
 <p><span class="math display">\[
-RD_{LO} = RD - 1.96 \times SE_{RD}
-\]</span></p>
-<p><span class="math display">\[
-RD_{UP} = RD + 1.96 \times SE_{RD}
+CI_{RD} = RD \pm 1.96 \times SE_{RD}
 \]</span></p>
 <p>The risk difference formula is fairly simple, so we can compute it using base R.</p>
 <div class="cell">
@@ -1373,14 +1374,105 @@ RD_{UP} = RD + 1.96 \times SE_{RD}
 </div>
 </div>
 </section>
-<section id="relative-risk" class="level3 unnumbered">
+<section id="relative-risk-rr" class="level3">
+<h3 class="anchored" data-anchor-id="relative-risk-rr">Relative Risk (<span class="math inline">\(RR\)</span>)</h3>
+<p>The relative risk, often referred to as the “risk ratio,” calculates the ratio between the proportion of cases in the treatment group and the proportion of cases in the control group. It provides a straightforward interpretation: “individuals receiving the treatment have a <span class="math inline">\(RR\)</span> times higher odds of experiencing the outcome compared to controls.” To calculate relative riskm, first we need to calculate the proportion of outcome cases in the treatment and control group</p>
+<p><span class="math display">\[
+p_C=\frac{n_{C1}}{n_{C0}+n_{C1}}
+\]</span></p>
+<p><span class="math display">\[
+p_T=\frac{n_{T1}}{n_{T0}+n_{T1}}
+\]</span></p>
+<p>Then we can calculate the relative risk,</p>
+<p><span class="math display">\[
+RR=\frac{p_T}{p_C}
+\]</span></p>
+<p>The corresponding standard error can be computed as,</p>
+<p><span class="math display">\[
+SE_{RR} = \sqrt{\frac{p_T}{n_T} + \frac{p_C}{n_C}}
+\]</span></p>
+<p>The confidence intervals can be computed by adapting <strong>?@eq-ci</strong>,</p>
+<p><span class="math display">\[
+CI_{RR} = RR\pm 1.96\times SE_{RR}
+\]</span></p>
+<p>To compute relative risk, we can simply use the equations above in base R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Treatment Group: 10 diseased, 43 healthy, 53 total</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Control Group:  24 diseased, 41 healthy, 65 total</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>pT <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">/</span>(<span class="dv">43</span><span class="sc">+</span><span class="dv">10</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>pC <span class="ot">&lt;-</span> <span class="dv">24</span><span class="sc">/</span>(<span class="dv">41</span><span class="sc">+</span><span class="dv">24</span>)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>nT <span class="ot">&lt;-</span> <span class="dv">53</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>nC <span class="ot">&lt;-</span> <span class="dv">65</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>RR <span class="ot">&lt;-</span> pT <span class="sc">/</span> pC</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(pT<span class="sc">/</span>nT <span class="sc">+</span> pC<span class="sc">/</span>nC)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>RRlow <span class="ot">&lt;-</span> RR <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>RRhigh <span class="ot">&lt;-</span> RR <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="co"># print pearson correlation and confidence intervals</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">RR =</span> <span class="fu">apa</span>(RR), </span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">RRlow =</span> <span class="fu">apa</span>(RRlow), </span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">RRhigh =</span> <span class="fu">apa</span>(RRhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     RR RRlow RRhigh
+1 0.511 0.323  0.699</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="effect-sizes-for-anovas" class="level2">
+<h2 class="anchored" data-anchor-id="effect-sizes-for-anovas">Effect Sizes for ANOVAs</h2>
+<p>ANOVA (Analysis of Variance) is a statistical method used to compare means across multiple groups. It is mostly used when the outcome variable is continuous and the predictor variables are categorical. Commonly used effect size measures for ANOVAs / F-tests include: eta-squared (<span class="math inline">\(\eta^2\)</span>), partial eta-squared (<span class="math inline">\(\eta_p^2\)</span>), generalized eta-squared (<span class="math inline">\(\eta^2_G\)</span>), omega-squared (<span class="math inline">\(\omega^2\)</span>), partial omega-squared (<span class="math inline">\(\omega\)</span>), generalized omega-squared (<span class="math inline">\(\omega^2_G\)</span>), Cohen’s <span class="math inline">\(f\)</span>.</p>
+<section id="eta-squared-eta2" class="level3">
+<h3 class="anchored" data-anchor-id="eta-squared-eta2">Eta-Squared (<span class="math inline">\(\eta^2\)</span>)</h3>
+<p>Eta-squared is the ratio between the between-group variance and the total variance. It describes the proportion of the total variability in the data that are accounted for by a particular factor. Therefore, it is a measure of variance explained. In the case of one-way between-subject fixed-effect ANOVA,</p>
+</section>
+<section id="cohens-f" class="level3">
+<h3 class="anchored" data-anchor-id="cohens-f">Cohen’s <span class="math inline">\(f\)</span></h3>
+<p>Cohen’s <span class="math inline">\(f\)</span> is defined as the ratio of the standard deviations of the group means and the common standard deviation within each of the groups (note that ANOVA assumes equal variances among groups). Cohen’s <span class="math inline">\(f\)</span> is the effect size measure asked for by G*Power for power analysis for F-tests. This can be calculated easily from the eta-squared value,</p>
+<p><span class="math display">\[
+f = \sqrt{\frac{\eta^2}{1-\eta^2}}
+\]</span> or by the <span class="math inline">\(\omega^2\)</span> value,</p>
+<p><span class="math display">\[
+f = \sqrt{\frac{\omega^2}{1-\omega^2}}
+\]</span></p>
+<p>Cohen’s <span class="math inline">\(f\)</span> can be interpreted as “the average Cohen’s <span class="math inline">\(d\)</span> (i.e., standardized mean difference) between groups”. Note that there is no directionality to this effect size (<span class="math inline">\(f\)</span> is always greater than zero), therefore two studies showing the same <span class="math inline">\(f\)</span> with the same groups, can have very different patterns of group mean differences. Note that Cohen’s <span class="math inline">\(f\)</span> is also often reported as <span class="math inline">\(f^2\)</span>. The confidence intervals for Cohen’s <span class="math inline">\(f\)</span> can be computed from the upper bounds and lower bounds of the confidence intervals from eta-square or omega-square using the formulas to calculate <span class="math inline">\(f\)</span> (e.g., for the upper bound <span class="math inline">\(f_{UP} = \sqrt{\frac{\eta^2_{UP}}{1-\eta^2_{UP}}}\)</span>).</p>
+<p>In R, we can use the <code>cohens_f</code> function in the <code>effectsize</code> package to calculate Cohen’s <span class="math inline">\(f\)</span>. We will again use example data from the <code>palmerpenguins</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># group: species</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># outcome: body mass</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>mdl <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">data =</span> penguins,    <span class="co"># use penguin data set</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>           body_mass_g <span class="sc">~</span> species)   <span class="co"># left side indicates outcome, right side indicates grouping</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_f</span>(mdl,<span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>For one-way between subjects designs, partial eta squared is equivalent
+  to eta squared. Returning eta squared.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA
 
+Parameter | Cohen's f |       95% CI
+------------------------------------
+species   |      1.42 | [1.27, 1.57]</code></pre>
+</div>
+</div>
+<p>In the example above, the difference in body mass between the three penguin species was very large showing a Cohen’s <span class="math inline">\(f\)</span> of 1.42 [1.27, 1.57].</p>
 
 </section>
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Relative Risk</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-association2010" class="csl-entry" role="listitem">
 Association, American Psychological. 2010. <em>Publication Manual of the American Psychological Association</em>. American Psychological Association. <a href="https://thuvienso.hoasen.edu.vn/handle/123456789/8327">https://thuvienso.hoasen.edu.vn/handle/123456789/8327</a>.
 </div>
