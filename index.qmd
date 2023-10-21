@@ -56,6 +56,11 @@ author:
       - id: id8
         name: University of Connecticut
         department: Department of Psychology
+  - name: Aaron R. Caldwell
+    orcid: 0000-0002-4541-6283
+    affiliations:
+      - name: University of Arkansas for Medical Sciences Northwest
+        department: Fay W. Boozman College of Public Health
   - name: Gilad Feldman
     corresponding: true
     email: gfeldman@hku.hk
@@ -863,11 +868,11 @@ The output shows that the corrected effect size is $d^*$ = 0.50, 95% CI \[0.30, 
 
 ## Correlation between Two Continuous Variables
 
-To quantify the relationship between two continuous variables, the most common method is to use a Pearson correlation coefficient (denoted with the letter $r$). The pearson correlation takes the covariance between an independent ($X$) and dependent ($Y$) variable and standardizes it by the standard deviations of $X$ and $Y$,
+To quantify the relationship between two continuous variables, the most common method is to use a Pearson correlation coefficient (denoted with the letter $r$). The pearson correlation takes the covariance between a continuous independent ($X$) and dependent ($Y$) variable and standardizes it by the standard deviations of $X$ and $Y$,
 
 $$
 r = \frac{\text{Cov}(X,Y)}{S_{X} S_{Y}}.
-$$ 
+$$
 
 We can visualize what a correlation between two variables looks like with scatter plots. @fig-cor-example shows scatter plots with differing levels of correlation.
 
@@ -1033,7 +1038,7 @@ Unlike Cohen's $d$ and other effect size measures, The correlation coefficient i
 
 $$
 Z_r = \text{arctanh}(r)
-$$ 
+$$
 
 The Fisher Z transformation ensures $Z$ has a symmetric and approximately normal sampling distribution. This then allows us to calculate the confidence interval from the standard error of $Z_r$ ($SE_{Z_r} = \frac{1}{\sqrt{n-3}}$),
 
@@ -1051,7 +1056,7 @@ $$
 r_{UP} = \text{tanh}(Z_{UP})
 $$
 
-In R, the full process of obtaining confidence intervals can be done quite easily. Note if you have raw data for $X$ and $Y$, then you can compute the correlation with base R, `cor(X,Y)`. 
+In R, the full process of obtaining confidence intervals can be done quite easily. Note if you have raw data for $X$ and $Y$, then you can compute the correlation with base R, `cor(X,Y)`.
 
 ```{r, echo = TRUE}
 # example: r = .50, n = 50
@@ -1149,12 +1154,13 @@ The standard error of a Cramer's $V$ is similar to that of a Pearson correlation
 
 $$
 SE_V = \sqrt{\frac{1-V^2}{n-2}}
-$$ Where $n$ is the total sample size (i.e., the sum of all cells). Like the pearson correlation, we can not calculate the confidence interval directly from the standard error, instead, we must convert $V$ to a Fisher's Z statistic, $Z_V = \text{arctanh}(V)$. We can then calculate the standard errors and corresponding 95% confidence intervals for $Z_V$:
+$$
+
+Where $n$ is the total sample size (i.e., the sum of all cells). Like the pearson correlation, we can not calculate the confidence interval directly from the standard error, instead, we must convert $V$ to a Fisher's Z statistic, $Z_V = \text{arctanh}(V)$. We can then calculate the standard errors and corresponding 95% confidence intervals for $Z_V$:
 
 $$
 SE_{Z_V} = \frac{1}{\sqrt{n-3}}
-$$ 
-$$
+$$ $$
 CI_{Z_V} = Z_V \pm 1.96\times SE_{Z_V}
 $$
 
@@ -1185,7 +1191,7 @@ data.frame(V = apa(V$output$cramersV),
 
 ```
 
-In our example we obtained a Cramer's $V$ of $V$ = .44 [.31, .56].
+In our example we obtained a Cramer's $V$ of $V$ = .44 \[.31, .56\].
 
 ### Cohen's $h$
 
@@ -1266,7 +1272,7 @@ From the example code, the `cohens_w` function returned Cohen's $\omega$ value o
 
 ### Ben-Shachar's Fei (פ)
 
-@benshachar2023 introduced a new effect size for contingency tables that they label with the Hebrew letter, פ. Ben-Shachar's פ is a correction to Cohen's $\omega$ that adjusts for the expected value and consequently bounds the value between 0 and 1 (Cohen's $\omega$ is only bounded between 0 and 1 when marginal distributions are uniform). 
+@benshachar2023 introduced a new effect size for contingency tables that they label with the Hebrew letter, פ. Ben-Shachar's פ is a correction to Cohen's $\omega$ that adjusts for the expected value and consequently bounds the value between 0 and 1 (Cohen's $\omega$ is only bounded between 0 and 1 when marginal distributions are uniform).
 
 Cohen's $\omega$ has the exact same formula as the phi coefficient with the only difference being that the $\chi^2$ statistic comes from a contingency table of any size,
 
@@ -1280,7 +1286,7 @@ $$
 \mathbf{פ }= \frac{\omega}{\sqrt{\left(\frac{1}{\max(P_E)} -1\right)}}
 $$
 
-In R, we can calculate Ben-Shacher's פ  using the `effectsize` package.
+In R, we can calculate Ben-Shacher's פ using the `effectsize` package.
 
 ```{r, echo =TRUE}
 # Example:
@@ -1327,7 +1333,7 @@ The standard distribution of the odds-ratio is asymmetric. To calculate confiden
 
 $$
 SE_{LOR} = \sqrt{\frac{1}{n_{T0}} + \frac{1}{n_{T1}} + \frac{1}{n_{C0}} + \frac{1}{n_{C1}}}
-$$ 
+$$
 
 With the standard error of the log odds ratio we can then calculate the log odds ratio,
 
@@ -1352,13 +1358,11 @@ oddsratio(contingency_table,
           alternative = "two.sided")
 ```
 
-The code output for this example shows an odds ratio of $OR$ = 0.40 [0.17, 0.93]
-
-
+The code output for this example shows an odds ratio of $OR$ = 0.40 \[0.17, 0.93\]
 
 ### Risk Difference ($RD$)
 
-Risk difference can be used to interpret the difference between two proportions. If we use the contingency table from @tbl-contingency-OR, and calculate a risk difference between the treatment group and the control group. We can first calculate the proportion of cases where the outcome is $Y=1$ *within* the control group and the treatment group: 
+Risk difference can be used to interpret the difference between two proportions. If we use the contingency table from @tbl-contingency-OR, and calculate a risk difference between the treatment group and the control group. We can first calculate the proportion of cases where the outcome is $Y=1$ *within* the control group and the treatment group:
 
 $$
 p_C=\frac{n_{C1}}{n_{C0}+n_{C1}}
@@ -1372,9 +1376,7 @@ Then using these proportions we can calculate the risk difference ($RD$),
 
 $$
 RD = p_T - p_C.
-$$
-The corresponding standard error is,
-
+$$ The corresponding standard error is,
 
 $$
 SE_{RD} = \sqrt{\frac{p_C(1-p_C)}{n_C} + \frac{p_T(1-p_T)}{n_T} }
@@ -1385,7 +1387,6 @@ Where $n_C$ and $n_T$ are the total sample sizes *within* the control and treatm
 $$
 CI_{RD} = RD \pm 1.96 \times SE_{RD}
 $$
-
 
 The risk difference formula is fairly simple, so we can compute it using base R.
 
@@ -1417,9 +1418,7 @@ data.frame(
 
 ### Relative Risk ($RR$)
 
-
-The relative risk, often referred to as the "risk ratio," calculates the ratio between the proportion of cases in the treatment group and the proportion of cases in the control group. It provides a straightforward interpretation: "individuals receiving the treatment have a $RR$ times higher odds of experiencing the outcome compared to controls." To calculate relative riskm, first we need to calculate the proportion of outcome cases in the treatment and control group 
-
+The relative risk, often referred to as the "risk ratio," calculates the ratio between the proportion of cases in the treatment group and the proportion of cases in the control group. It provides a straightforward interpretation: "individuals receiving the treatment have a $RR$ times higher odds of experiencing the outcome compared to controls." To calculate relative riskm, first we need to calculate the proportion of outcome cases in the treatment and control group
 
 $$
 p_C=\frac{n_{C1}}{n_{C0}+n_{C1}}
@@ -1435,7 +1434,6 @@ $$
 RR=\frac{p_T}{p_C}
 $$
 
-
 The corresponding standard error can be computed as,
 
 $$
@@ -1447,7 +1445,6 @@ The confidence intervals can be computed by adapting @eq-ci,
 $$
 CI_{RR} = RR\pm 1.96\times SE_{RR}
 $$
-
 
 To compute relative risk, we can simply use the equations above in base R.
 
@@ -1475,34 +1472,38 @@ data.frame(RR = apa(RR),
 
 ```
 
-
 ## Effect Sizes for ANOVAs
 
-
-ANOVA (Analysis of Variance) is a statistical method used to compare means across multiple groups. It is mostly used when the outcome variable is continuous and the predictor variables are categorical. Commonly used effect size measures for ANOVAs / F-tests include: eta-squared ($\eta^2$), partial eta-squared ($\eta_p^2$), generalized eta-squared ($\eta^2_G$), omega-squared ($\omega^2$), partial omega-squared ($\omega$), generalized omega-squared ($\omega^2_G$), Cohen’s $f$.
+ANOVA (Analysis of Variance) is a statistical method used to compare means across multiple groups. It is mostly used when the outcome variable is continuous and the predictor variables are categorical. Commonly used effect size measures for ANOVAs / F-tests include: eta-squared ($\eta^2$), partial eta-squared ($\eta_p^2$), generalized eta-squared ($\eta^2_G$), omega-squared ($\omega^2$), partial omega-squared ($\omega$), generalized omega-squared ($\omega^2_G$), Cohen's $f$.
 
 ### Eta-Squared ($\eta^2$)
 
-Eta-squared is the ratio between the between-group variance and the total variance. It describes the proportion of the total variability in the data that are accounted for by a particular factor. Therefore, it is a measure of variance explained. In the case of one-way between-subject fixed-effect ANOVA,
-
-### Cohen's $f$
-
-Cohen’s $f$ is defined as the ratio of the standard deviations of the group means and the common standard deviation within each of the groups (note that ANOVA assumes equal variances among groups). Cohen’s $f$ is the effect size measure asked for by G*Power for power analysis for F-tests. This can be calculated easily from the eta-squared value,
+Eta-squared is the ratio between the between-group variance and the total variance. It describes the proportion of the total variability in the data that are accounted for by a particular factor. Therefore, it is a measure of *variance explained*. To calculate eta-squared ($\eta^2$) we need to first calculate the total sum of squares ($SS_{\text{total}}$) and the effect sum of squares ($SS_{\text{effect}}$),
 
 $$
-f = \sqrt{\frac{\eta^2}{1-\eta^2}}
-$$
-or by the $\omega^2$ value,
+SS_{\text{total}} = \sum_{i=1}^n (y_i-\bar{y})^2
+$$ Where $\bar{y}$ is the grand mean (i.e., the mean of all data points collapsed across groups). To calculate the sum of squares of the effect, we can take the predicted $y$ values ($\hat{y}_i$). In the case of categorical predictors, $\hat{y}_i$ is equal to the mean of the outcome *within* that individual's respective group. Therefore the sum of squares of the effect can be calculated using the following formula:
 
 $$
-f = \sqrt{\frac{\omega^2}{1-\omega^2}}
+SS_{\text{effect}} = \sum_{i=1}^n (\hat{y}_i-\bar{y})^2.
 $$
 
+Now we can calculate the eta-squared value,
 
-Cohen's $f$ can be interpreted as "the average Cohen's $d$ (i.e., standardized mean difference) between groups". Note that there is no directionality to this effect size ($f$ is always greater than zero), therefore two studies showing the same $f$ with the same groups, can have very different patterns of group mean differences. Note that Cohen's $f$ is also often reported as $f^2$. The confidence intervals for Cohen's $f$ can be computed from the upper bounds and lower bounds of the confidence intervals from eta-square or omega-square using the formulas to calculate $f$ (e.g., for the upper bound $f_{UP} = \sqrt{\frac{\eta^2_{UP}}{1-\eta^2_{UP}}}$).
+$$
+\eta^2 = \frac{SS_{\text{effect}}}{SS_{\text{total}}}
+$$
 
+The standard error of eta-square can be approximated from @olkin1995:
 
-In R, we can use the `cohens_f` function in the `effectsize` package to calculate Cohen's $f$. We will again use example data from the `palmerpenguins` package.
+$$
+SE_{\eta^2}=\sqrt{\frac{4\eta^2\left(1-\eta^2\right)^2\left(n+k-1\right)^2}{\left(n^2-1\right)\left(3+n\right)}}
+$$
+
+The sampling distribution for $\eta^2$ is asymmetric as all the values are bounded in the range, 0 to 1. The confidence interval surrounding $\eta^2$ will likewise be asymmetric so instead of calculating the confidence interval from the standard error, we can instead use a non-central F-distribution using the degrees of freedom between groups (e.g., for three groups: $df_b=k-1=3-1=2$) and the degrees of freedom within groups (e.g., for 100 subjects and three groups: $df_b=n-k=100-3=97$) to obtain the confidence intervals. Another option is to use bootstrapping procedure (i.e., resampling the observed data points to construct a sampling distribution around $\eta^2$; see @BootES) and then take the .025 and .975 quantiles of that distribution. The R code below will compute the proper confidence interval.
+
+Where $n$ is the total sample size and $k$ is the number of predictors. In R, we can calculate $\eta^2$ from a one-way ANOVA using the penguin data set from the `palmerpenguins` data package. The `aov` function in base R allows the analyst to model an ANOVA with categorical predictors on the right side (species) of the `~` and the outcome on the left side (body mass of penguin). We can then use `eta_squared` function in the `effectsize` package to calculate the point estimate and confidence intervals.
+
 ```{r}
 # Example:
 # group: species
@@ -1510,15 +1511,766 @@ In R, we can use the `cohens_f` function in the `effectsize` package to calculat
 
 library(palmerpenguins)
 
+# One-Way ANOVA
+mdl1 <- aov(data = penguins,
+           body_mass_g ~ species)
+
+eta_squared(mdl1, 
+            partial = FALSE,
+            alternative = "two.sided")
+```
+
+The species of the penguin explains the majority of the variation in body mass showing an eta-squared value of $\eta^2$ = .67 \[.62, .71\]. Let us now do the same thing with a two-way ANOVA, using both `species` and `sex` as our categorical predictors.
+
+```{r}
+# Example:
+# group: species and sex
+# outcome: body mass
+
+# Two-Way ANOVA
+mdl2 <- aov(data = penguins,
+           body_mass_g ~ species + sex)
+
+eta_squared(mdl2, 
+            partial = FALSE,
+            alternative = "two.sided")
+```
+
+Notice that the $\eta^2$ does not change for species since the sum of squares is divided by the total sum of squares rather than the residual sum of squares (see partial eta squared). The example shows an eta-squared value for species of $\eta^2$ = .67 \[.62, .72\] and for sex $\eta^2$ = .17 \[.10, .24\].
+
+### Partial Eta-Squared ($\eta^2_p$)
+
+Partial eta-squared is the most commonly reported effect size measure for F-tests. It describes the proportion of variability associated with an effect when the variability associated with all other effects identified in the analysis has been removed from consideration (hence, it is "partial"). If you have access to an ANOVA table, the partial eta-squared for an effect is calculated as:
+
+$$
+\eta_p^2 = \frac{ SS_{\text{effect}}}{SS_{\text{effect}}+SS_{\text{error}}}
+$$
+
+There are two things to take note of here:
+
+1.  In a one-way ANOVA (one categorical predictor), partial eta-squared and eta-squared are equivalent since $SS_{\text{total}} = SS_{\text{effect}}+SS_{\text{error}}$
+2.  If there are multiple predictors, the denominator will only include the sum of squares of the effect of interest rather than the effect of all predictors (which is the case for the non-partial eta squared).
+
+In R, let us compare the partial eta-squared values for a one-way ANOVA and a two-way ANOVA using the `eta_squared` function in the `effectsize` package.
+
+```{r}
+# Example:
+# group: species
+# outcome: body mass
+
+
+# One-Way ANOVA
+mdl1 <- aov(data = penguins,
+           body_mass_g ~ species)
+
+eta_squared(mdl1, 
+            partial = TRUE,
+            alternative = "two.sided") 
+```
+
+The species of the penguin explains the majority of the variation in body mass showing a partial eta-squared value of $\eta^2$ = $\eta^2_p$ = .67 \[.62, .71\]. Let us now do the same thing with a two-way ANOVA, using both `species` and `sex` as our categorical predictors.
+
+```{r}
+# Example:
+# group: species and sex
+# outcome: body mass
+
+# Two-Way ANOVA
+mdl2 <- aov(data = penguins,
+           body_mass_g ~ species + sex)
+
+eta_squared(mdl2, 
+            partial = TRUE,
+            alternative = "two.sided")
+```
+
+Once we run a two-way ANOVA, the eta-squared value for species begins to differ. The example shows a partial eta-squared value for species of $\eta^2_p$ = .81 \[.78, .84\] and for sex $\eta^2$ = .53 \[.46, .59\].
+
+### Generalized Eta-Squared ($\eta^2_G$)
+
+Generalized eta-squared was devised to allow effect size comparisons across studies with different designs, which eta-squared and partial eta-squared cannot help with (refer to for details). If you can (either you are confident that you calculated it right, or the statistical software that you use just happens to return this measure), report generalized eta-squared in addition to eta-squared or partial eta-squared. The biggest advantage of generalized eta-squared is that it facilitates meta-analysis, which is important for accumulation of knowledge. To calculate generalized eta-squared, the denominator should be the sums of squares of all the non-manipulated variables (i.e., variance of purely individual differences in the outcome rather than individual differences in treatment effects). Note the formula will depend on the design of the study. In R, the `eta_squared` function in the `effectsize` package supports the calculation generalized eta-squared by using the `generalized=TRUE` argument.
+
+### Omega squared corrections ($\omega^2$, $\omega^2_p$)
+
+Similar to Hedges' correction for small sample bias in standardized mean differences, $\eta^2$ is also biased. We can apply a correction to $\eta^2$ and obtain a relatively unbiased estimate of the population proportion of variance explained by the predictor. To calculate $\omega$, we need to calculate the within group mean squared errors:
+
+$$
+MS_{\text{within}} = \frac{1}{n}\sum_{i=1}^n (y_i-\hat{y}_i)^2.
+$$ Where the predicted values of the outcome, $\hat{y}_i$, are the mean value for the individual's respective group.
+
+$$
+\omega^2 = \frac{SS_{\text{effect}}-(k-1)\times MS_{\text{within}}}{SS_{\text{total}} + MS_{\text{within}}}
+$$
+
+Where $k$ is the number of groups in the predictor (effect) variable. For partial omega-squared values, we need the mean squared error of effect and the residuals which can easily be calculated from their sum of squares:
+
+$$
+MS_{\text{effect}} = \frac{SS_{\text{effect}}}{n}
+$$ $$
+MS_{\text{error}} = \frac{SS_{\text{error}}}{n}
+$$ Then to calculate the partial omega squared we can use the following formula:
+
+$$
+\omega_p^2 = \frac{(k-1)(MS_{\text{effect}} - MS_{\text{error}})}{(k-1)\times MS_{\text{effect}} + (n-k-1)\times MS_{\text{error}}}
+$$
+
+In R, we can use the `omega_squared` function in the `effectsize` package to calculate both $\omega^2$ and $\omega^2_p$. For the first example we will use a one-way ANOVA.
+
+```{r}
+# Example:
+# group: species
+# outcome: body mass
+
+library(palmerpenguins)
+
+# One-Way ANOVA
+mdl1 <- aov(data = penguins,
+           body_mass_g ~ species)
+
+# omega-squared
+omega_squared(mdl1, 
+            partial = FALSE,
+            alternative = "two.sided")
+
+# partial omega-squared
+omega_squared(mdl1, 
+              partial = TRUE,
+              alternative = "two.sided")
+```
+
+The species of the penguin explains the majority of the variation in body mass showing an omega-squared value of $\omega^2$ = .67 \[.61, .71\]. Note that the partial and non-partial omega squared values do not show a difference as expected in a one-way ANOVA. Let us now do the same thing with a two-way ANOVA, using both `species` and `sex` as our categorical predictors.
+
+```{r}
+# Example:
+# group: species and sex
+# outcome: body mass
+
+# Two-Way ANOVA
+mdl2 <- aov(data = penguins,
+           body_mass_g ~ species + sex)
+
+# omega-squared
+omega_squared(mdl2, 
+            partial = FALSE,
+            alternative = "two.sided")
+
+# partial omega-squared
+omega_squared(mdl2, 
+              partial = TRUE,
+              alternative = "two.sided")
+```
+
+Once we run a two-way ANOVA, the eta-squared value for species  diverge. The example shows a partial eta-squared value for species of $\omega^2_p$ = .81 \[.78, .84\] and for sex $\omega^2$ = .53 \[.46, .58\].
+
+### Cohen's $f$
+
+Cohen's $f$ is defined as the ratio of the standard deviations of the group means and the common standard deviation within each of the groups (note that ANOVA assumes equal variances among groups). Cohen's $f$ is the effect size measure asked for by G\*Power for power analysis for F-tests. This can be calculated easily from the eta-squared value,
+
+$$
+f = \sqrt{\frac{\eta^2}{1-\eta^2}}
+$$
+
+or by the $\omega^2$ value,
+
+$$
+f = \sqrt{\frac{\omega^2}{1-\omega^2}}
+$$
+
+Cohen's $f$ can be interpreted as "the average Cohen's $d$ (i.e., standardized mean difference) between groups". Note that there is no directionality to this effect size ($f$ is always greater than zero), therefore two studies showing the same $f$ with the same groups, can have very different patterns of group mean differences. Note that Cohen's $f$ is also often reported as $f^2$. The confidence intervals for Cohen's $f$ can be computed from the upper bounds and lower bounds of the confidence intervals from eta-square or omega-square using the formulas to calculate $f$ (e.g., for the upper bound $f_{UP} = \sqrt{\frac{\eta^2_{UP}}{1-\eta^2_{UP}}}$).
+
+In R, we can use the `cohens_f` function in the `effectsize` package to calculate Cohen's $f$. We will again use example data from the `palmerpenguins` package.
+
+```{r}
+# Example:
+# group: species
+# outcome: body mass
+
 # ANOVA
-mdl <- aov(data = penguins,    # use penguin data set
-           body_mass_g ~ species)   # left side indicates outcome, right side indicates grouping
+mdl <- aov(data = penguins,
+           body_mass_g ~ species)   
 
 cohens_f(mdl,alternative = "two.sided")
 
 ```
 
-In the example above, the difference in body mass between the three penguin species was very large showing a Cohen's $f$ of 1.42 [1.27, 1.57].
+In the example above, the difference in body mass between the three penguin species was very large showing a Cohen's $f$ of 1.42 \[1.27, 1.57\].
+
+### Reporting ANOVA results
+
+For ANOVAs/F-tests, you will always need to report two kinds of effects: the omnibus effect of the factor(s) and the effect of planned contrasts or post hoc comparisons.
+
+For instance, imagine that you are comparing three groups/conditions with a one-way ANOVA. The ANOVA will first return an F-statistic, the degrees of freedom, and the associated p-value. Here, you need to calculate the size of this omnibus factor effect in eta-squared, partial eta-squared, or generalized eta-squared. Suppose the omnibus effect is significant. You now know that there is at least one group that differs from the others. You want to know which group(s) differ from the others, and how much they differ. Therefore, you conduct post hoc comparisons on these groups. Because post hoc comparisons compare each group with the others in pairs, you will get a *t*-statistic and p-value for each comparison. For this, you need to calculate and report Cohen's $d$ or Hedges' $g$.
+
+Imagine that you have two independent variables or factors, and you conduct a two-by-two factorial ANOVA. The first thing to do then is look at the interaction. If the interaction is significant, you again report the associated omnibus effect size measures, and proceed to analyze the simple effects. Depending on your research question, you compare the levels of one IV on each level of the other IV. You will report d or g for these simple effects. If the interaction is not significant, you look at the main effects and report the associated omnibus effect. You then proceed to analyze the main effect by comparing the levels of one IV while collapsing/aggregating the levels of the other IV. You will report $d$ or $g$ for these pairwise comparisons.
+
+Note that lower-order effects are not directly interpretable if higher-order effects are significant. If you have a significant interaction in a two-way ANOVA, you cannot interpret the main effects directly. If you have a significant three-way interaction in a three-way ANOVA, you cannot interpret the main effects or the two-way interactions directly, regardless of whether they are significant or not.
+
+In R, we can use the `summary` function to display the anova table. We can also append the table to include, for example, partial omega squared values and their respective confidence intervals
+
+```{r}
+# ANOVA mdl
+mdl <- aov(data = penguins,
+           body_mass_g ~ species + sex)   
+
+# calculate partial omega-squared values
+omega_values <- omega_squared(mdl, alternative = "two.sided")
+
+# create table of partial omega-squared values
+omega_table <- data.frame(omega_sq = apa(c(omega_values$Omega2_partial,NA)),
+                     omega_low = apa(c(omega_values$CI_low,NA)),
+                     omega_high = apa(c(omega_values$CI_high,NA)))
+
+# append omega values to summary of anova table
+cbind(summary(mdl)[[1]],
+      omega_table)
+```
+
+## Converting between Effect Sizes and Test Statistics
+
+If raw data is unavailable and the necessary summary statistics are not reported, we can convert various statistics to effect size estimates. This section will focus on converting to three common effect sizes: Cohen's $d$ values, Pearson correlations, and odds-ratios
+
+### Converting to Cohen's $d$
+
+#### From Independent Samples $t$-statistic
+
+To calculate a between subject standardized mean difference ($d_p$, i.e., pooled standard deviation standardizer), we can use the sample size in each group ($n_1$ and $n_2$) as well as the $t$-statistic from an independent sample t-test and plug it into the following formula:
+
+$$
+d_{p} = t\sqrt{\frac{1}{n_1}+\frac{1}{n_2} }
+$$
+
+Using the `t_to_d` function in the `effectsize` package we can convert $t$ to $d_p$.
+
+```{r}
+# Example:
+# unpaired t-statistic = 3.25
+# n1 = 50, n2 = 40
+
+t <- 3.25
+n1 <- 50
+n2 <- 40
+
+t_to_d(t, df_error = n1+n2-2, paired = FALSE)
+```
+
+#### From Paired Sample $t$-statistic
+
+To calculate a within-subject standardized mean difference ($d_z$, i.e., difference score standardizer), we can use the sample size in each group ($n_1$ and $n_2$) as well as the $t$-statistic from an paired sample t-test and plug it into the following formula:
+
+$$
+d_{z} = \frac{t}{\sqrt{n}}
+$$
+
+Using the `t_to_d` function in the `effectsize` package we can convert $t$ to $d_z$.
+
+```{r}
+# Example:
+# paired t-statistic = 3.25
+# n1 = 50, n2 = 40
+
+t <- 3.25
+n1 <- 50
+n2 <- 40
+
+t_to_d(t, df_error = n1+n2-2, paired = TRUE)
+```
+
+#### From Pearson Correlation
+
+If a Pearson correlation is calculated between a continuous score and a dichotomous score, this is considered a point-biserial correlation. The point-biserial correlation can be converted into a $d_p$ value using the following formula:
+
+$$
+d_p = \frac{r}{\sqrt{1-r^2}} \sqrt{\frac{n_1+n_2-2}{n_1} + \frac{n_1+n_2-2}{n_2}}
+$$ Or if sample sizes within each group are unknown (or equal), the equatio simplifies to be approximately,
+
+$$
+d_p \approx \frac{r\sqrt{4}}{\sqrt{1-r^2}} 
+$$
+
+Using the `r_to_d` function in the `effectsize` package we can convert $r$ to $d_p$.
+
+```{r}
+# Example:
+# r = 3.25
+# n1 = 50, n2 = 40
+
+r <- .50
+n1 <- 50
+n2 <- 40
+
+r_to_d(r = r, n1 = n1, n2 = n2)
+```
+
+#### From Odds-Ratio
+
+An odds-ratio from a contingency table can also be converted to a $d_p$. Note that this formula is an approximation:
+
+$$
+d_{p} = \frac{\log(OR)\sqrt{3}}{\pi}
+$$
+
+Using the `oddsratio_to_d` function in the `effectsize` package we can convert $OR$ to $d_p$.
+
+```{r}
+# Example:
+# OR = 1.62
+
+OR <- 1.46
+
+oddsratio_to_d(OR = OR)
+```
+
+### Converting to Pearson Correlation
+
+#### From $t$-statistic
+
+From a $t$ statistic calculated from a correlational test, we can calculate the correlation coefficient using the following formula:
+
+$$
+r = \sqrt{\frac{t^2}{t^2 + n-2}}
+$$
+
+Using the `t_to_r` function in the `effectsize` package we can convert $t$ to $r$.
+
+```{r}
+# Example:
+# t = 4.14, n = 50
+
+t <- 4.14
+n <- 50
+
+t_to_r(t = t, df = n-2)
+```
+
+#### From Cohen's $d$
+
+From a between groups Cohen's $d$ value ($d_p$), we can calculate the correlation coefficient from the following formula:
+
+$$
+r = \frac{d_p}{\sqrt{d_p^2+\frac{n_1+n_2-2}{n_1} + \frac{n_1+n_2-2}{n_2}}}
+$$
+
+Using the `d_to_r` function in the `effectsize` package we can convert $d_p$ to $r$.
+
+```{r}
+# Example:
+# d = 0.60, n1 = 50, n2 = 70
+
+d <- 0.60
+n1 <- 50
+n2 <- 70
+
+d_to_r(d = d, n1 = n1, n2 = n2)
+```
+
+#### From Odds-Ratio
+
+The correlation coefficient from an odds ratio can be calculated with the following formula:
+
+$$
+r = \frac{\log(OR)\times\sqrt{3}}{\pi\sqrt{\frac{3\log(OR)^2}{\pi^2}+\frac{n_1+n_2-2}{n_1} + \frac{n_1+n_2-2}{n_2}}}
+$$
+
+Using the `oddsratio_to_r` function in the `effectsize` package we can convert $OR$ to $r$.
+
+```{r}
+# Example:
+# OR = 2.21, n1 = 50, n2 = 70
+
+OR <- 2.21
+n1 <- 50
+n2 <- 70
+
+oddsratio_to_r(OR=OR, n1 = n1, n2 = n2)
+```
+
+### Converting to Odds-Ratio
+
+#### From Cohen's $d$
+
+We can calculate an odds-ratio from a between groups cohen's $d$ ($d_p$):
+
+$$
+OR = \exp\left(\frac{d_p \pi}{\sqrt{3}}\right)
+$$
+
+Where $\exp(\cdot)$ is an exponential transformation (this inverses the logarithm). Using the `d_to_oddsratio` function in the `effectsize` package we can convert $d$ to $OR$.
+
+```{r}
+# Example:
+# d = 0.60, n1 = 50, n2 = 70
+
+d <- 0.60
+n1 <- 50
+n2 <- 70
+
+d_to_oddsratio(d = d, n1 = n1, n2 = n2)
+```
+
+#### From a Pearson Correlation
+
+We can calculate an odds ratio from a Pearson correlation using the following formula:
+
+$$
+OR = \exp\left(\frac{r\pi \sqrt{\frac{n_1+n_2-2}{n_1} + \frac{n_1+n_2-2}{n_2}}}{\sqrt{3(1-r^2)}}\right)
+$$
+
+When sample sizes are equal, this equation can be simplified to be approximately,
+
+$$
+OR = \exp\left(\frac{r\pi \sqrt{4}}{\sqrt{3(1-r^2)}}\right)
+$$
+
+Using the `r_to_oddsratio` function in the `effectsize` package we can convert $d$ to $OR$.
+
+```{r}
+# Example:
+# r = .50, n1 = 50, n2 = 70
+
+r <- .40
+n1 <- 50
+n2 <- 70
+
+r_to_oddsratio(r = r, n1 = n1, n2 = n2)
+```
+
+## Non-Parametric Tests
+
+Sometimes the assumptions of parametric models (e.g., normality of model residuals) are suspect. This is often the case in psychology when using ordinal scales. In these cases a "non-parametric" approach may be helpful. A statistical test being non-parametric means that the parameters (i.e., mean and variance for "normal" Gaussian model) are not estimated; despite popular belief the data themselves are *never* non-parametric. Additionally, these tests are *not* tests of the median[^1]. Rather one can consider than as rank based or proportional odds tests.
+
+[^1]: Divine, G. W., Norton, H. J., Barón, A. E., & Juarez-Colunga, E. (2018). The Wilcoxon--Mann--Whitney Procedure Fails as a Test of Medians. The American Statistician (Vol. 72, Issue 3, pp. 278--286). https://doi.org/10.1080/00031305.2017.1305291
+
+If the scores you are analyzing are not metric (i.e., ordinal) due to the use of a Likert-Scale and you still use parametric tests such as t-tests, you run the risk of a high false-positive probability (e.g., Liddel & Kruschke, 2018). Note that in German, scale anchors have been developed that are very similar to Likert-Scale but can be interpreted as metric (e.g., Rohrmann, 1978).
+
+We will briefly discuss here two groups of tests that can be applied to the independent and paired samples then present 3 effect sizes that can accompany these tests as well as their calculations and examples in R.
+
+### Wilcoxon-Mann-Whitney tests
+
+A non-parametric alternative to the t-test is the Wilcoxon-Mann-Whitney (WMW) group of tests. When comparing two independent samples this is called a Wilcoxon rank-sum test, but sometimes to referred to as a Mann-Whitney U Test. When using it on paired samples, or one sample, it is a signed rank test. These are generally referred to as tests of "symmetry"[^1].
+
+
+```{r, warning=FALSE}
+# Paired samples ---- 
+library
+data(sleep)
+
+# wilcoxin test
+wilcox.test(extra ~ group,
+            data = sleep,
+            paired = TRUE)
+
+
+# Two Sample ------
+# data import from likert
+data(mass, package = "likert")
+df_mass = mass |>
+  as.data.frame() |>
+  janitor::clean_names() 
+
+# function needs input as a numeric
+# ordered factors can be converted to ranks
+# Again, the warning can be ignored
+wilcox.test(rank(math_relates_to_my_life) ~ gender,
+            data = df_mass)
+```
+
+### Brunner-Munzel Tests
+
+Brunner-Munzel's tests can be used instead of the WMW tests. The primary reason is the interpretation of the test[^3]. The Brunner-Munzel tests measure a rank based "relative effect" or "stochastic superiority probability". The test statistic ($\hat p$) is essentially the probability of a value in one condition being greater than other while splitting the ties[^4]. However, Brunner-Munzel tests can not be applied to the single group or one-sample designs.
+
+[^3]: 1\) Brunner, E., Munzel, U. (2000). The Nonparametric Behrens-Fisher Problem: Asymptotic Theory and a Small Sample Approximation. Biometrical Journal 42, 17 -25. 2) 2) Neubert, K., Brunner, E., (2006). A Studentized Permutation Test for the Nonparametric Behrens-Fisher Problem. Computational Statistics and Data Analysis. 3) Munzel, U., Brunner, E. (2002). An Exact Paired Rank Test. Biometrical Journal 44, 584-593.
+
+[^4]: Note, for paired samples, this does not refer to the probability of an increase/decrease in paired sample but rather the probability that a randomly sampled value of X. This is also referred to as the "relative" effect in the literature. Therefore, the results will differ from the concordance probability provided below.
+
+$$
+\hat p = P(X<Y)+ \frac{1}{2} \cdot P(X=Y)
+$$
+
+These tests are relatively new so there are very few packages offer Brunner-Munzel. However, the `TOSTER` R package does provide coverage. 
+
+```{r, warning=FALSE}
+# Install package for data cleaning
+# install.packages('janitor')
+library(janitor)
+
+# Paired samples
+
+data(sleep)
+
+# Wilcoxin test
+wilcox.test(extra ~ group,
+            data = sleep,
+            paired = TRUE)
+
+
+# Two Sample
+# data import from likert
+data(mass, package = "likert")
+df_mass = mass |>
+  as.data.frame() |>
+  clean_names() 
+
+# function needs input as a numeric
+# ordered factors can be converted to ranks
+wilcox.test(rank(math_relates_to_my_life) ~ gender,
+            data = df_mass)
+```
+
+
+## Rank-Based Effect Sizes
+
+Since the mean and standard deviation are not estimated for a WMW or Brunner-Munzel test, it would be inappropriate to present a standardized mean difference (e.g., Cohen's d) to accompany these tests. Instead, a rank based effect size (i.e., based on the ranks of the observed values) can be reported to accompany the non-parametric statistical tests.
+
+### Rank-Biserial Correlation
+
+The rank-biserial correlation ($r_{rb}$) is considered a measure of dominance. The correlation represents the difference between the proportion of favorable and unfavorable pairs or signed ranks. Larger values indicate that more of X is larger than more of Y, with a value of (−1) indicates that all observations in the second, $Y$, group are larger than the first, $X$, group, and a value of (+1) indicates that all observations in the first group are larger than the second.
+
+#### Paired Samples Calculation
+
+1. Calculate difference scores between pairs:
+
+
+$$
+D = X_2 - X_1
+$$
+
+2. Calculate the positive and negative rank sums:
+
+
+$$
+\text{When } D_i>0,\;\;  R_{\oplus} = \sum_{i=1} -1\cdot \text{sign}(D_i) \cdot \text{rank}(|D_i|)
+$$
+
+
+$$
+\text{When } D_i<0,\;\;  R_{\ominus} = \sum_{i=1} -1\cdot \text{sign}(D_i) \cdot \text{rank}(|D_i|)
+$$
+
+3. We can set a constant, $H$, to be -1 when the rank positive rank sum is greater than or equal to the negative rank sum ($R_{\oplus} \ge  R_{\ominus}$) or we can set $H$ to 1 when the rank positive rank sum is less than the negative rank sum ($R_{\oplus} <  R_{\ominus}$).
+
+
+$$
+H = \begin{cases} -1 &  R_{\oplus} \ge  R_{\ominus} \\ 1 & R_{\oplus} < R_{\ominus} \end{cases}
+$$
+
+
+4. Calculate rank-biserial correlation:
+
+$$
+r_{rb} = 4H\times \left| \frac{\min( R_{\oplus}, R_{\ominus}) - .5\times ( R_{\oplus} +  R_{\ominus})}{n(n + 1)} \right|
+$$
+
+5. For paired samples, or one sample, the standard error is calculated as the following:
+
+$$
+SE_{r_{rb}} = \sqrt{ \frac {(2 \cdot nd^3 + 3 \cdot nd^2 + nd) / 6} {(nd^2 + nd) / 2} }
+$$
+6. The confidence intervals can then be calculated by Z-transforming the correlation.
+
+$$
+Z_{rb} = \text{arctanh}(r_{rb})
+$$
+
+7. Calculate the standard error of the Z-transformed correlation
+
+$$
+SE_{Z_{rb}} = \frac{SE_{r_{rb}}}{1-r_{rb}^2}
+$$
+
+
+8. Then the confidence interval can be calculated and then back-transformed.
+
+$$
+CI_{rb} = \text{tanh}(Z_{rb}  \pm  1.96 \cdot SE_{Z_{rb}})
+$$
+
+#### Two Sample Calculation
+
+1. Calculate the ranks for each observation across all observations of in group 1 and 2
+
+$$
+R = \text{rank}(X)
+$$
+
+2. Calculate the rank sums from each group
+
+$$
+R_1 = \left(\sum_{i=1}^{n_1} R_1\right) - n_1 \cdot \frac{n_1 + 1}{2}
+$$
+
+$$
+R_2 = \left(\sum_{i=1}^{n_2} R_2\right) - n_2 \cdot \frac{n_2 + 1}{2}
+$$
+
+3. Calculate the product of sample sizes
+
+$$
+S = n_x \cdot n_y
+$$
+
+4. Calculate rank biserial correlation
+
+$$
+r_{rb} = \frac{U_x}{S} - \frac{U_y}{S}
+$$
+
+5. For independent samples, the standard error is calculated as the following:
+
+$$
+SE_{rb} = \sqrt{\frac {n_1 + n_2 + 1} { 3  n_1  n_2}}
+$$
+
+6. The confidence intervals can then be calculated by transforming the estimate.
+
+$$
+Z_{rb} = \text{arctanh}(r_{rb})
+$$
+
+7. Calculate the standard error of the Z-transformed correlation
+
+$$
+SE_{Z_{rb}} = \frac{SE_{r_{rb}}}{1-r_{rb}^2}
+$$
+
+
+8. Then the confidence interval can be calculated and then back-transformed.
+
+$$
+CI_{rb} = \text{tanh}(Z_{rb}  \pm  1.96 \cdot SE_{Z_{rb}})
+$$
+
+#### Calculation in R
+
+In R, we can use `brunner_munzel` in the `TOSTER` package can be utilized to calculate $r_{rb}$.
+
+```{r}
+# Paired samples
+
+data(sleep)
+library(TOSTER)
+
+# When sample sizes are small
+# a permutation version should be used.
+# When this is done a seed should be set.
+set.seed(2124)
+brunner_munzel(extra ~ group,
+               data = sleep,
+               paired = TRUE,
+               perm = TRUE)
+
+
+# Two Sample
+# data import from likert
+data(mass, package = "likert")
+df_mass = mass |>
+  as.data.frame() |>
+  clean_names() 
+
+# function needs input as a numeric
+# ordered factors can be converted to ranks
+# Again, the warning can be ignored
+set.seed(24111)
+TOSTER::brunner_munzel(
+  rank(math_relates_to_my_life) ~ gender,
+  data = df_mass,
+  paired = FALSE,
+  perm = TRUE
+)
+```
+
+
+### Concordance Probability
+
+In the two sample case, concordance probability is the probability that a randomly chosen subject from the one group has a response that is larger than that of a randomly chosen subject from the other group. In the two sample case, this is roughly equivalent to the statistic of the Brunner-Munzel test. In the paired sample case, it is the probability that a randomly chosen difference score (z) will have a positive (+) sign plus 0.5 times the probability of a tie (no/zero difference). The concordance probability can go by many names. It is also referred to as the c-index, the non-parametric probability of superiority, or the non-parametric common language effect size (CLES).
+
+#### Calculation 
+
+The calculation of concordance can be derived from the rank-biserial correlation. The concordance probability ($p_c$) can be converted from the correlation.
+
+$$
+p_c = \frac{r_{rb} + 1 }{2} 
+$$
+
+
+#### Calculation in R
+
+```{r}
+# Paired samples
+
+data(sleep)
+
+ses_calc(extra ~ group,
+         data = sleep,
+         paired = TRUE,
+         ses = "c")
+
+# Two Sample
+# data import from likert
+data(mass, package = "likert")
+df_mass = mass |>
+  as.data.frame() |>
+  janitor::clean_names()
+
+ses_calc(rank(math_relates_to_my_life) ~ gender,
+         data = df_mass,
+         ses = "c")
+```
+
+
+### Wilcoxin-Mann-Whitney Odds
+
+The Wilcoxon-Mann-Whitney odds^[O’Brien, Ralph G, and John Castelloe. 2006. "Exploiting the Link Between the Wilcoxon-Mann-Whitney Test and a Simple Odds Statistic," 209–31.], also known as the "Generalized Odds Ratio"^[Agresti, Alan. 1980. “Generalized Odds Ratios for Ordinal Data.” Biometrics, 59–67. https://doi.org/10.2307/2530495. ], essentially transforms the concordance probability into an odds ratio. 
+
+#### Calculation
+
+The odds can be converted from the concordance by taking the logit of the concordance. This will provide the log odds. The exponential value of the log-odds will provide the odds on a more interpretable scale.
+
+$$
+O_{WMW} = \exp \left[\text{logit}(p_c)\right]
+$$
+
+$$
+\log(O_{WMW}) = \text{logit}(p_c)
+$$
+
+#### Calculation in R
+
+```{r}
+# Paired samples ----
+
+data(sleep)
+
+TOSTER::ses_calc(extra ~ group,
+                       data = sleep,
+                       paired = TRUE,
+                 ses = "odds")
+
+# Two Sample ------
+# data import from likert
+data(mass, package = "likert")
+df_mass = mass |>
+  as.data.frame() |>
+  janitor::clean_names()
+
+TOSTER::ses_calc(  rank(math_relates_to_my_life) ~ gender,
+  data = df_mass,
+                 ses = "odds")
+
+```
+
+
+## Artifacts and Bias in Effect Size Estimates
+
+Effect size estimates such as correlation coefficients and Cohen's $d$ values can be severely biased due to various statistical artifacts such as measurement error and selection effects (e.g., range restriction). Methods have been developed to correct for the bias in effect sizes and thus these corrections are called "artifact corrections". Many artifact corrections can be complex and therefore readers are referred to other resources listed below:
+
+-    @MatthewBJane2023 : An open-access textbook that contains equations and R code for various types of artifact corrections.
+
+-   @hunter1990 : Classic textbook on the topic of artifact corrections. Hunter and Schmidt pioneered the methodology for artifact correction style meta-analyses.
+
+-   @wiernik2020 : A paper that serves as a condensed version of Hunter and Schmidt's book. It contains most of the equations necessary to correct effect sizes.
+
+-   @psychmeta : An R package for conducting artifact correction meta-analyses. Contains all the functions one would need to correct effect sizes for artifacts in R.
+
 
 
 
