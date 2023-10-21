@@ -50,23 +50,24 @@ author:
     affiliations:
       - id: id7
         name: Université d’Ottawa
-  - name: Blair T. Johnson
-    email: blair.t.johnson@uconn.edu
-    affiliations:
-      - id: id8
-        name: University of Connecticut
-        department: Department of Psychology
   - name: Aaron R. Caldwell
     orcid: 0000-0002-4541-6283
     affiliations:
-      - name: University of Arkansas for Medical Sciences Northwest
+      - id: id8
+        name: University of Arkansas for Medical Sciences
         department: Fay W. Boozman College of Public Health
+  - name: Blair T. Johnson
+    email: blair.t.johnson@uconn.edu
+    affiliations:
+      - id: id9
+        name: University of Connecticut
+        department: Department of Psychological Sciences
   - name: Gilad Feldman
     corresponding: true
     email: gfeldman@hku.hk
     orcid: 0000-0003-2812-6599
     affiliations:
-      - id: id9
+      - id: id10
         name: University of Hong Kong
         department: Department of Psychology
 author-note:
