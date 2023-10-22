@@ -463,7 +463,7 @@ data.frame(d = apa(stats$d),
 
 In a repeated measures design, the same subjects are measured on two separate occasions and we want to know the mean difference between those two occasions. An example of this would be in a pre/post comparison where subjects are tested before and after undergoing some treatment (see @fig-repeatedmeasures for a visualization). A standardized mean difference in a repeated measures design can take on a few different forms that we define below.
 
-```{r,message=FALSE,echo=FALSE,warning=FALSE}
+```{r,message=FALSE,echo=FALSE,warning=FALSE,fig.height=4}
 #| id: fig-repeatedmeasures
 #| fig-cap: Figure displaying simulated data of a repeated measures design, the x-axis shows the condition (e.g., pre-test and post-test) and y-axis is the scores. Lines connect the change within subject from one condition to the next. 
 
@@ -721,7 +721,7 @@ The output shows that the effect size is $d_{rm}$ = 0.46, 95% CI \[0.23, 0.69\].
 
 We notice that the correlation greatly influences $d_z$ more than any other estimator. The $d_{rm}$ value has very little change, whereas $d_{av}$ and $d_{b}$ do not take into account the correlation at all.
 
-```{r,message=FALSE,echo=FALSE,warning=FALSE}
+```{r,message=FALSE,echo=FALSE,warning=FALSE,fig.height=4}
 #| label: fig-correlation-comp
 #| fig-cap: Figure displaying simulated data of a repeated measures design, the x-axis shows the condition (e.g., pre-test and post-test) and y-axis is the scores. Lines connect the change within subject from one condition to the next. 
 
@@ -877,7 +877,7 @@ $$
 
 We can visualize what a correlation between two variables looks like with scatter plots. @fig-cor-example shows scatter plots with differing levels of correlation.
 
-```{r, echo =FALSE, message=FALSE,warning=FALSE, fig.height=6}
+```{r, echo =FALSE, message=FALSE,warning=FALSE, fig.height=5}
 #| label: fig-cor-example
 #| fig-cap: Simulated data from a bivariate normal distribution displaying 6 different correlations, r = 0, .20, .40, .60, .80, and 1.00.
 
@@ -1041,21 +1041,13 @@ $$
 Z_r = \text{arctanh}(r)
 $$
 
-The Fisher Z transformation ensures $Z$ has a symmetric and approximately normal sampling distribution. This then allows us to calculate the confidence interval from the standard error of $Z_r$ ($SE_{Z_r} = \frac{1}{\sqrt{n-3}}$),
+The Fisher Z transformation ensures $Z_r$ has a symmetric and approximately normal sampling distribution. This then allows us to calculate the confidence interval from the standard error of $Z_r$ ($SE_{Z_r} = \frac{1}{\sqrt{n-3}}$). We can also back-transform the confidence into a Pearson correlation scale,
 
 $$
-CI_{Z_r} = Z_r \pm 1.96\times SE_{Z_r}
+CI_{r} = \text{tanh}(Z_r \pm 1.96\times SE_{Z_r})
 $$
 
-We can then back-transform the upper bound and lower bound into the upper and lower bound of $r$ by taking the hyperbolic tangent (the inverse of the arctangent),
-
-$$
-r_{LO} = \text{tanh}(Z_{LO})
-$$
-
-$$
-r_{UP} = \text{tanh}(Z_{UP})
-$$
+We can then back-transform the upper bound and lower bound into the upper and lower bound of $r$ by taking the hyperbolic tangent (the inverse of the arctangent).
 
 In R, the full process of obtaining confidence intervals can be done quite easily. Note if you have raw data for $X$ and $Y$, then you can compute the correlation with base R, `cor(X,Y)`.
 
@@ -1947,9 +1939,8 @@ We will briefly discuss here two groups of tests that can be applied to the inde
 
 ### Wilcoxon-Mann-Whitney tests
 
-A non-parametric alternative to the t-test is the Wilcoxon-Mann-Whitney (WMW) group of tests. When comparing two independent samples this is called a Wilcoxon rank-sum test, but sometimes to referred to as a Mann-Whitney U Test. When using it on paired samples, or one sample, it is a signed rank test. These are generally referred to as tests of "symmetry"[^9].
+A non-parametric alternative to the t-test is the Wilcoxon-Mann-Whitney (WMW) group of tests. When comparing two independent samples this is called a Wilcoxon rank-sum test, but sometimes to referred to as a Mann-Whitney U Test. When using it on paired samples, or one sample, it is a signed rank test. These are generally referred to as tests of "symmetry" [@divine2018wilcoxon].
 
-[^9]: Divine, G. W., Norton, H. J., Barón, A. E., & Juarez-Colunga, E. (2018). The Wilcoxon--Mann--Whitney Procedure Fails as a Test of Medians. The American Statistician (Vol. 72, Issue 3, pp. 278--286). https://doi.org/10.1080/00031305.2017.1305291
 
 ```{r,echo=TRUE, warning=FALSE}
 # Paired samples ---- 
@@ -1978,7 +1969,9 @@ wilcox.test(rank(math_relates_to_my_life) ~ gender,
 
 ### Brunner-Munzel Tests
 
-Brunner-Munzel's tests can be used instead of the WMW tests. The primary reason is the interpretation of the test [@munzel2002; @brunner2000; @neubert2007]. The Brunner-Munzel tests measure a rank based "relative effect" or "stochastic superiority probability". The test statistic ($\hat p$) is essentially the probability of a value in one condition being greater than other while splitting the ties[^10]. However, Brunner-Munzel tests can not be applied to the single group or one-sample designs.
+Brunner-Munzel's tests can be used instead of the WMW tests. The primary reason is the interpretation of the test [@munzel2002; @brunner2000; @neubert2007]. Recently, @karch2021psychologists argued that the Mann-Whitney test is not a decent test of equality of medians, distributions or stochastic equality. The Brunner-Munzel test, on the other hand, provides a sensible approach to test for stochastic equality. 
+
+The Brunner-Munzel tests measure a rank based "relative effect" or "stochastic superiority probability". The test statistic ($\hat p$) is essentially the probability of a value in one condition being greater than other while splitting the ties[^10]. However, Brunner-Munzel tests can not be applied to the single group or one-sample designs.
 
 [^10]: Note, for paired samples, this does not refer to the probability of an increase/decrease in paired sample but rather the probability that a randomly sampled value of X. This is also referred to as the "relative" effect in the literature. Therefore, the results will differ from the concordance probability provided below.
 
@@ -1986,7 +1979,8 @@ $$
 \hat{p} = P(X<Y)+ \frac{1}{2} \cdot P(X=Y)
 $$
 
-These tests are relatively new so there are very few packages offer Brunner-Munzel. However, the `TOSTER` R package does provide coverage [@TOSTER].
+These tests are relatively new so there are very few packages offer Brunner-Munzel. Moreover, @karch2021psychologists argues that the stochastic superiority effect size ($\hat{p}$) offers a nuanced way to interpret group differences by visualizing observations as competitors in a contest. Propounded by scholars like @cliff1993dominance and @divine2018wilcoxon, it views each observation from one group in a duel with every observation from another. If an observation from the first group surpasses its counterpart, it "wins," and the group garners a point; tied observations yield half a point to each group. This concept can be further elucidated through a bubble plot, where placement above, below, or on the diagonal indicates the dominance of one group's observation over the other. Other interpretations, like transforming p to the Wilcoxon-Mann-Whitney (WMW) odds or Cliff’s δ offer deeper insights. There are implementations of the Brunner-Munzel test in a few packages in R (i.e. `lawstat`, `rankFD`, and `brunnermunzel`). @karch2021psychologists recommends the `brunnermunzel.permutation.test` function from the `brunnermunzel` package. The `TOSTER` R package can also provide coverage [@TOSTER]. 
+
 
 ```{r,echo=TRUE, warning=FALSE}
 # Install package for data cleaning

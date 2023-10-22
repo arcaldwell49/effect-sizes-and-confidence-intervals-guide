@@ -542,7 +542,7 @@ div.csl-indent {
 <li><p><code>psychmeta</code> <span class="citation" data-cites="psychmeta">(<a href="#ref-psychmeta" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>: This package is mainly used for psychometric meta-analyses. It has a function for converting different effect sizes/test statistics (convert_es, p.&nbsp;38 in the reference manual), including <span class="math inline">\(r\)</span>, <span class="math inline">\(d\)</span>, <span class="math inline">\(t\)</span>-statistic (and its p-value), <span class="math inline">\(F\)</span> (and its p-value in two-group one-way ANOVA), chi-squared (one degree of freedom), etc., to <span class="math inline">\(r\)</span>, <span class="math inline">\(d\)</span> and the common language effect sizes (CLES, A, AUC). The CRAN project can be found here <a href="https://cran.r-project.org/package=psychmeta">cran.r-project.org/package=psychmeta</a>.</p></li>
 <li><p><code>effsize</code> <span class="citation" data-cites="effsize">(<a href="#ref-effsize" role="doc-biblioref">Torchiano 2020</a>)</span>: This is a relatively lightweight package that handles d, g, Cliff delta, and Vargha-Delaney A). The CRAN project can be found here: <a href="https://cran.r-project.org/package=effsize">cran.r-project.org/package=effsize</a>.</p></li>
 <li><p><code>MAd</code> <span class="citation" data-cites="MAd">(<a href="#ref-MAd" role="doc-biblioref">W. T. Hoyt 2014</a>)</span>: This package is a collection of functions for conducting a meta-analysis with mean differences data. It also provides conversion functions. The CRAN project can be found here: <a href="https://cran.r-project.org/package=MAd">cran.r-project.org/package=MAd</a>.</p></li>
-<li><p><code>TOSTER</code> <span class="citation" data-cites="TOSTER">(<a href="#ref-TOSTER" role="doc-biblioref">Daniel, Lakens, and aut 2017</a>)</span>: This package is used for equivalence testing. It contains many functions to test for differences in effect sizes along with other useful functions for effect size comparisons. The CRAN project can be found here: <a href="https://cran.r-project.org/package=TOSTER">cran.r-project.org/package=TOSTER</a>.</p></li>
+<li><p><code>TOSTER</code> <span class="citation" data-cites="TOSTER">(<a href="#ref-TOSTER" role="doc-biblioref">Läkens 2017</a>)</span>: This package is used for equivalence testing. It contains many functions to test for differences in effect sizes along with other useful functions for effect size comparisons. The CRAN project can be found here: <a href="https://cran.r-project.org/package=TOSTER">cran.r-project.org/package=TOSTER</a>.</p></li>
 <li><p><code>DeclareDesign</code> <span class="citation" data-cites="DeclareDesign">(<a href="#ref-DeclareDesign" role="doc-biblioref">Blair et al. 2019</a>)</span>: This simulation framework can be used to assess whether procedures for calculating confidence intervals are valid and can be used for arbitrary designs. The <code>diagnose_design()</code> function calculates coverage for designs with estimation strategies that produce confidence intervals. The CRAN project can be found here: <a href="https://cran.r-project.org/package=DeclareDesign">cran.r-project.org/package=DeclareDesign</a>.</p></li>
 </ul>
 </section>
@@ -1004,17 +1004,11 @@ SE_r = \sqrt{\frac{1-r^2}{n-2}}
 <p><span class="math display">\[
 Z_r = \text{arctanh}(r)
 \]</span></p>
-<p>The Fisher Z transformation ensures <span class="math inline">\(Z\)</span> has a symmetric and approximately normal sampling distribution. This then allows us to calculate the confidence interval from the standard error of <span class="math inline">\(Z_r\)</span> (<span class="math inline">\(SE_{Z_r} = \frac{1}{\sqrt{n-3}}\)</span>),</p>
+<p>The Fisher Z transformation ensures <span class="math inline">\(Z_r\)</span> has a symmetric and approximately normal sampling distribution. This then allows us to calculate the confidence interval from the standard error of <span class="math inline">\(Z_r\)</span> (<span class="math inline">\(SE_{Z_r} = \frac{1}{\sqrt{n-3}}\)</span>). We can also back-transform the confidence into a Pearson correlation scale,</p>
 <p><span class="math display">\[
-CI_{Z_r} = Z_r \pm 1.96\times SE_{Z_r}
+CI_{r} = \text{tanh}(Z_r \pm 1.96\times SE_{Z_r})
 \]</span></p>
-<p>We can then back-transform the upper bound and lower bound into the upper and lower bound of <span class="math inline">\(r\)</span> by taking the hyperbolic tangent (the inverse of the arctangent),</p>
-<p><span class="math display">\[
-r_{LO} = \text{tanh}(Z_{LO})
-\]</span></p>
-<p><span class="math display">\[
-r_{UP} = \text{tanh}(Z_{UP})
-\]</span></p>
+<p>We can then back-transform the upper bound and lower bound into the upper and lower bound of <span class="math inline">\(r\)</span> by taking the hyperbolic tangent (the inverse of the arctangent).</p>
 <p>In R, the full process of obtaining confidence intervals can be done quite easily. Note if you have raw data for <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, then you can compute the correlation with base R, <code>cor(X,Y)</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example: r = .50, n = 50</span></span>
@@ -1977,7 +1971,7 @@ OR = \exp\left(\frac{r\pi \sqrt{4}}{\sqrt{3(1-r^2)}}\right)
 <p>We will briefly discuss here two groups of tests that can be applied to the independent and paired samples then present 3 effect sizes that can accompany these tests as well as their calculations and examples in R.</p>
 <section id="wilcoxon-mann-whitney-tests" class="level3">
 <h3 class="anchored" data-anchor-id="wilcoxon-mann-whitney-tests">Wilcoxon-Mann-Whitney tests</h3>
-<p>A non-parametric alternative to the t-test is the Wilcoxon-Mann-Whitney (WMW) group of tests. When comparing two independent samples this is called a Wilcoxon rank-sum test, but sometimes to referred to as a Mann-Whitney U Test. When using it on paired samples, or one sample, it is a signed rank test. These are generally referred to as tests of “symmetry”<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
+<p>A non-parametric alternative to the t-test is the Wilcoxon-Mann-Whitney (WMW) group of tests. When comparing two independent samples this is called a Wilcoxon rank-sum test, but sometimes to referred to as a Mann-Whitney U Test. When using it on paired samples, or one sample, it is a signed rank test. These are generally referred to as tests of “symmetry” <span class="citation" data-cites="divine2018wilcoxon">(<a href="#ref-divine2018wilcoxon" role="doc-biblioref">Divine et al. 2018</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paired samples ---- </span></span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>library</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2005,7 +1999,7 @@ OR = \exp\left(\frac{r\pi \sqrt{4}}{\sqrt{3(1-r^2)}}\right)
         library(lib.loc = lib.loc, logical.return = logical.return)
     }
 }
-&lt;bytecode: 0x123e8ee40&gt;
+&lt;bytecode: 0x12ec8e2a0&gt;
 &lt;environment: namespace:conflicted&gt;</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sleep)</span>
@@ -2046,11 +2040,12 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 </section>
 <section id="brunner-munzel-tests" class="level3">
 <h3 class="anchored" data-anchor-id="brunner-munzel-tests">Brunner-Munzel Tests</h3>
-<p>Brunner-Munzel’s tests can be used instead of the WMW tests. The primary reason is the interpretation of the test <span class="citation" data-cites="munzel2002 brunner2000 neubert2007">(<a href="#ref-munzel2002" role="doc-biblioref">Munzel and Brunner 2002</a>; <a href="#ref-brunner2000" role="doc-biblioref">Brunner and Munzel 2000</a>; <a href="#ref-neubert2007" role="doc-biblioref">Neubert and Brunner 2007</a>)</span>. The Brunner-Munzel tests measure a rank based “relative effect” or “stochastic superiority probability”. The test statistic (<span class="math inline">\(\hat p\)</span>) is essentially the probability of a value in one condition being greater than other while splitting the ties<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>. However, Brunner-Munzel tests can not be applied to the single group or one-sample designs.</p>
+<p>Brunner-Munzel’s tests can be used instead of the WMW tests. The primary reason is the interpretation of the test <span class="citation" data-cites="munzel2002 brunner2000 neubert2007">(<a href="#ref-munzel2002" role="doc-biblioref">Munzel and Brunner 2002</a>; <a href="#ref-brunner2000" role="doc-biblioref">Brunner and Munzel 2000</a>; <a href="#ref-neubert2007" role="doc-biblioref">Neubert and Brunner 2007</a>)</span>. Recently, <span class="citation" data-cites="karch2021psychologists">Karch (<a href="#ref-karch2021psychologists" role="doc-biblioref">2021</a>)</span> argued that the Mann-Whitney test is not a decent test of equality of medians, distributions or stochastic equality. The Brunner-Munzel test, on the other hand, provides a sensible approach to test for stochastic equality.</p>
+<p>The Brunner-Munzel tests measure a rank based “relative effect” or “stochastic superiority probability”. The test statistic (<span class="math inline">\(\hat p\)</span>) is essentially the probability of a value in one condition being greater than other while splitting the ties<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>. However, Brunner-Munzel tests can not be applied to the single group or one-sample designs.</p>
 <p><span class="math display">\[
 \hat{p} = P(X&lt;Y)+ \frac{1}{2} \cdot P(X=Y)
 \]</span></p>
-<p>These tests are relatively new so there are very few packages offer Brunner-Munzel. However, the <code>TOSTER</code> R package does provide coverage <span class="citation" data-cites="TOSTER">(<a href="#ref-TOSTER" role="doc-biblioref">Daniel, Lakens, and aut 2017</a>)</span>.</p>
+<p>These tests are relatively new so there are very few packages offer Brunner-Munzel. Moreover, <span class="citation" data-cites="karch2021psychologists">Karch (<a href="#ref-karch2021psychologists" role="doc-biblioref">2021</a>)</span> argues that the stochastic superiority effect size (<span class="math inline">\(\hat{p}\)</span>) offers a nuanced way to interpret group differences by visualizing observations as competitors in a contest. Propounded by scholars like <span class="citation" data-cites="cliff1993dominance">Cliff (<a href="#ref-cliff1993dominance" role="doc-biblioref">1993</a>)</span> and <span class="citation" data-cites="divine2018wilcoxon">Divine et al. (<a href="#ref-divine2018wilcoxon" role="doc-biblioref">2018</a>)</span>, it views each observation from one group in a duel with every observation from another. If an observation from the first group surpasses its counterpart, it “wins,” and the group garners a point; tied observations yield half a point to each group. This concept can be further elucidated through a bubble plot, where placement above, below, or on the diagonal indicates the dominance of one group’s observation over the other. Other interpretations, like transforming p to the Wilcoxon-Mann-Whitney (WMW) odds or Cliff’s δ offer deeper insights. There are implementations of the Brunner-Munzel test in a few packages in R (i.e.&nbsp;<code>lawstat</code>, <code>rankFD</code>, and <code>brunnermunzel</code>). <span class="citation" data-cites="karch2021psychologists">Karch (<a href="#ref-karch2021psychologists" role="doc-biblioref">2021</a>)</span> recommends the <code>brunnermunzel.permutation.test</code> function from the <code>brunnermunzel</code> package. The <code>TOSTER</code> R package can also provide coverage <span class="citation" data-cites="TOSTER">(<a href="#ref-TOSTER" role="doc-biblioref">Läkens 2017</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install package for data cleaning</span></span>
 <span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('janitor')</span></span>
@@ -2394,6 +2389,9 @@ Buchanan, Erin M., Amber Gillenwaters, John E. Scofield, and K. D. Valentine. 20
 <div id="ref-caldwell" class="csl-entry" role="listitem">
 Caldwell, Aaron R. n.d. <span>“Exploring Equivalence Testing with the Updated TOSTER r Package.”</span> <a href="https://doi.org/10.31234/osf.io/ty8de">https://doi.org/10.31234/osf.io/ty8de</a>.
 </div>
+<div id="ref-cliff1993dominance" class="csl-entry" role="listitem">
+Cliff, Norman. 1993. <span>“Dominance Statistics: Ordinal Analyses to Answer Ordinal Questions.”</span> <em>Psychological Bulletin</em> 114 (3): 494.
+</div>
 <div id="ref-coe2012" class="csl-entry" role="listitem">
 Coe, R. 2012. <span>“It’s the Effect Size, Stupid What Effect Size Is and Why It Is Important.”</span> In. <a href="https://www.semanticscholar.org/paper/It%27s-the-Effect-Size%2C-Stupid-What-effect-size-is-it-Coe/c5ac87df5d6e0e6b6de2f745284835c2a368b0f7">https://www.semanticscholar.org/paper/It%27s-the-Effect-Size%2C-Stupid-What-effect-size-is-it-Coe/c5ac87df5d6e0e6b6de2f745284835c2a368b0f7</a>.
 </div>
@@ -2403,8 +2401,8 @@ Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</
 <div id="ref-psychmeta" class="csl-entry" role="listitem">
 Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“<span class="nocase">psychmeta</span>: An r Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
 </div>
-<div id="ref-TOSTER" class="csl-entry" role="listitem">
-Daniel, Lakens, and aut. 2017. <span>“Equivalence Tests: A Practical Primer for t-Tests, Correlations, and Meta-Analyses.”</span> <em>Social Psychological and Personality Science</em> 1: 1–8. <a href="https://doi.org/10.1177/1948550617697177">https://doi.org/10.1177/1948550617697177</a>.
+<div id="ref-divine2018wilcoxon" class="csl-entry" role="listitem">
+Divine, George W, H James Norton, Anna E Barón, and Elizabeth Juarez-Colunga. 2018. <span>“The Wilcoxon–Mann–Whitney Procedure Fails as a Test of Medians.”</span> <em>The American Statistician</em> 72 (3): 278–86.
 </div>
 <div id="ref-faul2009" class="csl-entry" role="listitem">
 Faul, Franz, Edgar Erdfelder, Axel Buchner, and Albert-Georg Lang. 2009. <span>“Statistical Power Analyses Using G*Power 3.1: Tests for Correlation and Regression Analyses.”</span> <em>Behavior Research Methods</em> 41 (4): 1149–60. <a href="https://doi.org/10.3758/BRM.41.4.1149">https://doi.org/10.3758/BRM.41.4.1149</a>.
@@ -2439,6 +2437,9 @@ Hunter, John E., and Frank L. Schmidt. 1990. <em>Methods of meta-analysis: corre
 <div id="ref-MatthewBJane2023" class="csl-entry" role="listitem">
 Jané, Matthew B. 2023. <em>Artifact Corrections for Effect Sizes: Implementation in r and Application to Meta-Analysis</em>. (n.p.). <a href="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/">https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/</a>.
 </div>
+<div id="ref-karch2021psychologists" class="csl-entry" role="listitem">
+Karch, Julian D. 2021. <span>“Psychologists Should Use Brunner-Munzel’s Instead of Mann-Whitney’s u Test as the Default Nonparametric Procedure.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 4 (2): 2515245921999602.
+</div>
 <div id="ref-MBESS" class="csl-entry" role="listitem">
 Kelley, Ken. 2022. <em>MBESS: The MBESS r Package</em>. <a href="https://CRAN.R-project.org/package=MBESS">https://CRAN.R-project.org/package=MBESS</a>.
 </div>
@@ -2449,10 +2450,13 @@ Kelley, Ken, and Kristopher J. Preacher. 2012. <span>“On Effect Size.”</span
 Kirby, Kris N, and Daniel Gerlanc. 2013. <span>“BootES: An r Package for Bootstrap Confidence Intervals on Effect Sizes.”</span> <em>Behavior Research Methods</em> 45: 905–27.
 </div>
 <div id="ref-lakens2013" class="csl-entry" role="listitem">
-Lakens, Daniel. 2013. <span>“Calculating and Reporting Effect Sizes to Facilitate Cumulative Science: A Practical Primer for t-Tests and ANOVAs.”</span> <em>Frontiers in Psychology</em> 4. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2013.00863">https://www.frontiersin.org/articles/10.3389/fpsyg.2013.00863</a>.
+Lakens, Daniël. 2013. <span>“Calculating and Reporting Effect Sizes to Facilitate Cumulative Science: A Practical Primer for t-Tests and ANOVAs.”</span> <em>Frontiers in Psychology</em> 4. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2013.00863">https://www.frontiersin.org/articles/10.3389/fpsyg.2013.00863</a>.
 </div>
 <div id="ref-lakens2014" class="csl-entry" role="listitem">
 ———. 2014. <span>“The 20.”</span> <a href="http://daniellakens.blogspot.com/2014/06/calculating-confidence-intervals-for.html">http://daniellakens.blogspot.com/2014/06/calculating-confidence-intervals-for.html</a>.
+</div>
+<div id="ref-TOSTER" class="csl-entry" role="listitem">
+Läkens, Daniel. 2017. <span>“Equivalence Tests: A Practical Primer for t-Tests, Correlations, and Meta-Analyses.”</span> <em>Social Psychological and Personality Science</em> 1: 1–8. <a href="https://doi.org/10.1177/1948550617697177">https://doi.org/10.1177/1948550617697177</a>.
 </div>
 <div id="ref-lovakov2021" class="csl-entry" role="listitem">
 Lovakov, Andrey, and Elena R. Agadullina. 2021. <span>“Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology.”</span> <em>European Journal of Social Psychology</em> 51 (3): 485–504. <a href="https://doi.org/10.1002/ejsp.2752">https://doi.org/10.1002/ejsp.2752</a>.
@@ -2531,8 +2535,7 @@ William Revelle. 2023. <em>Psych: Procedures for Psychological, Psychometric, an
 <li id="fn6"><p>The benchmarks for Cramer’s V are dependent on the size of the contingency table on which the effect is calculated. According to Cohen, use benchmarks for phi coefficient divided by the square root of the smaller dimension minus 1. For example, a medium effect for a Cramer’s V from a 4 by 3 table would be .3 / sqrt(3 - 1) = .21.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>Of course, if a theory/effect predicts Group X has a higher mean than Group Y, then it also predicts the reverse, i.e., Group Y has a lower mean than Group X. But theories/effects are commonly articulated in a certain way. It is more common that we say, for example, people prefer the status quo rather than that people do not prefer the non-status quo, when we refer to the status quo bias. Consider another “theory”: teenagers get taller when they get older. It just does not make sense to say the same thing reversely, i.e., teenagers get shorter when they get younger, because people cannot get younger, at least in the 2020s.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn8"><p>Divine, G. W., Norton, H. J., Barón, A. E., &amp; Juarez-Colunga, E. (2018). The Wilcoxon–Mann–Whitney Procedure Fails as a Test of Medians. The American Statistician (Vol. 72, Issue 3, pp.&nbsp;278–286). https://doi.org/10.1080/00031305.2017.1305291<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>Divine, G. W., Norton, H. J., Barón, A. E., &amp; Juarez-Colunga, E. (2018). The Wilcoxon–Mann–Whitney Procedure Fails as a Test of Medians. The American Statistician (Vol. 72, Issue 3, pp.&nbsp;278–286). https://doi.org/10.1080/00031305.2017.1305291<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10"><p>Note, for paired samples, this does not refer to the probability of an increase/decrease in paired sample but rather the probability that a randomly sampled value of X. This is also referred to as the “relative” effect in the literature. Therefore, the results will differ from the concordance probability provided below.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Note, for paired samples, this does not refer to the probability of an increase/decrease in paired sample but rather the probability that a randomly sampled value of X. This is also referred to as the “relative” effect in the literature. Therefore, the results will differ from the concordance probability provided below.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main>
 <!-- /main column -->
