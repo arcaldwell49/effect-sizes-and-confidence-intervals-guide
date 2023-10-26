@@ -300,7 +300,7 @@ The following R packages are handy for effect size and CI calculations, conversi
 
 -   `MAd` [@MAd]: This package is a collection of functions for conducting a meta-analysis with mean differences data. It also provides conversion functions. The CRAN project can be found here: [cran.r-project.org/package=MAd](https://cran.r-project.org/package=MAd).
 
--   `TOSTER` [@TOSTER]: This package is used for equivalence testing. It contains many functions to test for differences in effect sizes along with other useful functions for effect size comparisons. The CRAN project can be found here: [cran.r-project.org/package=TOSTER](https://cran.r-project.org/package=TOSTER).
+-   `TOSTER` [@TOSTER; @caldwell]: This package is designed for equivalence testing. It contains many functions to test for differences in effect sizes along with other useful functions for effect size comparisons. The CRAN project can be found here: [cran.r-project.org/package=TOSTER](https://cran.r-project.org/package=TOSTER).
 
 -   `DeclareDesign` [@DeclareDesign]: This simulation framework can be used to assess whether procedures for calculating confidence intervals are valid and can be used for arbitrary designs. The `diagnose_design()` function calculates coverage for designs with estimation strategies that produce confidence intervals. The CRAN project can be found here: [cran.r-project.org/package=DeclareDesign](https://cran.r-project.org/package=DeclareDesign).
 
@@ -1929,11 +1929,7 @@ r_to_oddsratio(r = r, n1 = n1, n2 = n2)
 
 ## Non-Parametric Tests
 
-Sometimes the assumptions of parametric models (e.g., normality of model residuals) are suspect. This is often the case in psychology when using ordinal scales. In these cases a "non-parametric" approach may be helpful. A statistical test being non-parametric means that the parameters (i.e., mean and variance for "normal" Gaussian model) are not estimated; despite popular belief the data themselves are *never* non-parametric. Additionally, these tests are *not* tests of the median[^8]. Rather one can consider than as rank based or proportional odds tests.
-
-[^8]: Divine, G. W., Norton, H. J., Barón, A. E., & Juarez-Colunga, E. (2018). The Wilcoxon--Mann--Whitney Procedure Fails as a Test of Medians. The American Statistician (Vol. 72, Issue 3, pp. 278--286). https://doi.org/10.1080/00031305.2017.1305291
-
-If the scores you are analyzing are not metric (i.e., ordinal) due to the use of a Likert-Scale and you still use parametric tests such as t-tests, you run the risk of a high false-positive probability (e.g., Liddel & Kruschke, 2018). Note that in German, scale anchors have been developed that are very similar to Likert-Scale but can be interpreted as metric (e.g., Rohrmann, 1978).
+Sometimes the assumptions of parametric models (e.g., normality of model residuals) are suspect. This is often the case in psychology when using ordinal scales. In these cases a "non-parametric" approach may be helpful. A statistical test being non-parametric means that the parameters (i.e., mean and variance for "normal" Gaussian model) are not estimated; despite popular belief the data themselves are *never* non-parametric. Additionally, these tests are *not* tests of the median [@divine2018]. Rather one can consider than as rank based or proportional odds tests. If the scores you are analyzing are not metric (i.e., ordinal) due to the use of a Likert-Scale and you still use parametric tests such as t-tests, you run the risk of a high false-positive probability (e.g., @liddell2018).
 
 We will briefly discuss here two groups of tests that can be applied to the independent and paired samples then present 3 effect sizes that can accompany these tests as well as their calculations and examples in R.
 
@@ -1941,13 +1937,11 @@ We will briefly discuss here two groups of tests that can be applied to the inde
 
 A non-parametric alternative to the t-test is the Wilcoxon-Mann-Whitney (WMW) group of tests. When comparing two independent samples this is called a Wilcoxon rank-sum test, but sometimes to referred to as a Mann-Whitney U Test. When using it on paired samples, or one sample, it is a signed rank test. These are generally referred to as tests of "symmetry" [@divine2018wilcoxon].
 
-
 ```{r,echo=TRUE, warning=FALSE}
 # Paired samples ---- 
-library
 data(sleep)
 
-# wilcoxin test
+# wilcoxon test
 wilcox.test(extra ~ group,
             data = sleep,
             paired = TRUE)
@@ -1969,18 +1963,17 @@ wilcox.test(rank(math_relates_to_my_life) ~ gender,
 
 ### Brunner-Munzel Tests
 
-Brunner-Munzel's tests can be used instead of the WMW tests. The primary reason is the interpretation of the test [@munzel2002; @brunner2000; @neubert2007]. Recently, @karch2021psychologists argued that the Mann-Whitney test is not a decent test of equality of medians, distributions or stochastic equality. The Brunner-Munzel test, on the other hand, provides a sensible approach to test for stochastic equality. 
+Brunner-Munzel's tests can be used instead of the WMW tests. The primary reason is the interpretation of the test [@munzel2002; @brunner2000; @neubert2007]. Recently, @karch2021psychologists argued that the Mann-Whitney test is not a decent test of equality of medians, distributions or stochastic equality. The Brunner-Munzel test, on the other hand, provides a sensible approach to test for stochastic equality.
 
-The Brunner-Munzel tests measure a rank based "relative effect" or "stochastic superiority probability". The test statistic ($\hat p$) is essentially the probability of a value in one condition being greater than other while splitting the ties[^10]. However, Brunner-Munzel tests can not be applied to the single group or one-sample designs.
+The Brunner-Munzel tests measure a rank based "relative effect" or "stochastic superiority probability". The test statistic ($\hat p$) is essentially the probability of a value in one condition being greater than other while splitting the ties[^8]. However, Brunner-Munzel tests can not be applied to the single group or one-sample designs.
 
-[^10]: Note, for paired samples, this does not refer to the probability of an increase/decrease in paired sample but rather the probability that a randomly sampled value of X. This is also referred to as the "relative" effect in the literature. Therefore, the results will differ from the concordance probability provided below.
+[^8]: Note, for paired samples, this does not refer to the probability of an increase/decrease in paired sample but rather the probability that a randomly sampled value of X will be greater/less than Y. This is also referred to as the "relative" effect in the literature. Therefore, the results will differ from the concordance probability.
 
 $$
 \hat{p} = P(X<Y)+ \frac{1}{2} \cdot P(X=Y)
 $$
 
-These tests are relatively new so there are very few packages offer Brunner-Munzel. Moreover, @karch2021psychologists argues that the stochastic superiority effect size ($\hat{p}$) offers a nuanced way to interpret group differences by visualizing observations as competitors in a contest. Propounded by scholars like @cliff1993dominance and @divine2018wilcoxon, it views each observation from one group in a duel with every observation from another. If an observation from the first group surpasses its counterpart, it "wins," and the group garners a point; tied observations yield half a point to each group. This concept can be further elucidated through a bubble plot, where placement above, below, or on the diagonal indicates the dominance of one group's observation over the other. Other interpretations, like transforming p to the Wilcoxon-Mann-Whitney (WMW) odds or Cliff’s δ offer deeper insights. There are implementations of the Brunner-Munzel test in a few packages in R (i.e. `lawstat`, `rankFD`, and `brunnermunzel`). @karch2021psychologists recommends the `brunnermunzel.permutation.test` function from the `brunnermunzel` package. The `TOSTER` R package can also provide coverage [@TOSTER]. 
-
+These tests are relatively new so there are very few packages offer Brunner-Munzel. Moreover, @karch2021psychologists argues that the stochastic superiority effect size ($\hat{p}$) offers a nuanced way to interpret group differences by visualizing observations as competitors in a contest. Propounded by scholars like @cliff1993dominance and @divine2018wilcoxon, it views each observation from one group in a duel with every observation from another. If an observation from the first group surpasses its counterpart, it "wins," and the group garners a point; tied observations yield half a point to each group. This concept can be further elucidated through a bubble plot, where placement above, below, or on the diagonal indicates the dominance of one group's observation over the other. Other interpretations, like transforming p to the Wilcoxon-Mann-Whitney (WMW) odds or Cliff's δ offer deeper insights. There are implementations of the Brunner-Munzel test in a few packages in R (i.e. `lawstat`, `rankFD`, and `brunnermunzel`). @karch2021psychologists recommends the `brunnermunzel.permutation.test` function from the `brunnermunzel` package. The `TOSTER` R package can also provide coverage [@TOSTER; @caldwell].
 
 ```{r,echo=TRUE, warning=FALSE}
 # Install package for data cleaning
@@ -1990,11 +1983,16 @@ library(janitor)
 # Paired samples
 
 data(sleep)
+library(TOSTER)
 
-# Wilcoxin test
-wilcox.test(extra ~ group,
-            data = sleep,
-            paired = TRUE)
+# When sample sizes are small
+# a permutation version should be used.
+# When this is done a seed should be set.
+set.seed(2124)
+brunner_munzel(extra ~ group,
+               data = sleep,
+               paired = TRUE,
+               perm = TRUE)
 
 
 # Two Sample
@@ -2006,8 +2004,15 @@ df_mass = mass |>
 
 # function needs input as a numeric
 # ordered factors can be converted to ranks
-wilcox.test(rank(math_relates_to_my_life) ~ gender,
-            data = df_mass)
+# Again, the warning can be ignored
+set.seed(24111)
+TOSTER::brunner_munzel(
+  rank(math_relates_to_my_life) ~ gender,
+  data = df_mass,
+  paired = FALSE,
+  perm = TRUE
+)
+
 ```
 
 ## Rank-Based Effect Sizes
@@ -2120,7 +2125,7 @@ $$
 
 #### Calculation in R
 
-In R, we can use `brunner_munzel` in the `TOSTER` package can be utilized to calculate $r_{rb}$.
+In R, we can use `ses_calc` in the `TOSTER` package can be utilized to calculate $r_{rb}$.
 
 ```{r,echo=TRUE}
 # Paired samples
@@ -2132,10 +2137,9 @@ library(TOSTER)
 # a permutation version should be used.
 # When this is done a seed should be set.
 set.seed(2124)
-brunner_munzel(extra ~ group,
+ses_calc(extra ~ group,
                data = sleep,
-               paired = TRUE,
-               perm = TRUE)
+               paired = TRUE)
 
 
 # Two Sample
@@ -2149,11 +2153,10 @@ df_mass = mass |>
 # ordered factors can be converted to ranks
 # Again, the warning can be ignored
 set.seed(24111)
-TOSTER::brunner_munzel(
+ses_calc(
   rank(math_relates_to_my_life) ~ gender,
   data = df_mass,
-  paired = FALSE,
-  perm = TRUE
+  paired = FALSE
 )
 ```
 
@@ -2193,7 +2196,7 @@ ses_calc(rank(math_relates_to_my_life) ~ gender,
          ses = "c")
 ```
 
-### Wilcoxin-Mann-Whitney Odds
+### Wilcoxon-Mann-Whitney Odds
 
 The Wilcoxon-Mann-Whitney odds [@o2006exploiting], also known as the "Generalized Odds Ratio"[@agresti1980generalized], essentially transforms the concordance probability into an odds ratio.
 
